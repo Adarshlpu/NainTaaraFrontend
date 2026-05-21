@@ -8,6 +8,7 @@ import Games from "./pages/games/Games";
 import Reports from "./pages/reports/Reports";
 import Shape from "./pages/Games/ShapeMatching/shape";
 import OddNout from "./pages/Games/oddnoutcolor/OddNout";
+import EyeBlink from "./pages/Games/EyeBlink/EyeBlink";
 function App() {
   return (
     <Routes>
@@ -22,6 +23,10 @@ function App() {
 <Route
   path="/games/oddnout"
   element={<OddNout />}
+/>
+<Route
+  path="/games/eyeblink"
+  element={<EyeBlink />}
 />
     </Routes>
   );
