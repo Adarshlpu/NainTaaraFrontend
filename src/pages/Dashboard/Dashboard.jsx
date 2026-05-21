@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Menu, X, Home, Gamepad2, Gift, BarChart3, User, LogOut } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const navigate = useNavigate();
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -74,6 +76,11 @@ const Dashboard = () => {
             return (
               <motion.button
                 key={i}
+                onClick={() => {
+                  if (item.label === "Rewards") navigate("/rewards");
+                  if (item.label === "Games") navigate("/games");
+                  if (item.label === "Reports") navigate("/reports");
+                }}
                 whileHover={{ x: 8 }}
                 whileTap={{ scale: 0.95 }}
                 className="w-full flex items-center gap-4 px-4 py-3 rounded-xl bg-white hover:bg-orange-100 border border-transparent hover:border-orange-200 transition-all duration-300 group"

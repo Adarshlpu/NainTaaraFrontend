@@ -368,6 +368,164 @@ const Home = () => {
         </div>
       </section>
 
+{/* SECTION: SMART GLASSES SHOWCASE */}
+<section className="py-20 sm:py-24 bg-white">
+
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    {/* Heading */}
+    <motion.div
+      className="mb-12"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+    >
+      <p className="text-[#ff7a00] font-semibold mb-3">
+        Exclusively for Naintaara
+      </p>
+
+      <h2 className="text-4xl sm:text-5xl font-bold text-gray-900">
+        Smart Vision Glasses 👓
+      </h2>
+    </motion.div>
+
+    {/* TOP CARDS */}
+    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+
+      {[
+        {
+          title: "Crystal Clear",
+          subtitle: "Transparent Frames",
+          image:
+            "https://images.unsplash.com/photo-1511499767150-a48a237f0083?q=80&w=1200&auto=format&fit=crop",
+        },
+
+        {
+          title: "Trending",
+          subtitle: "Pokemon Edition",
+          image:
+            "https://images.unsplash.com/photo-1574258495973-f010dfbb5371?q=80&w=1200&auto=format&fit=crop",
+        },
+
+        {
+          title: "Bold Signature",
+          subtitle: "Premium Vision Frames",
+          image:
+            "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=1200&auto=format&fit=crop",
+        },
+
+        {
+          title: "Gilded",
+          subtitle: "Luxury Kids Frames",
+          image:
+            "https://images.unsplash.com/photo-1591076482161-42ce6da69f67?q=80&w=1200&auto=format&fit=crop",
+        },
+
+        {
+          title: "2 in 1 Eye + Sun",
+          subtitle: "Smart Switch",
+          image:
+            "https://images.unsplash.com/photo-1511499767150-a48a237f0083?q=80&w=1200&auto=format&fit=crop",
+        },
+
+        {
+          title: "Feather-light",
+          subtitle: "Ultra Light Frames",
+          image:
+            "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?q=80&w=1200&auto=format&fit=crop",
+        },
+      ].map((item, i) => (
+
+        <motion.div
+          key={i}
+          whileHover={{
+            y: -8,
+            scale: 1.02,
+          }}
+          className="relative rounded-[28px] overflow-hidden shadow-xl group cursor-pointer"
+        >
+
+          {/* IMAGE */}
+          <img
+            src={item.image}
+            alt={item.title}
+            className="w-full h-[220px] object-cover group-hover:scale-110 transition duration-500"
+          />
+
+          {/* OVERLAY */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+
+          {/* TEXT */}
+          <div className="absolute bottom-5 left-5 z-10">
+            <h3 className="text-2xl font-bold text-white">
+              {item.title}
+            </h3>
+
+            <p className="text-white/70 text-sm">
+              {item.subtitle}
+            </p>
+          </div>
+
+        </motion.div>
+      ))}
+
+    </div>
+
+    {/* BIG BANNER */}
+    <motion.div
+      whileHover={{ scale: 1.01 }}
+      className="relative rounded-[40px] overflow-hidden shadow-2xl"
+    >
+
+      <img
+        src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1400&auto=format&fit=crop"
+        alt="banner"
+        className="w-full h-[500px] object-cover"
+      />
+
+      {/* DARK OVERLAY */}
+      <div className="absolute inset-0 bg-gradient-to-r from-black via-black/70 to-transparent"></div>
+
+      {/* CONTENT */}
+      <div className="absolute inset-0 flex items-center">
+
+        <div className="max-w-xl px-8 sm:px-16">
+
+          <p className="text-white/70 uppercase tracking-[6px] mb-4">
+            Featured
+          </p>
+
+          <h2 className="text-5xl sm:text-6xl font-extrabold text-[#ff7a00] mb-4">
+            Naintaara
+          </h2>
+
+          <h3 className="text-3xl sm:text-5xl font-bold text-white mb-6 leading-tight">
+            Smart Eye Wear For Kids
+          </h3>
+
+          <p className="text-white/80 text-lg mb-8 leading-relaxed">
+            AI-powered vision glasses specially designed for eye fitness,
+            lazy eye recovery, and focus improvement.
+          </p>
+
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="bg-[#ff7a00] hover:bg-orange-600 text-white px-10 py-5 rounded-full font-bold shadow-2xl"
+          >
+            Explore Collection →
+          </motion.button>
+
+        </div>
+      </div>
+    </motion.div>
+
+  </div>
+</section>
+
+
+
+
       {/* SECTION 5: REWARDS */}
       <section id="rewards" className="py-20 sm:py-24 bg-gradient-to-br from-[#fffaf5] via-white to-orange-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -434,6 +592,160 @@ const Home = () => {
           </motion.div>
         </div>
       </section>
+
+
+      {/* SECTION: NAINTAARA VISION REELS */}
+<section className="py-24 bg-black overflow-hidden relative">
+
+  {/* Glow Effects */}
+  <div className="absolute top-0 left-0 w-96 h-96 bg-orange-500/20 blur-[140px] rounded-full"></div>
+  <div className="absolute bottom-0 right-0 w-96 h-96 bg-red-500/20 blur-[140px] rounded-full"></div>
+
+  <div className="max-w-7xl mx-auto px-6 relative z-10">
+
+    {/* Heading */}
+    <motion.div
+      className="text-center mb-16"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+    >
+      <p className="text-[#ff7a00] font-semibold mb-4 tracking-[3px] uppercase">
+        Trending Vision Styles
+      </p>
+
+      <h2 className="text-5xl sm:text-6xl font-extrabold text-white mb-6">
+        Naintaara Vision Reels ✨
+      </h2>
+
+      <p className="text-white/70 text-lg max-w-2xl mx-auto">
+        Stylish smart glasses loved by kids and designed for modern eye fitness.
+      </p>
+    </motion.div>
+
+    {/* Reels */}
+    <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+      {[
+        {
+          name: "Smart Focus",
+          image:
+            "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=1200&auto=format&fit=crop",
+          views: "1.2M",
+        },
+
+        {
+          name: "Vision Style",
+          image:
+            "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1200&auto=format&fit=crop",
+          views: "980K",
+        },
+
+        {
+          name: "Eye Fitness",
+          image:
+            "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1200&auto=format&fit=crop",
+          views: "2.4M",
+        },
+
+        {
+          name: "Future Frames",
+          image:
+            "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1200&auto=format&fit=crop",
+          views: "870K",
+        },
+      ].map((reel, i) => (
+
+        <motion.div
+          key={i}
+          whileHover={{
+            y: -10,
+            scale: 1.03,
+          }}
+          className="relative h-[520px] rounded-[35px] overflow-hidden group cursor-pointer shadow-2xl"
+        >
+
+          {/* IMAGE */}
+          <img
+            src={reel.image}
+            alt={reel.name}
+            className="w-full h-full object-cover group-hover:scale-110 transition duration-700"
+          />
+
+          {/* OVERLAY */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
+
+          {/* PLAY BUTTON */}
+          <motion.div
+            whileHover={{ scale: 1.1 }}
+            className="absolute inset-0 flex items-center justify-center"
+          >
+            <div className="w-20 h-20 rounded-full bg-white/20 backdrop-blur-xl border border-white/20 flex items-center justify-center">
+
+              <div className="ml-1 w-0 h-0 border-t-[14px] border-t-transparent border-l-[22px] border-l-white border-b-[14px] border-b-transparent"></div>
+
+            </div>
+          </motion.div>
+
+          {/* TOP BADGE */}
+          <div className="absolute top-5 left-5 bg-[#ff7a00] text-white px-4 py-2 rounded-full text-sm font-bold shadow-xl">
+            Trending
+          </div>
+
+          {/* BOTTOM INFO */}
+          <div className="absolute bottom-6 left-6 right-6">
+
+            <h3 className="text-2xl font-bold text-white mb-2">
+              {reel.name}
+            </h3>
+
+            <div className="flex items-center justify-between">
+
+              <p className="text-white/70">
+                {reel.views} Views
+              </p>
+
+              <div className="flex items-center gap-2 text-white">
+
+                <span>❤️</span>
+                <span>24k</span>
+
+              </div>
+            </div>
+          </div>
+
+        </motion.div>
+      ))}
+
+    </div>
+
+    {/* Bottom CTA */}
+    <motion.div
+      whileHover={{ scale: 1.02 }}
+      className="mt-20 bg-gradient-to-r from-[#ff7a00] to-orange-600 rounded-[40px] p-10 text-center shadow-2xl"
+    >
+
+      <h2 className="text-4xl sm:text-5xl font-bold text-white mb-5">
+        Discover The Future Of Eye Fitness 👓
+      </h2>
+
+      <p className="text-white/80 text-lg max-w-2xl mx-auto mb-8">
+        Explore smart vision styles, interactive games, and premium eye-training experiences with Naintaara.
+      </p>
+
+      <motion.button
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        className="bg-white text-[#ff7a00] px-10 py-5 rounded-full font-bold shadow-2xl"
+      >
+        Explore More →
+      </motion.button>
+
+    </motion.div>
+
+  </div>
+</section>
+
 
       {/* SECTION 6: TESTIMONIALS */}
       <section className="py-20 sm:py-24 bg-white overflow-hidden">
