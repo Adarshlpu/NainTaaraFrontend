@@ -21,7 +21,15 @@ const Games = () => {
       coins: "+5 Coins",
       path: "/games/oddnout",
       color: "from-blue-50 to-blue-100",
-    }
+    },
+    {
+      title: "Eye Blink Challenge",
+      description: "Strengthen your eye muscles and improve blink reflexes with this fun and interactive eye blink challenge.",
+      emoji: "👁️",
+      coins: "+5 Coins",
+      path: "/games/eyeblink",
+      color: "from-green-50 to-green-100",
+    },
   ];
 
 
