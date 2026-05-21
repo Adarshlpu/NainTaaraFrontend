@@ -23,5 +23,11 @@ export const loginUser = async (loginData) => {
       loginData
    );
 
+    // save token
+   localStorage.setItem(
+      "token",
+      response.data.token
+   );
+
    return response.data;
 };
