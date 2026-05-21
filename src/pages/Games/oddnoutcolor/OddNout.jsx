@@ -30,35 +30,42 @@ const OddNOut = () => {
   };
 
   const handleCorrect = () => {
-    const end = Date.now();
+  const end = Date.now();
 
-    const time = ((end - startTime) / 1000).toFixed(2);
+  const time = ((end - startTime) / 1000).toFixed(2);
 
-    setReactionTime(time);
+  setReactionTime(time);
 
-    let bonus = 0;
+  let bonus = 0;
 
-    if (time < 1) bonus = 10;
-    else if (time < 2) bonus = 5;
-    else if (time < 3) bonus = 2;
+  if (time < 1) bonus = 10;
+  else if (time < 2) bonus = 5;
+  else if (time < 3) bonus = 2;
 
-    setScore((prev) => prev + 10 + bonus);
+  setScore((prev) => prev + 10 + bonus);
 
-    const newCorrect = correctClicks + 1;
-    const newTotal = totalClicks + 1;
+  const updatedCorrect = correctClicks + 1;
+  const updatedTotal = totalClicks + 1;
 
-    setCorrectClicks(newCorrect);
-    setTotalClicks(newTotal);
+  setCorrectClicks(updatedCorrect);
+  setTotalClicks(updatedTotal);
 
-    setAccuracy(calculateAccuracy(newCorrect, newTotal));
+  setAccuracy(
+    ((updatedCorrect / updatedTotal) * 100).toFixed(1)
+  );
 
-    if (newCorrect % 3 === 0) {
-      setLevel((prev) => Math.min(prev + 1, 25));
-    }
+  // LEVEL UP EVERY 3 CORRECT CLICKS
+  if (updatedCorrect % 3 === 0) {
+    setLevel((prev) => {
+      if (prev < 25) {
+        return prev + 1;
+      }
+      return prev;
+    });
+  }
 
-    setStartTime(Date.now());
-  };
-
+  setStartTime(Date.now());
+};
   const handleWrong = () => {
     setScore((prev) => Math.max(prev - 5, 0));
 

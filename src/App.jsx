@@ -20,7 +20,7 @@ function App() {
 <Route path="/reports" element={<Reports />} />
 <Route path="/games/shape" element={<Shape />} />
 <Route
-  path="/games/oddnoutcolor"
+  path="/games/oddnout"
   element={<OddNout />}
 />
     </Routes>

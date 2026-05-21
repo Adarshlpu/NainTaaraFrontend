@@ -12,30 +12,52 @@ const OddBoard = ({
 
   const [oddIndex, setOddIndex] = useState(0);
 
+  const [theme, setTheme] = useState(null);
+
+  const themes = [
+    {
+      normal: `rgb(40,120,255)`,
+      odd: `rgb(${40 + difference},
+                ${120 + difference},
+                255)`,
+    },
+
+    {
+      normal: `rgb(255,70,70)`,
+      odd: `rgb(${255 - difference},
+                ${70 - difference},
+                ${70 - difference})`,
+    },
+  ];
+
+  // GENERATE RANDOM ODD BOX
   const generateOdd = () => {
     setOddIndex(Math.floor(Math.random() * total));
+
+    // RANDOM THEME
+    const randomTheme =
+      themes[Math.floor(Math.random() * themes.length)];
+
+    setTheme(randomTheme);
   };
 
   useEffect(() => {
     generateOdd();
-  }, [grid]);
+  }, [grid, difference]);
 
-  const base = 160;
-
-  const normalColor = `rgb(${base}, ${base}, 255)`;
-
-  const oddColor = `rgb(${base - difference},
-   ${base - difference},
-   255)`;
-
+  // CLICK HANDLER
   const handleClick = (index) => {
     if (index === oddIndex) {
       onCorrect();
+
       generateOdd();
     } else {
       onWrong();
     }
   };
+
+  // WAIT UNTIL THEME LOADS
+  if (!theme) return null;
 
   return (
     <div
@@ -48,12 +70,26 @@ const OddBoard = ({
         <div
           key={index}
           onClick={() => handleClick(index)}
-          className="w-20 h-20 rounded-2xl cursor-pointer transition-all duration-300 hover:scale-105"
+          className="
+            w-20
+            h-20
+            rounded-2xl
+            cursor-pointer
+            transition-all
+            duration-300
+            hover:scale-105
+            shadow-lg
+          "
           style={{
             backgroundColor:
               index === oddIndex
-                ? oddColor
-                : normalColor,
+                ? theme.odd
+                : theme.normal,
+
+            boxShadow:
+              index === oddIndex
+                ? "0 0 20px rgba(255,255,255,0.2)"
+                : "0 0 10px rgba(255,255,255,0.05)",
           }}
         />
       ))}
