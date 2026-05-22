@@ -4,7 +4,9 @@ const API = axios.create({
    // baseURL: "http://localhost:5000/api/auth",
     // baseURL:"https://naintaara-backend.onrender.com/api/auth",
    baseURL:
-`${import.meta.env.VITE_API_URL}/auth`
+`${import.meta.env.VITE_API_URL}/api/auth`,
+
+  withCredentials: true
 });
 
 
