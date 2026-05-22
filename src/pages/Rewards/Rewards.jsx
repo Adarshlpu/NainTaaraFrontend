@@ -28,9 +28,16 @@ const Rewards = () => {
           return;
         }
 
-        const response = await axios.get("http://localhost:5000/api/auth/profile", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+       const response = await axios.get(
+   `${import.meta.env.VITE_API_URL}/auth/profile`,
+   {
+      headers: {
+         Authorization:
+         `Bearer ${token}`
+      },
+      withCredentials: true
+   }
+);
 
         if (response.data?.user) {
           const dbUser = response.data.user;
@@ -64,10 +71,19 @@ const Rewards = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.post(
-        "http://localhost:5000/api/game/redeem",
-        { itemTitle, cost: coinCost },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+   `${import.meta.env.VITE_API_URL}/game/redeem`,
+   {
+      itemTitle,
+      cost: coinCost
+   },
+   {
+      headers: {
+         Authorization:
+         `Bearer ${token}`
+      },
+      withCredentials: true
+   }
+);
 
       if (response.data.success) {
         setUserData((prev) => ({ ...prev, coins: prev.coins - coinCost }));
