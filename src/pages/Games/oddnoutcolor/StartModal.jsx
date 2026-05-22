@@ -1,72 +1,127 @@
 import React from 'react';
-import { Play, Eye, Timer, TrendingUp, ShieldCheck } from 'lucide-react';
+import { Play } from 'lucide-react';
 
 const StartModal = ({ onStart }) => {
   return (
-    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 animate-fadeIn p-4">
-      {/* 💡 FLAT CLEAN MINIMAL CONTAINER: Matches the new white card layout theme exactly */}
-      <div className="bg-[#f5f5f5] p-8 sm:p-10 rounded-[32px] shadow-[0_24px_60px_rgba(0,0,0,0.25)] border border-white/50 max-w-md w-full text-center">
+    <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-md flex items-center justify-center z-50 animate-fadeIn p-4 select-none">
+      
+      {/* 🌟 MAIN MODAL CONTAINER WITH CORNER ACCENTS AND GRADIENTS */}
+      <div className="bg-white rounded-[32px] p-8 sm:p-10 shadow-[0_32px_80px_rgba(15,23,42,0.15)] border border-slate-100 max-w-xl w-full text-center relative overflow-hidden">
         
-        {/* Title & Brand Label */}
-        <h1 className="text-4xl font-black text-neutral-900 tracking-tight mb-2">
-          ODD N OUT
-        </h1>
-        <p className="text-red-600 text-sm font-black uppercase tracking-widest mb-8">
-          Eye Perception Training Game
-        </p>
+        {/* Soft Decorative Fluid Background Orbs (Top Right and Bottom Left) */}
+        <div className="absolute top-0 right-0 w-32 h-32 bg-purple-100/40 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-32 h-32 bg-orange-100/40 rounded-full blur-3xl pointer-events-none" />
         
-        {/* 📋 Flat Elegant Rule Checklist */}
-        <div className="space-y-4 mb-8 text-left bg-neutral-200/40 p-5 rounded-2xl border border-black/[0.02]">
+        {/* Decorative Grid Accent Dots on left/right boundaries */}
+        <div className="absolute left-4 top-12 opacity-20 text-[10px] tracking-widest text-slate-400 font-mono hidden sm:block">•••••<br/>•••••<br/>•••••</div>
+        <div className="absolute right-4 bottom-20 opacity-20 text-[10px] tracking-widest text-slate-400 font-mono hidden sm:block">•••••<br/>•••••<br/>•••••</div>
+
+        {/* ==================== HEADER SEGMENT ==================== */}
+        <div className="relative mb-8">
+          <h1 className="text-5xl font-black text-slate-900 tracking-tight flex items-center justify-center gap-2">
+            ODD <span className="text-[#ff6b35] font-black">N</span> OUT
+          </h1>
           
-          <div className="flex items-start gap-3.5">
-            <div className="w-8 h-8 rounded-lg bg-neutral-900/5 border border-black/5 flex items-center justify-center shrink-0">
-              <Eye className="w-4 h-4 text-neutral-700" />
+          {/* Subtitle Telemetry Frame Decoration */}
+          <div className="flex items-center justify-center gap-3 mt-3">
+            <div className="w-6 h-[1.5px] bg-gradient-to-r from-transparent to-[#ff6b35]" />
+            <p className="text-[#ff6b35] text-[11px] font-black uppercase tracking-widest flex items-center gap-1.5">
+              <span>👁️</span> Eye Perception Training Game <span>👁️</span>
+            </p>
+            <div className="w-6 h-[1.5px] bg-gradient-to-l from-transparent to-[#ff6b35]" />
+          </div>
+        </div>
+
+        {/* ==================== 📋 RULE DETAILS CHECKLIST PACKS ==================== */}
+        <div className="space-y-3.5 mb-8 relative">
+          
+          {/* Row 1: Spot The Difference (Orange Highlight Accent) */}
+          <div className="flex items-center justify-between gap-4 p-4 bg-white rounded-2xl border-l-[3px] border-l-[#ff6b35] border border-slate-100 shadow-[0_2px_8px_rgba(0,0,0,0.01)] text-left">
+            <div className="flex items-start gap-4">
+              <div className="w-10 h-10 rounded-xl bg-orange-50 flex items-center justify-center shrink-0">
+                <span className="text-xl">👁️</span>
+              </div>
+              <div className="space-y-0.5">
+                <h3 className="text-sm font-black text-slate-900">Spot The Difference</h3>
+                <p className="text-xs text-slate-400 font-bold leading-normal">Find the block with a slightly lighter or darker solid shade texture.</p>
+              </div>
             </div>
-            <div>
-              <p className="text-sm font-extrabold text-neutral-800 leading-none mt-1">Spot The Difference</p>
-              <p className="text-xs text-neutral-500 font-medium mt-0.5">Find the block with a slightly lighter or darker solid shade texture.</p>
+            {/* Visual Vector Blocks Clue */}
+            <div className="hidden sm:flex items-center gap-1 shrink-0 bg-slate-50 p-2 rounded-xl border border-slate-100">
+              <div className="w-4 h-4 bg-slate-300 rounded" />
+              <div className="w-4 h-4 bg-slate-300 rounded" />
+              <div className="w-4 h-4 bg-[#ff6b35] rounded shadow-sm shadow-orange-500/20" />
             </div>
           </div>
 
-          <div className="flex items-start gap-3.5">
-            <div className="w-8 h-8 rounded-lg bg-neutral-900/5 border border-black/5 flex items-center justify-center shrink-0">
-              <Timer className="w-4 h-4 text-neutral-700" />
+          {/* Row 2: Time Recovery Loop (Blue Highlight Accent) */}
+          <div className="flex items-center justify-between gap-4 p-4 bg-white rounded-2xl border-l-[3px] border-l-blue-500 border border-slate-100 shadow-[0_2px_8px_rgba(0,0,0,0.01)] text-left">
+            <div className="flex items-start gap-4">
+              <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center shrink-0">
+                <span className="text-xl">⏱️</span>
+              </div>
+              <div className="space-y-0.5">
+                <h3 className="text-sm font-black text-slate-900">Time Recovery Loop</h3>
+                <p className="text-xs text-slate-400 font-bold leading-normal">You have 15s. Every correct click recovers time back to your clock.</p>
+              </div>
             </div>
-            <div>
-              <p className="text-sm font-extrabold text-neutral-800 leading-none mt-1">Time Recovery Loop</p>
-              <p className="text-xs text-neutral-500 font-medium mt-0.5">You have 15s. Every correct click recovers time back to your clock.</p>
+            {/* Speed Indicator Clock Vector Lines */}
+            <div className="hidden sm:flex items-center justify-center w-12 h-10 shrink-0 opacity-80">
+              <div className="w-6 h-6 rounded-full border-2 border-blue-400 border-t-transparent animate-spin duration-1000 relative flex items-center justify-center">
+                <div className="w-1.5 h-[1.5px] bg-blue-500 absolute top-2 left-2 origin-left rotate-45" />
+              </div>
             </div>
           </div>
 
-          <div className="flex items-start gap-3.5">
-            <div className="w-8 h-8 rounded-lg bg-neutral-900/5 border border-black/5 flex items-center justify-center shrink-0">
-              <TrendingUp className="w-4 h-4 text-neutral-700" />
+          {/* Row 3: Adaptive Grid Flow (Green Highlight Accent) */}
+          <div className="flex items-center justify-between gap-4 p-4 bg-white rounded-2xl border-l-[3px] border-l-emerald-500 border border-slate-100 shadow-[0_2px_8_rgba(0,0,0,0.01)] text-left">
+            <div className="flex items-start gap-4">
+              <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center shrink-0">
+                <span className="text-xl">📈</span>
+              </div>
+              <div className="space-y-0.5">
+                <h3 className="text-sm font-black text-slate-900">Adaptive Grid Flow</h3>
+                <p className="text-xs text-slate-400 font-bold leading-normal">Grid density smoothly scales from 2x2 up to 8x8 as your score grows.</p>
+              </div>
             </div>
-            <div>
-              <p className="text-sm font-extrabold text-neutral-800 leading-none mt-1">Adaptive Grid Flow</p>
-              <p className="text-xs text-neutral-500 font-medium mt-0.5">Grid density smoothly scales from 2x2 up to 8x8 as your score grows.</p>
+            {/* Micro Dot Matrix Grid Render */}
+            <div className="hidden sm:grid grid-cols-4 gap-0.5 shrink-0 bg-emerald-50/60 p-1.5 rounded-lg">
+              <div className="w-1.5 h-1.5 bg-emerald-300 rounded-sm" /><div className="w-1.5 h-1.5 bg-emerald-300 rounded-sm" /><div className="w-1.5 h-1.5 bg-emerald-300 rounded-sm" /><div className="w-1.5 h-1.5 bg-emerald-400 rounded-sm" />
+              <div className="w-1.5 h-1.5 bg-emerald-300 rounded-sm" /><div className="w-1.5 h-1.5 bg-emerald-400 rounded-sm" /><div className="w-1.5 h-1.5 bg-emerald-400 rounded-sm" /><div className="w-1.5 h-1.5 bg-emerald-500 rounded-sm" />
             </div>
           </div>
 
-          <div className="flex items-start gap-3.5">
-            <div className="w-8 h-8 rounded-lg bg-neutral-900/5 border border-black/5 flex items-center justify-center shrink-0">
-              <ShieldCheck className="w-4 h-4 text-neutral-700" />
+          {/* Row 4: Shield Fail-Safes (Purple Highlight Accent) */}
+          <div className="flex items-center justify-between gap-4 p-4 bg-white rounded-2xl border-l-[3px] border-l-purple-500 border border-slate-100 shadow-[0_2px_8_rgba(0,0,0,0.01)] text-left">
+            <div className="flex items-start gap-4">
+              <div className="w-10 h-10 rounded-xl bg-purple-50 flex items-center justify-center shrink-0">
+                <span className="text-xl">🛡️</span>
+              </div>
+              <div className="space-y-0.5">
+                <h3 className="text-sm font-black text-slate-900">Shield Fail-Safes</h3>
+                <p className="text-xs text-slate-400 font-bold leading-normal">3 standard life limits. Wrong selections drop your shields instantly.</p>
+              </div>
             </div>
-            <div>
-              <p className="text-sm font-extrabold text-neutral-800 leading-none mt-1">Shield Fail-Safes</p>
-              <p className="text-xs text-neutral-500 font-medium mt-0.5">3 standard life limits. Wrong selections drop your shields instantly.</p>
+            {/* Soft Shield Emulation */}
+            <div className="hidden sm:flex items-center justify-center text-xl shrink-0 bg-purple-50 w-8 h-8 rounded-full border border-purple-100">
+              🔮
             </div>
           </div>
 
         </div>
 
-        {/* 🚀 SOLID RED CTA LAUNCH BUTTON */}
-        <button
-          onClick={onStart}
-          className="w-full bg-red-600 hover:bg-red-700 text-white font-black py-4 px-6 rounded-2xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-md text-base tracking-wider uppercase flex items-center justify-center gap-2"
-        >
-          <Play className="w-4 h-4 fill-white stroke-[3]" /> Start Game
-        </button>
+        {/* ==================== 🚀 METALLIC RED-ORANGE LAUNCH CTA ACTION BUTTON ==================== */}
+        <div className="relative group px-1">
+          {/* Orange Backside Ray Glow Effect */}
+          <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-red-600 rounded-2xl blur-md opacity-40 group-hover:opacity-60 transition duration-300" />
+          
+          <button
+            onClick={onStart}
+            className="w-full bg-gradient-to-r from-[#ff6b35] to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-black py-4 px-6 rounded-2xl transition-all duration-200 transform active:scale-[0.98] shadow-md shadow-orange-500/10 text-base tracking-wider uppercase flex items-center justify-center gap-2 relative z-10"
+          >
+            <Play className="w-4 h-4 fill-white stroke-[3]" /> Start Game
+          </button>
+        </div>
 
       </div>
     </div>
