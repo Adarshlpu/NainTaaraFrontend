@@ -1,31 +1,45 @@
 import React, { useState, useEffect } from 'react';
 
 const TimerBar = ({ duration, isActive }) => {
-  const [time, setTime] = useState(100);
- 
+  const [progress, setProgress] = useState(100);
+
   useEffect(() => {
-    setTime(100);
+    setProgress(100);
+    if (!isActive) return;
+
+    // Fluid updates running at 60fps refresh limits (16.67ms tick loops)
+    const totalDurationMs = duration * 1000;
+    const tickIntervalMs = 16.67;
+    const decrementPerTick = (tickIntervalMs / totalDurationMs) * 100;
+
     const interval = setInterval(() => {
-      setTime((prev) => {
-        if (prev <= 0) return 0;
-        return prev - 100 / (duration * 10);
+      setProgress((prev) => {
+        if (prev <= 0) {
+          clearInterval(interval);
+          return 0;
+        }
+        return prev - decrementPerTick;
       });
-    }, 100);
- 
+    }, tickIntervalMs);
+
     return () => clearInterval(interval);
-  }, [duration]);
- 
+  }, [duration, isActive]);
+
+  // Dynamic status colors config based on time parameters left
+  const getProgressColor = () => {
+    if (progress > 55) return "from-emerald-400 to-cyan-500 shadow-cyan-500/10";
+    if (progress > 25) return "from-amber-400 to-orange-500 shadow-orange-500/10";
+    return "from-red-500 to-rose-600 shadow-rose-500/20";
+  };
+
   return (
-    <div className="w-[420px] h-6 bg-gradient-to-r from-gray-700 to-gray-900 rounded-full mt-8 overflow-hidden border border-gray-600 shadow-lg">
+    <div className="w-full max-w-[460px] h-3 bg-neutral-950/60 rounded-full mt-4 overflow-hidden border border-neutral-800/80 p-[2px] shadow-inner">
       <div
-        className={`h-full transition-all duration-100 ${
-          time > 50 ? "bg-gradient-to-r from-green-500 to-emerald-400" : time > 20 ? "bg-gradient-to-r from-yellow-500 to-orange-400" : "bg-gradient-to-r from-red-500 to-pink-500"
-        }`}
-        style={{ width: `${time}%` }}
+        className={`h-full rounded-full transition-all duration-[16ms] linear bg-gradient-to-r shadow-md ${getProgressColor()}`}
+        style={{ width: `${progress}%` }}
       />
     </div>
   );
 };
-
 
 export default TimerBar;

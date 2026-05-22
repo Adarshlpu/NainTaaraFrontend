@@ -6,227 +6,216 @@ import TimerBar from './TimerBar';
 import OddBoard from './OddBoard';
 import StartModal from './StartModal';
 import GameOverModal from './GameOverModal';
-import levels from "./levels";
 
 const OddNOut = () => {
   const [gameStarted, setGameStarted] = useState(false);
-  const [level, setLevel] = useState(1);
   const [score, setScore] = useState(0);
   const [lives, setLives] = useState(3);
+  const [accuracy, setAccuracy] = useState(100);
   const [correctClicks, setCorrectClicks] = useState(0);
   const [totalClicks, setTotalClicks] = useState(0);
-  const [accuracy, setAccuracy] = useState(100);
-  const [startTime, setStartTime] = useState(Date.now());
-  const [reactionTime, setReactionTime] = useState(0);
   
-  // 💡 BACKEND STATE TRACKING: To sync dynamic values safely
+  // Pure Time Vector states setup
+  const [timeLeft, setTimeLeft] = useState(15); // Standard 15 seconds ticking baseline block
   const [saving, setSaving] = useState(false);
   const [apiMessage, setApiMessage] = useState("");
-  
-  // Ref pointers to capture session time vectors
+
   const gameDurationRef = useRef(0);
-  const timerIntervalRef = useRef(null);
+  const globalTimerRef = useRef(null);
+  const countdownTimerRef = useRef(null);
 
-  const currentLevel = levels[level - 1];
+  // Dynamic structural calculation grid boundaries based on ongoing score weights
+  // This matches the exact responsive grid evolution of the classic reference template
+  const getGridSize = () => {
+    if (score < 2) return 2;   // 2x2
+    if (score < 4) return 3;   // 3x3
+    if (score < 8) return 4;   // 4x4
+    if (score < 13) return 5;  // 5x5
+    if (score < 20) return 6;  // 6x6
+    if (score < 30) return 7;  // 7x7
+    return 8;                  // 8x8 max adaptive layer boundary
+  };
 
-  // Tracking dynamic gameplay length in seconds
+  // Dynamic Opacity/Alpha offset factor limits (Controls the exact color difference depth match)
+  const getOpacityFactor = () => {
+    // Score badhne ke sath odd box ki opacity normal box ke kareeb aati jayegi (Hard mode scaling)
+    const baseFactor = Math.max(0.12, 0.65 - (score * 0.012));
+    return Number(baseFactor.toFixed(3));
+  };
+
   useEffect(() => {
     if (gameStarted) {
       gameDurationRef.current = 0;
-      setStartTime(Date.now());
-      
-      timerIntervalRef.current = setInterval(() => {
+      setTimeLeft(15); // Re-set baseline clock
+
+      // Global session tracker ticker loops
+      globalTimerRef.current = setInterval(() => {
         gameDurationRef.current += 1;
       }, 1000);
+
+      // Decrementing active clock window intervals
+      countdownTimerRef.current = setInterval(() => {
+        setTimeLeft((prev) => {
+          if (prev <= 0.1) {
+            clearInterval(countdownTimerRef.current);
+            handleTimeoutClosure();
+            return 0;
+          }
+          return Number((prev - 0.1).toFixed(1));
+        });
+      }, 100);
     } else {
-      if (timerIntervalRef.current) clearInterval(timerIntervalRef.current);
+      clearInterval(globalTimerRef.current);
+      clearInterval(countdownTimerRef.current);
     }
 
     return () => {
-      if (timerIntervalRef.current) clearInterval(timerIntervalRef.current);
+      clearInterval(globalTimerRef.current);
+      clearInterval(countdownTimerRef.current);
     };
   }, [gameStarted]);
 
-  useEffect(() => {
-    if (gameStarted) {
-      setStartTime(Date.now());
-    }
-  }, [level, gameStarted]);
+  const handleTimeoutClosure = () => {
+    setGameStarted(false);
+    saveGameToBackend(score, getGridSize(), accuracy);
+  };
 
-  // 🌟 BACKEND PIPELINE CALL: Invoked automatically when user drops all 3 lives
   const saveGameToBackend = async (finalScore, finalLevel, finalAccuracy) => {
     setSaving(true);
-    setApiMessage("");
     try {
-      const token = localStorage.getItem("token"); // Fetching credentials verified from login
-      
-      if (!token) {
-        console.error("Authentication token not found in localStorage.");
-        setApiMessage("Error: Login required to sync rewards");
-        setSaving(false);
-        return;
-      }
+      const token = localStorage.getItem("token");
+      if (!token) return;
 
       const payload = {
         gameType: "odd-one-out",
         score: Number(finalScore),
         accuracy: Number(finalAccuracy),
         level: Number(finalLevel),
-        duration: gameDurationRef.current || 30 // Fallback session timing limit block
+        duration: gameDurationRef.current || 15
       };
-
-      console.log("Syncing performance metrics payload:", payload);
 
       const response = await axios.post(
         "http://localhost:5000/api/game/save",
         payload,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
+        { headers: { Authorization: `Bearer ${token}` } }
       );
 
       if (response.data.success) {
-        setApiMessage("🎉 Session saved! Coins synced.");
+        setApiMessage("Session saved successfully");
       }
     } catch (err) {
-      console.error("Backend transmission crash logs:", err);
-      setApiMessage(err.response?.data?.message || "Failed to sync visual performance matrix");
+      console.error("Telemetry sync failure:", err);
     } finally {
       setSaving(false);
     }
   };
 
   const handleCorrect = () => {
-    const end = Date.now();
-    const time = ((end - startTime) / 1000).toFixed(2);
-    setReactionTime(time);
-
-    let bonus = 0;
-    if (time < 1) bonus = 10;
-    else if (time < 2) bonus = 5;
-    else if (time < 3) bonus = 2;
-
-    const newScore = score + 10 + bonus;
-    setScore(newScore);
-
     const updatedCorrect = correctClicks + 1;
     const updatedTotal = totalClicks + 1;
-
+    
     setCorrectClicks(updatedCorrect);
     setTotalClicks(updatedTotal);
+    setScore((prev) => prev + 1);
     
-    const nextAccuracy = ((updatedCorrect / updatedTotal) * 100).toFixed(1);
-    setAccuracy(nextAccuracy);
-
-    if (updatedCorrect % 3 === 0) {
-      setLevel((prev) => (prev < 25 ? prev + 1 : prev));
-    }
-
-    setStartTime(Date.now());
+    // Smooth dynamic calibration mapping curves
+    setAccuracy(((updatedCorrect / updatedTotal) * 100).toFixed(1));
+    
+    // 💡 REWARD EXTENSION: Correct clicks award +1s back to match time balance (capped at 15s)
+    setTimeLeft((prev) => Math.min(15, prev + 1.2));
   };
 
   const handleWrong = () => {
-    const newScore = Math.max(score - 5, 0);
-    setScore(newScore);
-    
-    const newLives = lives - 1;
-    setLives(newLives);
-
-    const newTotal = totalClicks + 1;
-    setTotalClicks(newTotal);
-    
-    const nextAccuracy = ((correctClicks / newTotal) * 100).toFixed(1);
-    setAccuracy(nextAccuracy);
-
-    if (newLives <= 0) {
-      if (timerIntervalRef.current) clearInterval(timerIntervalRef.current);
-      setGameStarted(false);
-      // 💡 CALL BACKEND PIPELINE: Immediately pass exact current parameters
-      saveGameToBackend(newScore, level, nextAccuracy);
-    }
+    const updatedTotal = totalClicks + 1;
+    setTotalClicks(updatedTotal);
+    setLives((prev) => {
+      const currentLives = prev - 1;
+      if (currentLives <= 0) {
+        setGameStarted(false);
+        saveGameToBackend(score, getGridSize(), ((correctClicks / updatedTotal) * 100).toFixed(1));
+      }
+      return currentLives;
+    });
+    setAccuracy(((correctClicks / updatedTotal) * 100).toFixed(1));
   };
 
   const handleRestart = () => {
-    setLevel(1);
     setScore(0);
     setLives(3);
     setCorrectClicks(0);
     setTotalClicks(0);
     setAccuracy(100);
-    setReactionTime(0);
-    setStartTime(Date.now());
-    setApiMessage("");
+    setTimeLeft(15);
     setGameStarted(true);
   };
 
+  const progressPercentage = (timeLeft / 15) * 100;
+
   return (
-    <div className="min-h-screen bg-[#050816] text-white flex flex-col relative overflow-hidden">
+    <div className="min-h-screen bg-[#113a4c] text-neutral-800 flex items-center justify-center p-4 antialiased select-none selection:bg-transparent">
       <InteractiveBackground />
 
-      {!gameStarted && lives > 0 && <StartModal onStart={() => setGameStarted(true)} />}
+      {!gameStarted && lives > 3 && <StartModal onStart={() => setGameStarted(true)} />}
+      
+      {/* Fallback configuration triggers auto initialize modal if fresh */}
+      {!gameStarted && lives === 3 && score === 0 && (
+        <StartModal onStart={() => setGameStarted(true)} />
+      )}
 
       {gameStarted && (
-        <>
-          {/* SCORE BOARD */}
-          <div className="fixed top-0 left-0 right-0 z-40 bg-gradient-to-b from-[#050816]/95 to-transparent backdrop-blur-md pt-4 pb-6 px-4">
-            <div className="flex justify-center">
-              <ScorePanel
-                score={score}
-                lives={lives}
-                accuracy={accuracy}
-                level={level}
-                reactionTime={reactionTime}
+        <div className="bg-[#f5f5f5] rounded-[32px] p-6 sm:p-10 max-w-lg w-full text-center shadow-[0_30px_80px_rgba(0,0,0,0.4)] border border-white/60 mx-auto">
+          
+          <h1 className="text-3xl font-black text-neutral-900 tracking-tight mb-2">
+            Find the Different Color!
+          </h1>
+
+          {/* Manorama Standard Flat Timer Strip Elements */}
+          <div className="mb-4 mt-2">
+            <p className="text-[11px] font-extrabold text-neutral-400 uppercase tracking-widest mb-1">Time left</p>
+            <div className="w-full max-w-[240px] mx-auto h-4 bg-neutral-300 rounded-full overflow-hidden p-[2.5px] shadow-inner">
+              <div
+                className="h-full rounded-full bg-red-500 transition-all duration-[90ms] linear"
+                style={{ width: `${progressPercentage}%` }}
               />
             </div>
           </div>
 
-          {/* MAIN GAME INTERACTIVE MATRIX */}
-          <div className="flex-1 flex flex-col items-center justify-center px-4 py-8 pt-32">
-            <h1 className="text-5xl md:text-6xl font-black mb-8 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent drop-shadow-lg tracking-tight">
-              ODD N OUT
-            </h1>
-
-            {currentLevel && <TimerBar duration={currentLevel.timer} isActive={lives > 0} />}
-
-            {currentLevel && (
-              <div className="mt-12 p-8 rounded-3xl bg-gradient-to-br from-[#1a1f3a]/40 to-[#0f1427]/40 backdrop-blur-sm border border-cyan-500/20 shadow-2xl">
-                <OddBoard
-                  grid={currentLevel.grid}
-                  difference={currentLevel.difference}
-                  onCorrect={handleCorrect}
-                  onWrong={handleWrong}
-                  isActive={lives > 0}
-                />
-              </div>
-            )}
+          {/* Centered Large Red Counter Label */}
+          <div className="mb-6">
+            <h2 className="text-4xl font-black text-red-600 tracking-tight">
+              Score: {score}
+            </h2>
           </div>
-        </>
-      )}
 
-      {/* GAME OVER LAYER INTERFACE */}
-      {lives <= 0 && (
-        <div className="relative z-50">
-          <GameOverModal
-            score={score}
-            level={level}
-            accuracy={accuracy}
-            onRestart={handleRestart}
-          />
-          {/* Subtle Dynamic API Network status text badge */}
-          <div className="fixed bottom-6 left-1/2 -translate-x-1/2 glass-card-dark text-xs font-semibold px-4 py-2 rounded-xl border border-cyan-500/20 text-center text-neutral-300 pointer-events-none shadow-xl z-50">
-            {saving ? (
-              <span className="flex items-center gap-2">
-                <div className="w-3 h-3 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin" />
-                Syncing eye metrics database...
-              </span>
-            ) : (
-              <span>{apiMessage || "Database synchronization complete"}</span>
-            )}
+          {/* Unified Matrix Grid Box Frame Wrapper */}
+          <div className="p-2 inline-block mx-auto rounded-2xl bg-neutral-200/40 border border-black/[0.02]">
+            <OddBoard
+              grid={getGridSize()}
+              difference={getOpacityFactor()} // 💡 Using Alpha/Opacity Factor dynamics natively
+              onCorrect={handleCorrect}
+              onWrong={handleWrong}
+              isActive={lives > 0}
+            />
           </div>
+
+          {/* Diagnostic Subtitle Footnote Parameters */}
+          <div className="mt-6 pt-4 border-t border-neutral-300/50 flex items-center justify-center gap-6 text-xs font-bold text-neutral-400 uppercase tracking-wider">
+            <span>Grid: <span className="text-neutral-800 font-extrabold">{getGridSize()}x{getGridSize()}</span></span>
+            <span>Shields: <span className="text-neutral-800 font-extrabold">{lives} Left</span></span>
+            <span>Accuracy: <span className="text-neutral-800 font-extrabold">{accuracy}%</span></span>
+          </div>
+
         </div>
       )}
+
+      {lives <= 0 || (!gameStarted && totalClicks > 0) ? (
+        <GameOverModal
+          score={score}
+          level={getGridSize()}
+          accuracy={accuracy}
+          onRestart={handleRestart}
+        />
+      ) : null}
     </div>
   );
 };
