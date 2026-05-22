@@ -4,7 +4,7 @@ import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Rewards from "./pages/rewards/Rewards";
-import Games from "./pages/games/Games";
+import Games from "./pages/Games/Games";
 import Reports from "./pages/reports/Reports";
 import Shape from "./pages/Games/ShapeMatching/shape";
 import OddNout from "./pages/Games/oddnoutcolor/OddNout";
