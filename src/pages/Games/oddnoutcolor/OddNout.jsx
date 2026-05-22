@@ -81,10 +81,16 @@ const OddNOut = () => {
       };
 
       await axios.post(
-        "http://localhost:5000/api/game/save",
-        payload,
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+   `${import.meta.env.VITE_API_URL}/game/save`,
+   payload,
+   {
+      headers: {
+         Authorization:
+         `Bearer ${token}`
+      },
+      withCredentials: true
+   }
+);
     } catch (err) {
       console.error("Telemetry sync failure:", err);
     } finally {

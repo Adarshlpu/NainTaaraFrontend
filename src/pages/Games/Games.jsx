@@ -24,10 +24,16 @@ const Games = () => {
         const token = localStorage.getItem("token");
         if (!token) return;
 
-        const response = await axios.get("http://localhost:5000/api/auth/profile", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-
+        const response = await axios.get(
+   `${import.meta.env.VITE_API_URL}/auth/profile`,
+   {
+      headers: {
+         Authorization:
+         `Bearer ${token}`
+      },
+      withCredentials: true
+   }
+);
         if (response.data && response.data.user) {
           const dbUser = response.data.user;
           setUserData({
