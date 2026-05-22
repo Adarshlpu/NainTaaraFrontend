@@ -6,6 +6,14 @@ import { useNavigate } from "react-router-dom";
 const Dashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const navigate = useNavigate();
+  const logout = () => {
+
+   localStorage.removeItem("token");
+
+   localStorage.removeItem("user");
+
+   navigate("/login");
+};
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -105,15 +113,29 @@ const Dashboard = () => {
             <span className="text-sm">Profile</span>
           </motion.button>
 
-          <motion.button
+          {/* <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             className="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-red-50 text-red-600 hover:bg-red-100 font-semibold transition-all"
           >
             <LogOut className="w-5 h-5" />
             <span className="text-sm">Logout</span>
-          </motion.button>
+          </motion.button> */}
         </div>
+
+        <motion.button
+   onClick={logout}
+   whileHover={{ scale: 1.02 }}
+   whileTap={{ scale: 0.98 }}
+   className="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-red-50 text-red-600 hover:bg-red-100 font-semibold transition-all"
+>
+   <LogOut className="w-5 h-5" />
+
+   <span className="text-sm">
+      Logout
+   </span>
+
+</motion.button>
 
         {/* Close Button (Mobile) */}
         <motion.button
