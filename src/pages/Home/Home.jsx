@@ -1,14 +1,31 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link, useNavigate } from "react-router-dom";
-import { Eye, Smartphone, Brain, BarChart3, ArrowRight, MessageSquare } from "lucide-react";
 
+import { Eye, Smartphone, Brain, BarChart3, ArrowRight, MessageSquare } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 // Shadcn UI Elements
 import { Button } from "../../components/ui/button";
 import Navbar from "../../components/navbar/Navbar";
 import Footer from "../../components/footer/Footer";
 
 const Home = () => {
+
+  const handleStartPlaying = () => {
+
+   const token =
+      localStorage.getItem("token");
+
+   if (token) {
+
+      navigate("/dashboard");
+
+   } else {
+
+      navigate("/login");
+
+   }
+};
+
   const navigate = useNavigate();
   const words = ["Vision Therapy", "Myopia", "Lazy Eye", "Eye Fitness"];
   const [index, setIndex] = useState(0);
@@ -130,7 +147,9 @@ const Home = () => {
               {/* 💡 FIXED: Integrated shadcn/radix 'asChild' to properly bubble React Router click parameters */}
               <div className="flex flex-col sm:flex-row gap-3.5">
                 <Button asChild className="w-full sm:w-auto h-11 px-8 bg-[#ff7a00] hover:bg-orange-600 text-white font-bold rounded-xl shadow-md shadow-orange-500/10 border-0 text-sm transition-transform active:scale-[0.98]">
-                  <Link to="/login">Start Playing</Link>
+                 <button onClick={handleStartPlaying}>
+   Start Playing
+</button>
                 </Button>
 
                 <Button variant="outline" className="w-full sm:w-auto h-11 px-8 border-neutral-200 bg-white text-neutral-700 font-bold rounded-xl hover:bg-neutral-50 hover:border-neutral-300 flex items-center justify-center gap-2 text-sm">
@@ -511,7 +530,9 @@ const Home = () => {
           {/* 💡 FIXED: Configured button redirection nodes with dynamic radix child templates */}
           <div className="flex flex-col sm:flex-row gap-3.5 justify-center items-center">
             <Button asChild className="w-full sm:w-auto h-11 px-10 bg-white hover:bg-neutral-50 text-[#ff7a00] font-black rounded-xl border-0 shadow-md text-sm transition-transform active:scale-[0.98]">
-              <Link to="/login">Get Started</Link>
+            <button onClick={handleStartPlaying}>
+   Get Started
+</button>
             </Button>
 
             <Button variant="outline" className="w-full sm:w-auto h-11 px-10 border-white/40 bg-transparent text-white font-bold rounded-xl hover:bg-white/10 hover:border-white/60 text-sm">

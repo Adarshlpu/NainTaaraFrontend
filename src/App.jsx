@@ -10,6 +10,7 @@ import Shape from "./pages/Games/ShapeMatching/shape";
 import OddNout from "./pages/Games/oddnoutcolor/OddNout";
 import EyeBlink from "./pages/Games/EyeBlink/EyeBlink";
 import { Navigate } from "react-router-dom";
+import Profile from "./pages/profile/Profile";
 
 
 
@@ -76,7 +77,11 @@ function App() {
     </ProtectedRoute>
   }
 />
-<Route path="/profile" element={<Profile />} />
+<Route path="/profile" element={
+  <ProtectedRoute>
+    <Profile />
+  </ProtectedRoute>
+} />
     </Routes>
   );
 }
