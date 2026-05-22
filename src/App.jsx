@@ -1,16 +1,16 @@
 import { Routes, Route } from "react-router-dom";
-import Home from "./pages/home/Home";
-import Login from "./pages/login/Login";
+import Home from "./pages/Home/Home";
+import Login from "./pages/Login/Login";
 import Signup from "./pages/signup/Signup";
-import Dashboard from "./pages/dashboard/Dashboard";
-import Rewards from "./pages/rewards/Rewards";
+import Dashboard from "./pages/Dashboard/Dashboard";
+import Rewards from "./pages/Rewards/Rewards";
 import Games from "./pages/Games/Games";
-import Reports from "./pages/reports/Reports";
+import Reports from "./pages/Reports/Reports";
 import Shape from "./pages/Games/ShapeMatching/shape";
 import OddNout from "./pages/Games/oddnoutcolor/OddNout";
 import EyeBlink from "./pages/Games/EyeBlink/EyeBlink";
 import { Navigate } from "react-router-dom";
-import Profile from "./pages/profile/Profile";
+import Profile from "./pages/Profile/Profile";
 
 
 
