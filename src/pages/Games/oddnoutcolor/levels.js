@@ -1,31 +1,31 @@
-// src/pages/Games/oddnoutcolor/levels.js
-
+// 🎯 FINAL PERFECT CLARITY MATRIX - SHADES ARE NOW EASILY VISIBLE
+// Differences scaled up from 15.0° down to 6.0° for standard monitors
 const levels = [
-  { level: 1, grid: 2, difference: 40, timer: 8 },
-  { level: 2, grid: 2, difference: 35, timer: 8 },
-  { level: 3, grid: 3, difference: 30, timer: 7 },
-  { level: 4, grid: 3, difference: 28, timer: 7 },
-  { level: 5, grid: 3, difference: 26, timer: 6 },
-  { level: 6, grid: 4, difference: 24, timer: 6 },
-  { level: 7, grid: 4, difference: 22, timer: 6 },
-  { level: 8, grid: 4, difference: 20, timer: 5 },
-  { level: 9, grid: 4, difference: 18, timer: 5 },
-  { level: 10, grid: 4, difference: 16, timer: 5 },
-  { level: 11, grid: 5, difference: 14, timer: 5 },
-  { level: 12, grid: 5, difference: 13, timer: 5 },
-  { level: 13, grid: 5, difference: 12, timer: 4 },
-  { level: 14, grid: 5, difference: 11, timer: 4 },
-  { level: 15, grid: 5, difference: 10, timer: 4 },
-  { level: 16, grid: 6, difference: 9, timer: 4 },
-  { level: 17, grid: 6, difference: 8, timer: 4 },
-  { level: 18, grid: 6, difference: 7, timer: 3 },
-  { level: 19, grid: 6, difference: 6, timer: 3 },
-  { level: 20, grid: 6, difference: 5, timer: 3 },
-  { level: 21, grid: 7, difference: 4, timer: 3 },
-  { level: 22, grid: 7, difference: 4, timer: 3 },
-  { level: 23, grid: 7, difference: 3, timer: 2 },
-  { level: 24, grid: 7, difference: 3, timer: 2 },
-  { level: 25, grid: 8, difference: 2, timer: 2 },
+  { level: 1, grid: 2, maxDifference: 15.0, minDifference: 10.0, timer: 12 }, // Level 1 par dabba ekdum saaf aur easily dikhega
+  { level: 2, grid: 2, maxDifference: 14.0, minDifference: 9.5, timer: 11 },
+  { level: 3, grid: 3, maxDifference: 13.0, minDifference: 9.0, timer: 10 },  // 3x3
+  { level: 4, grid: 3, maxDifference: 12.2, minDifference: 8.5, timer: 10 },
+  { level: 5, grid: 3, maxDifference: 11.5, minDifference: 8.0, timer: 9 },
+  { level: 6, grid: 4, maxDifference: 10.8, minDifference: 7.6, timer: 9 },   // 4x4
+  { level: 7, grid: 4, maxDifference: 10.2, minDifference: 7.2, timer: 9 },
+  { level: 8, grid: 4, maxDifference: 9.6, minDifference: 6.8, timer: 8 },
+  { level: 9, grid: 4, maxDifference: 9.0, minDifference: 6.5, timer: 8 },
+  { level: 10, grid: 4, maxDifference: 8.5, minDifference: 6.2, timer: 8 },
+  { level: 11, grid: 5, maxDifference: 8.2, minDifference: 6.0, timer: 7 },   // 5x5
+  { level: 12, grid: 5, maxDifference: 7.9, minDifference: 5.8, timer: 7 },
+  { level: 13, grid: 5, maxDifference: 7.6, minDifference: 5.6, timer: 7 },
+  { level: 14, grid: 5, maxDifference: 7.3, minDifference: 5.4, timer: 6 },
+  { level: 15, grid: 5, maxDifference: 7.0, minDifference: 5.2, timer: 6 },  
+  { level: 16, grid: 6, maxDifference: 6.8, minDifference: 5.0, timer: 6 },   // 6x6
+  { level: 17, grid: 6, maxDifference: 6.6, minDifference: 4.8, timer: 6 },
+  { level: 18, grid: 6, maxDifference: 6.4, minDifference: 4.6, timer: 5 },
+  { level: 19, grid: 6, maxDifference: 6.2, minDifference: 4.4, timer: 5 },
+  { level: 20, grid: 6, maxDifference: 6.0, minDifference: 4.2, timer: 5 },
+  { level: 21, grid: 7, maxDifference: 5.8, minDifference: 4.0, timer: 4 },   // 7x7
+  { level: 22, grid: 7, maxDifference: 5.6, minDifference: 3.8, timer: 4 },
+  { level: 23, grid: 7, maxDifference: 5.4, minDifference: 3.6, timer: 4 },
+  { level: 24, grid: 7, maxDifference: 5.2, minDifference: 3.4, timer: 3 },
+  { level: 25, grid: 8, maxDifference: 5.0, minDifference: 3.2, timer: 3 },   // 8x8
 ];
 
 export default levels;
