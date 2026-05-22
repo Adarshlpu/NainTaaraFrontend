@@ -5,10 +5,10 @@ import Signup from "./pages/signup/Signup";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Rewards from "./pages/Rewards/Rewards";
 import Games from "./pages/Games/Games";
-import Reports from "./pages/Reports/Reports";
+// import Reports from "./pages/Reports/Reports";
 import Shape from "./pages/Games/ShapeMatching/shape";
 import OddNout from "./pages/Games/oddnoutcolor/OddNout";
-import EyeBlink from "./pages/Games/EyeBlink/EyeBlink";
+// import EyeBlink from "./pages/Games/EyeBlink/EyeBlink";
 import { Navigate } from "react-router-dom";
 import Profile from "./pages/Profile/Profile";
 
@@ -49,11 +49,11 @@ function App() {
         </ProtectedRoute>
       } />
 
-<Route path="/reports" element={
+{/* <Route path="/reports" element={
         <ProtectedRoute>
           <Reports />
         </ProtectedRoute>
-      } />
+      } /> */}
 
 <Route path="/games/shape" element={
   <ProtectedRoute>
@@ -69,14 +69,14 @@ function App() {
     </ProtectedRoute>
   }
 />
-<Route
+{/* <Route
   path="/games/eyeblink"
   element={
     <ProtectedRoute>
       <EyeBlink />
     </ProtectedRoute>
   }
-/>
+/> */}
 <Route path="/profile" element={
   <ProtectedRoute>
     <Profile />
