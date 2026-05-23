@@ -140,7 +140,7 @@ const OddNOut = () => {
       {!gameStarted && score === 0 && <StartModal onStart={() => setGameStarted(true)} />}
 
       {gameStarted && (
-        <div className="bg-[#f5f5f5] rounded-[32px] p-6 sm:p-10 max-w-lg w-full text-center shadow-[0_30px_80px_rgba(0,0,0,0.4)] border border-white/60 mx-auto">
+        <div className="bg-[#f5f5f5] rounded-[24px] sm:rounded-[32px] p-4 sm:p-8 md:p-10 w-full max-w-[95vw] sm:max-w-lg text-center overflow-hidden">
           <h1 className="text-2xl font-black text-slate-900 tracking-tight mb-2">
             Find the Different Color!
           </h1>
