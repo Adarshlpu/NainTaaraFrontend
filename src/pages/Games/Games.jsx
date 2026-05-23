@@ -10,7 +10,7 @@ import headerBg from "../../assets/header-bg.png";
 const Games = () => {
   const navigate = useNavigate();
 
-  // 🌟 State for tracking real-time user coins and telemetry metrics
+  // State for tracking real-time user coins and telemetry metrics
   const [userData, setUserData] = useState({
     coins: 0,
     gamesPlayed: 0,
@@ -25,15 +25,12 @@ const Games = () => {
         if (!token) return;
 
         const response = await axios.get(
-   `${import.meta.env.VITE_API_URL}/auth/profile`,
-   {
-      headers: {
-         Authorization:
-         `Bearer ${token}`
-      },
-      withCredentials: true
-   }
-);
+          `${import.meta.env.VITE_API_URL}/auth/profile`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+            withCredentials: true
+          }
+        );
         if (response.data && response.data.user) {
           const dbUser = response.data.user;
           setUserData({
@@ -61,7 +58,18 @@ const Games = () => {
       headerBg: "bg-gradient-to-br from-blue-100 via-blue-50/50 to-white",
       buttonStyle: "bg-blue-600 hover:bg-blue-700 text-white shadow-blue-500/10",
       topFloatingShapes: ["🔷", "💧"],
-    }
+    },
+    {
+      title: "Shape Match Challenge",
+      description: "Enhance your pattern recognition and eye coordination by matching shapes in this fun and fast-paced game.",
+      previewIcon: "🔺",
+      customIconGrid: false,
+      coins: "+7 Coins", // Mapped exactly to add +7 on API hits
+      path: "/games/shape",
+      headerBg: "bg-gradient-to-br from-green-100 via-green-50/50 to-white",
+      buttonStyle: "bg-green-600 hover:bg-green-700 text-white shadow-green-500/10",
+      topFloatingShapes: ["🟢", "🔵"],
+    },
   ];
 
   return (
@@ -80,7 +88,7 @@ const Games = () => {
       >
         <div className="absolute right-0 top-0 bottom-0 w-[35%] bg-gradient-to-l from-[#e6f4ed]/30 via-transparent to-transparent pointer-events-none" />
 
-        {/* 🌟 PREMIUM REAL-TIME COINS RADIAL COUNTER BADGE */}
+        {/* PREMIUM REAL-TIME COINS RADIAL COUNTER BADGE */}
         <div className="absolute top-6 right-6 z-20 bg-white/90 backdrop-blur-sm border border-slate-100 py-1.5 px-3.5 rounded-2xl flex items-center gap-2 shadow-sm">
           <span className="text-base animate-pulse">🪙</span>
           <div className="text-right">
