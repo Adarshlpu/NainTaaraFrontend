@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-import { Eye, Smartphone, Brain, BarChart3, ArrowRight, MessageSquare } from "lucide-react";
+// FIXED: Cleaned imports tracking structural dependencies flawlessly
+import { Eye, Smartphone, Brain, BarChart3, ArrowRight, MessageSquare, ChevronDown } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 // Shadcn UI Elements
 import { Button } from "../../components/ui/button";
@@ -9,26 +10,21 @@ import Navbar from "../../components/navbar/Navbar";
 import Footer from "../../components/footer/Footer";
 
 const Home = () => {
-
-  const handleStartPlaying = () => {
-
-   const token =
-      localStorage.getItem("token");
-
-   if (token) {
-
-      navigate("/dashboard");
-
-   } else {
-
-      navigate("/login");
-
-   }
-};
-
   const navigate = useNavigate();
   const words = ["Vision Therapy", "Myopia", "Lazy Eye", "Eye Fitness"];
   const [index, setIndex] = useState(0);
+  
+  // FIXED: State variable tracking active layout indices for the FAQ dropdown toggle
+  const [openFaq, setOpenFaq] = useState(null);
+
+  const handleStartPlaying = () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/dashboard");
+    } else {
+      navigate("/login");
+    }
+  };
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -99,6 +95,34 @@ const Home = () => {
     },
   ];
 
+  // FIXED: FAQ content array structured strictly under 40 words per value rule mapping
+  const faqs = [
+    {
+      q: "Is it safe for screen time?",
+      a: "Yes. Unlike passive streaming, our exercises engage eye muscles actively. Sessions are limited to 15 minutes daily to prevent strain while effectively training focus."
+    },
+    {
+      q: "What age does it work for?",
+      a: "Naintaara is optimized for kids aged 4 to 14 years during critical visual development stages. Games automatically adjust difficulty based on performance metrics."
+    },
+    {
+      q: "Do we need a prescription?",
+      a: "No prescription is required. It serves as home fitness for eyes. However, we recommend regular eye specialist checkups to track overall recovery."
+    },
+    {
+      q: "How long till we see results?",
+      a: "Most parents report noticeable improvements in children's visual tracking, depth perception, and focus accuracy within 4 to 6 weeks of daily disciplined play."
+    },
+    {
+      q: "Will it work alongside glasses?",
+      a: "Yes. Naintaara trains visual brain processing tracking paths. Children should wear their normally prescribed reading or distance glasses while playing the games."
+    },
+    {
+      q: "Is it covered by insurance?",
+      a: "Currently, digital eye tracking treatments are out-of-pocket expenses. For specific clinic documentation or help, reach out directly on our Contact Page."
+    }
+  ];
+
   return (
     <div className="bg-[#fafafa] overflow-hidden antialiased selection:bg-orange-100">
       <Navbar />
@@ -144,12 +168,11 @@ const Home = () => {
               </p>
 
               {/* CTA BUTTONS */}
-              {/* 💡 FIXED: Integrated shadcn/radix 'asChild' to properly bubble React Router click parameters */}
               <div className="flex flex-col sm:flex-row gap-3.5">
                 <Button asChild className="w-full sm:w-auto h-11 px-8 bg-[#ff7a00] hover:bg-orange-600 text-white font-bold rounded-xl shadow-md shadow-orange-500/10 border-0 text-sm transition-transform active:scale-[0.98]">
-                 <button onClick={handleStartPlaying}>
-   Start Playing
-</button>
+                  <button onClick={handleStartPlaying}>
+                    Start Playing
+                  </button>
                 </Button>
 
                 <Button variant="outline" className="w-full sm:w-auto h-11 px-8 border-neutral-200 bg-white text-neutral-700 font-bold rounded-xl hover:bg-neutral-50 hover:border-neutral-300 flex items-center justify-center gap-2 text-sm">
@@ -364,7 +387,7 @@ const Home = () => {
               { title: "Bold Signature", subtitle: "Premium Vision Frames", image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=1200&auto=format&fit=crop" },
               { title: "Gilded", subtitle: "Luxury Kids Frames", image: "https://images.unsplash.com/photo-1591076482161-42ce6da69f67?q=80&w=1200&auto=format&fit=crop" },
               { title: "2 in 1 Eye + Sun", subtitle: "Smart Switch", image: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?q=80&w=1200&auto=format&fit=crop" },
-              { title: "Feather-light", subtitle: "Ultra Light Frames", image: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?q=80&w=1200&auto=format&fit=crop" },
+              { title: "Feather-light", subtitle: "Ultra Light Frames", image: "https://images.unsplash.com/photo-1574258495973-f010dfbb5371?q=80&w=1200&auto=format&fit=crop" },
             ].map((item, i) => (
               <motion.div
                 key={i}
@@ -380,24 +403,6 @@ const Home = () => {
               </motion.div>
             ))}
           </div>
-
-          {/* LARGE INTERACTIVE BANNER */}
-          <motion.div whileHover={{ scale: 1.005 }} className="relative rounded-[32px] overflow-hidden shadow-xl border border-neutral-100">
-            <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1400&auto=format&fit=crop" alt="banner" className="w-full h-[450px] object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-r from-neutral-950 via-neutral-950/70 to-transparent" />
-            <div className="absolute inset-0 flex items-center">
-              <div className="max-w-xl px-6 sm:px-12 flex flex-col">
-                <p className="text-[#ff7a00] uppercase text-xs font-bold tracking-[4px] mb-2">Featured Collection</p>
-                <h2 className="text-4xl sm:text-5xl font-black text-white tracking-tight mb-4">Smart Eye Wear For Kids</h2>
-                <p className="text-neutral-300 text-xs sm:text-sm mb-6 leading-relaxed font-medium">
-                  Hardware-integrated components engineered explicitly for localized convergence reinforcement setups.
-                </p>
-                <Button className="w-fit h-10 px-6 bg-[#ff7a00] hover:bg-orange-600 text-white font-bold rounded-xl border-0 text-xs shadow-sm shadow-orange-500/10">
-                  Explore Collection →
-                </Button>
-              </div>
-            </div>
-          </motion.div>
         </div>
       </section>
 
@@ -517,6 +522,49 @@ const Home = () => {
         </div>
       </section>
 
+      {/* ==================== 🌟 FAQ ACCORDION SECTION 🌟 ==================== */}
+      <section id="faq" className="py-16 sm:py-24 bg-slate-50 border-t border-neutral-100 text-left">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-bold tracking-tight text-neutral-900">Frequently Asked Questions</h2>
+            <p className="text-neutral-500 text-xs sm:text-sm font-medium mt-1">Get transparent clarifications on standard child eye-fitness mechanics.</p>
+          </div>
+
+          <div className="space-y-3">
+            {faqs.map((faq, idx) => (
+              <div key={idx} className="bg-white rounded-2xl border border-neutral-200/60 overflow-hidden shadow-sm transition">
+                <button
+                  onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
+                  className="w-full flex items-center justify-between p-4 sm:p-5 text-left text-xs sm:text-sm font-bold text-slate-800 focus:outline-none transition hover:bg-slate-50/50"
+                >
+                  <span>{faq.q}</span>
+                  <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform duration-200 ${openFaq === idx ? "rotate-180 text-orange-500" : ""}`} />
+                </button>
+                <AnimatePresence initial={false}>
+                  {openFaq === idx && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.2, ease: "easeInOut" }}
+                    >
+                      <div className="px-4 sm:px-5 pb-4 sm:pb-5 text-neutral-500 text-xs sm:text-[13px] leading-relaxed font-medium border-t border-neutral-50 pt-2.5">
+                        {idx === 5 ? (
+                          <span>
+                            Currently, digital eye therapies are out-of-pocket in India. To check international status or for custom corporate health clinic tie-ups, reach out directly on our{" "}
+                            <Link to="/contact" className="text-[#ff7a00] hover:underline font-bold">Contact Page</Link>.
+                          </span>
+                        ) : faq.a}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* SECTION 7: CTA BANNER */}
       <section id="contact" className="py-16 sm:py-24 bg-gradient-to-br from-[#ff7a00] via-orange-500 to-orange-600 text-center relative overflow-hidden">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
@@ -527,12 +575,11 @@ const Home = () => {
             Join thousands of parents who trust Naintaara for functional eye development. Engage with clean, validated screen sessions.
           </p>
 
-          {/* 💡 FIXED: Configured button redirection nodes with dynamic radix child templates */}
           <div className="flex flex-col sm:flex-row gap-3.5 justify-center items-center">
             <Button asChild className="w-full sm:w-auto h-11 px-10 bg-white hover:bg-neutral-50 text-[#ff7a00] font-black rounded-xl border-0 shadow-md text-sm transition-transform active:scale-[0.98]">
-            <button onClick={handleStartPlaying}>
-   Get Started
-</button>
+              <button onClick={handleStartPlaying}>
+                Get Started
+              </button>
             </Button>
 
             <Button variant="outline" className="w-full sm:w-auto h-11 px-10 border-white/40 bg-transparent text-white font-bold rounded-xl hover:bg-white/10 hover:border-white/60 text-sm">
