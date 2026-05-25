@@ -226,7 +226,7 @@ const Signup = () => {
               <div className="flex-1 h-[1px] bg-neutral-100" />
             </div>
 
-            {/* Google Authentication */}
+            {/* Google Authentication 
             <Button
               type="button"
               variant="outline"
@@ -241,6 +241,7 @@ const Signup = () => {
               </svg>
               Continue with Google
             </Button>
+            */}
           </form>
 
           {/* Core Footer Link */}

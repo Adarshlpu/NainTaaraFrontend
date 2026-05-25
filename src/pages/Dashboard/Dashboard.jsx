@@ -101,7 +101,7 @@ const Dashboard = () => {
               <Eye className="w-4 h-4 text-white stroke-[2.5]" />
             </div>
             <div className="text-left">
-              <h1 className="text-base font-black text-slate-900 tracking-tight leading-none">Naintaara</h1>
+              <h1 className="text-base font-black text-slate-900 tracking-tight leading-none">NAINOCULAR</h1>
               <span className="text-[10px] text-slate-400 font-bold mt-0.5 inline-block">Vision Module</span>
             </div>
           </div>
@@ -169,7 +169,7 @@ const Dashboard = () => {
             <div className="w-7 h-7 rounded-lg bg-[#ff6b35] flex items-center justify-center shadow-sm">
               <Eye className="w-3.5 h-3.5 text-white stroke-[2.5]" />
             </div>
-            <h1 className="text-sm font-black text-slate-900 tracking-tight">Naintaara</h1>
+            <h1 className="text-sm font-black text-slate-900 tracking-tight">NAINOCULAR</h1>
           </div>
 
           <div className="flex items-center gap-3">
