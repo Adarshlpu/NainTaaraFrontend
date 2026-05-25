@@ -11,6 +11,13 @@ import OddNout from "./pages/Games/oddnoutcolor/OddNout";
 // import EyeBlink from "./pages/Games/EyeBlink/EyeBlink";
 import { Navigate } from "react-router-dom";
 import Profile from "./pages/Profile/Profile";
+import PrivacyPolicy from "./pages/privacy-policy";
+import TermsAndConditions from "./pages/terms-and-conditions";
+import CookiesPolicy from "./pages/cookies-policy";
+import About from "./pages/About";
+import Blog from "./pages/Blog";
+import Contact from "./pages/Contact";
+import EyeMovementTrainer from "./pages/Games/EyeMovementTrainer/EyeMovementTrainer";
 
 
 
@@ -82,6 +89,26 @@ function App() {
     <Profile />
   </ProtectedRoute>
 } />
+
+<Route path="/games/eyemovement" element={
+  <ProtectedRoute>
+    <EyeMovementTrainer />
+  </ProtectedRoute>
+} />
+
+
+
+
+
+
+<Route path="/privacy-policy" element={<PrivacyPolicy />} />
+<Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+<Route path="/cookies-policy" element={<CookiesPolicy />} />
+
+<Route path="/about" element={<About />} />
+
+<Route path="/blog" element={<Blog />} />
+<Route path="/contact" element={<Contact />} />
     </Routes>
   );
 }
