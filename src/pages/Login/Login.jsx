@@ -74,7 +74,7 @@ const Login = () => {
           <div className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-[#ff7a00] shadow-sm mb-2">
             <Eye className="text-white w-5 h-5" />
           </div>
-          <h1 className="text-2xl font-bold tracking-tight text-neutral-900">Naintaara</h1>
+          <h1 className="text-2xl font-bold tracking-tight text-neutral-900">Nainocular</h1>
           <p className="text-xs text-neutral-500 mt-0.5">Your premium eye fitness partner</p>
         </div>
 
@@ -146,8 +146,8 @@ const Login = () => {
                   Remember me
                 </Label>
               </div>
-
-              <Dialog>
+{/*}
+             <Dialog>
                 <DialogTrigger asChild>
                   <button type="button" className="text-xs text-[#ff7a00] hover:text-orange-600 font-semibold transition focus:outline-none">
                     Forgot Password?
@@ -168,6 +168,7 @@ const Login = () => {
                   </div>
                 </DialogContent>
               </Dialog>
+              */}
             </div>
 
             {/* Main Action Button */}
@@ -195,7 +196,7 @@ const Login = () => {
               <div className="flex-1 h-[1px] bg-neutral-100" />
             </div>
 
-            {/* Google OAuth Call */}
+            {/* Google OAuth Call 
             <Button
               type="button"
               variant="outline"
@@ -210,6 +211,8 @@ const Login = () => {
               </svg>
               Continue with Google
             </Button>
+
+            */}
           </form>
 
           {/* Footer Redirection */}

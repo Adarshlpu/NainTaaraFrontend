@@ -2,19 +2,20 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 // FIXED: Cleaned imports tracking structural dependencies flawlessly
-import { Eye, Smartphone, Brain, BarChart3, ArrowRight, MessageSquare, ChevronDown } from "lucide-react";
+import { Eye, Smartphone, Brain, BarChart3, ArrowRight, MessageSquare, ChevronDown, Target, Gamepad2, Tablet, LineChart } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 // Shadcn UI Elements
 import { Button } from "../../components/ui/button";
 import Navbar from "../../components/navbar/Navbar";
 import Footer from "../../components/footer/Footer";
+import heroImage from "../../assets/images/h1.jpg";
 
 const Home = () => {
   const navigate = useNavigate();
   const words = ["Vision Therapy", "Myopia", "Lazy Eye", "Eye Fitness"];
   const [index, setIndex] = useState(0);
   
-  // FIXED: State variable tracking active layout indices for the FAQ dropdown toggle
+  // State variable tracking active layout indices for the FAQ dropdown toggle
   const [openFaq, setOpenFaq] = useState(null);
 
   const handleStartPlaying = () => {
@@ -24,6 +25,13 @@ const Home = () => {
     } else {
       navigate("/login");
     }
+  };
+
+  // 💡 FIXED: Generates an automated secure WhatsApp link with a custom message payload
+  const handleWhatsAppRedirect = () => {
+    const phoneNumber = "919205050993";
+    const textMessage = encodeURIComponent("Hello Naintaara Team! I want to know more about the Eye Fitness games and vision training for my child.");
+    window.open(`https://wa.me/${phoneNumber}?text=${textMessage}`, "_blank");
   };
 
   useEffect(() => {
@@ -95,7 +103,7 @@ const Home = () => {
     },
   ];
 
-  // FIXED: FAQ content array structured strictly under 40 words per value rule mapping
+  // FAQ content array structured strictly under 40 words per value rule mapping
   const faqs = [
     {
       q: "Is it safe for screen time?",
@@ -128,114 +136,121 @@ const Home = () => {
       <Navbar />
 
       {/* SECTION 1: HERO */}
-      <section id="home" className="pt-32 pb-16 sm:pb-24 bg-gradient-to-br from-[#fffdfa] via-white to-orange-50/50">
+      <section id="home" className="pt-32 pb-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center"
+            className="grid lg:grid-cols-2 gap-12 items-center"
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
           >
-            {/* LEFT SIDE */}
-            <motion.div variants={itemVariants} className="flex flex-col">
-              <div className="inline-flex items-center gap-2 bg-orange-50 border border-orange-200 text-[#ff7a00] px-4 py-1.5 rounded-xl font-bold text-xs sm:text-sm mb-5 w-fit shadow-sm shadow-orange-500/5">
-                ✨ Smart Eye Fitness for Kids
-              </div>
-
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-neutral-900 mb-3 leading-[1.1]">
-                Fun Games That Help Kids Improve
+            {/* LEFT ROW SEGMENT */}
+            <motion.div variants={itemVariants} className="flex flex-col text-left items-start">
+              <h1 className="text-5xl sm:text-6xl lg:text-[68px] font-black tracking-tight text-neutral-900 leading-[1.08] mb-4">
+                Fun Games That <br />
+                Help Kids <span className="text-[#bf5b1d]">Improve</span> <br />
+                <div className="inline-block h-[60px] sm:h-[75px] lg:h-[85px] overflow-hidden relative w-full mt-1">
+                  <AnimatePresence mode="wait">
+                    <motion.span
+                      key={words[index]}
+                      initial={{ y: "40%", opacity: 0 }}
+                      animate={{ y: "0%", opacity: 1 }}
+                      exit={{ y: "-40%", opacity: 0 }}
+                      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                      className="text-[#ff914d] absolute left-0 top-0 block w-full"
+                    >
+                      {words[index]}
+                    </motion.span>
+                  </AnimatePresence>
+                </div>
               </h1>
 
-              {/* Animated Word Loop */}
-              <div className="h-[55px] sm:h-[70px] lg:h-[85px] overflow-hidden mb-5 relative w-full">
-                <AnimatePresence mode="wait">
-                  <motion.h2
-                    key={words[index]}
-                    initial={{ y: "80%", opacity: 0 }}
-                    animate={{ y: "0%", opacity: 1 }}
-                    exit={{ y: "-80%", opacity: 0 }}
-                    transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                    className="text-4xl sm:text-5xl lg:text-6xl font-black bg-gradient-to-r from-[#ff7a00] to-orange-500 bg-clip-text text-transparent absolute top-0 left-0 w-full tracking-tight"
-                  >
-                    {words[index]}
-                  </motion.h2>
-                </AnimatePresence>
-              </div>
-
-              <p className="text-neutral-600 text-sm sm:text-base leading-relaxed max-w-lg mb-8 font-medium">
-                Interactive mobile games and AI-powered eye exercises designed to improve focus, eye coordination, and visual development in children naturally.
+              <p className="text-neutral-500 text-sm sm:text-base leading-relaxed max-w-lg mb-8 font-medium">
+                Interactive AI-powered eye training designed to improve focus, coordination, and visual development in children naturally.
               </p>
 
               {/* CTA BUTTONS */}
-              <div className="flex flex-col sm:flex-row gap-3.5">
-                <Button asChild className="w-full sm:w-auto h-11 px-8 bg-[#ff7a00] hover:bg-orange-600 text-white font-bold rounded-xl shadow-md shadow-orange-500/10 border-0 text-sm transition-transform active:scale-[0.98]">
-                  <button onClick={handleStartPlaying}>
-                    Start Playing
-                  </button>
+              <div className="flex flex-col sm:flex-row gap-3.5 mb-10 w-full sm:w-auto">
+                <Button 
+                  onClick={handleStartPlaying}
+                  className="h-14 px-8 bg-[#ff914d] hover:bg-orange-500 text-white font-black text-sm rounded-[24px] shadow-lg shadow-orange-500/10 border-0 tracking-wide transition transform active:scale-[0.98] w-full sm:w-auto"
+                >
+                  Start Training Now
                 </Button>
 
-                <Button variant="outline" className="w-full sm:w-auto h-11 px-8 border-neutral-200 bg-white text-neutral-700 font-bold rounded-xl hover:bg-neutral-50 hover:border-neutral-300 flex items-center justify-center gap-2 text-sm">
-                  <MessageSquare className="w-4 h-4 text-[#ff7a00]" />
+                {/* 💡 FIXED: Replaced 'Watch Demo' with 'Chat with Us' pointing securely to WhatsApp router */}
+                <Button 
+                  onClick={handleWhatsAppRedirect}
+                  variant="outline" 
+                  className="h-14 px-8 border-neutral-200 bg-white text-neutral-800 font-bold text-sm rounded-[24px] hover:bg-neutral-50 flex items-center justify-center gap-2 w-full sm:w-auto shadow-sm active:scale-[0.98] transition"
+                >
+                  <MessageSquare className="w-4 h-4 text-[#ff914d]" />
                   Chat with Us
                 </Button>
+              </div>
+
+              <div className="flex flex-wrap gap-2.5 max-w-md">
+                <span className="inline-flex items-center gap-2 text-xs font-black text-neutral-800 bg-neutral-50/80 border border-neutral-100 px-4 py-2 rounded-full shadow-sm">
+                  <span className="text-[#bf5b1d]">👁️</span> Lazy Eye Training
+                </span>
+                <span className="inline-flex items-center gap-2 text-xs font-black text-neutral-800 bg-neutral-50/80 border border-neutral-100 px-4 py-2 rounded-full shadow-sm">
+                  <span className="text-[#bf5b1d]">🎯</span> Better Focus
+                </span>
+                <span className="inline-flex items-center gap-2 text-xs font-black text-neutral-800 bg-neutral-50/80 border border-neutral-100 px-4 py-2 rounded-full shadow-sm">
+                  <span className="text-[#bf5b1d]">🪙</span> Earn Rewards
+                </span>
               </div>
             </motion.div>
 
             {/* RIGHT SIDE - ILLUSTRATION */}
-            <motion.div className="relative flex justify-center mt-6 lg:mt-0" variants={itemVariants}>
-              <div className="absolute w-72 h-72 sm:w-96 sm:h-96 bg-gradient-to-br from-orange-200 to-amber-100 rounded-full blur-[100px] opacity-40 pointer-events-none" />
+            <motion.div className="relative flex justify-center mt-8 lg:mt-0" variants={itemVariants}>
+              <div className="absolute w-80 h-80 bg-gradient-to-br from-orange-100 to-amber-50 rounded-full blur-[100px] opacity-30 pointer-events-none" />
 
-              <img
-                src="https://images.unsplash.com/photo-1516627145497-ae6968895b74?q=80&w=800&auto=format&fit=crop"
-                alt="Girl playing eye training game"
-                className="relative z-10 rounded-[32px] shadow-2xl border-4 sm:border-8 border-white w-full max-w-sm lg:max-w-md object-cover h-[340px] sm:h-[420px]"
-              />
-
-              {/* Floating UI Elements */}
-              <motion.div
-                className="absolute top-8 -left-2 bg-white/90 backdrop-blur-sm border border-neutral-100 rounded-xl px-4 py-2 shadow-md text-xs sm:text-sm font-bold text-neutral-800"
-                animate={{ y: [0, 8, 0] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-              >
-                👁️ Lazy Eye Training
-              </motion.div>
+              <div className="relative z-10 rounded-[40px] overflow-hidden p-2 bg-white shadow-xl border border-neutral-100">
+                <img
+                  src={heroImage}
+                  alt="Boy interacting with holographic focus tracking parameters"
+                  className="rounded-[32px] w-full max-w-sm lg:max-w-[460px] object-cover h-[320px] sm:h-[400px]"
+                />
+              </div>
 
               <motion.div
-                className="absolute bottom-16 -left-6 bg-white/90 backdrop-blur-sm border border-neutral-100 rounded-xl px-4 py-2 shadow-md text-xs sm:text-sm font-bold text-neutral-800"
-                animate={{ y: [0, -8, 0] }}
-                transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
+                className="absolute -bottom-4 right-2 sm:-right-4 bg-white/95 backdrop-blur-md border border-neutral-100 rounded-3xl p-4 shadow-xl z-20 flex items-center gap-3.5 min-w-[210px] text-left"
+                animate={{ y: [0, -6, 0] }}
+                transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
               >
-                🎯 Better Focus
-              </motion.div>
-
-              <motion.div
-                className="absolute bottom-6 -right-2 bg-white/90 backdrop-blur-sm border border-neutral-100 rounded-xl px-4 py-2 shadow-md text-xs sm:text-sm font-bold text-neutral-800"
-                animate={{ y: [0, 6, 0] }}
-                transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
-              >
-                🪙 Earn Rewards
+                <div className="w-9 h-9 rounded-xl bg-orange-500 text-white flex items-center justify-center font-black text-sm shadow-md shadow-orange-500/20 shrink-0">
+                  ⚡
+                </div>
+                <div className="space-y-1 min-w-0">
+                  <p className="text-[10px] font-black text-neutral-400 uppercase tracking-widest leading-none">Active AI Scan</p>
+                  <h4 className="text-xs font-black text-neutral-800 tracking-tight leading-none mt-1">Focusing... 98%</h4>
+                  <div className="w-24 h-1 bg-neutral-100 rounded-full mt-1.5 overflow-hidden">
+                    <div className="h-full bg-orange-500 w-[98%] rounded-full" />
+                  </div>
+                </div>
               </motion.div>
             </motion.div>
           </motion.div>
         </div>
       </section>
 
-      {/* SECTION 2: FEATURES */}
-      <section id="features" className="py-16 sm:py-24 bg-white border-y border-neutral-100">
+      {/* SECTION 2: THE FUTURE OF VISION CARE */}
+      <section id="features" className="py-20 bg-[#fafafa] border-t border-neutral-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            className="text-center mb-12 sm:mb-16"
+            className="text-center mb-16 space-y-3.5"
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-neutral-900 mb-3">
-              Why Parents Love Naintaara
+            <h2 className="text-4xl sm:text-5xl font-black tracking-tight text-neutral-900">
+              The Future of Vision Care
             </h2>
-            <p className="text-neutral-500 text-sm sm:text-base max-w-xl mx-auto font-medium">
-              Interactive eye-training experiences designed intuitively for childrens' developmental safety.
+            <p className="text-neutral-500 text-sm sm:text-base max-w-2xl mx-auto font-medium leading-relaxed">
+              Our technology blends medical science with world-class game design to create an experience children love.
             </p>
           </motion.div>
 
@@ -247,22 +262,42 @@ const Home = () => {
             viewport={{ once: true }}
           >
             {[
-              { icon: <Brain className="text-[#ff7a00] w-6 h-6" />, title: "AI Eye Tracking", desc: "Smart visual exercises powered by integrated webcam model configurations." },
-              { icon: "🎮", title: "Interactive Games", desc: "Engaging interactive layouts built specifically for pediatric visual correction." },
-              { icon: <Smartphone className="text-[#ff7a00] w-6 h-6" />, title: "Mobile Friendly", desc: "Access clean execution pipelines anywhere through standard responsive views." },
-              { icon: <BarChart3 className="text-[#ff7a00] w-6 h-6" />, title: "Progress Reports", desc: "Track performance graphs and dynamic visual convergence improvements." },
+              { 
+                icon: <Target className="w-5 h-5 text-[#8c4a24]" />, 
+                title: "AI Eye Tracking", 
+                desc: "Real-time ocular movement analysis ensures exercises are hitting the right spots every time." 
+              },
+              { 
+                icon: <Gamepad2 className="w-5 h-5 text-[#8c4a24]" />, 
+                title: "Interactive Games", 
+                desc: "3D immersive environments designed to keep children engaged while their eyes work hard." 
+              },
+              { 
+                icon: <Tablet className="w-5 h-5 text-[#8c4a24]" />, 
+                title: "Mobile Friendly", 
+                desc: "Train anywhere, anytime. Our platform works seamlessly on tablets and smartphones." 
+              },
+              { 
+                icon: <LineChart className="w-5 h-5 text-[#8c4a24]" />, 
+                title: "Progress Reports", 
+                desc: "Detailed insights for parents and doctors to track visual acuity improvements over time." 
+              },
             ].map((item, i) => (
               <motion.div
                 key={i}
                 variants={itemVariants}
-                whileHover={{ y: -6 }}
-                className="bg-white border border-neutral-200/60 rounded-2xl p-6 shadow-[0_4px_20px_rgba(0,0,0,0.02)] transition-all duration-200"
+                whileHover={{ y: -5 }}
+                className="bg-white border border-neutral-100 rounded-[32px] p-8 flex flex-col items-start text-left shadow-[0_15px_45px_rgba(0,0,0,0.02)] transition-all duration-300"
               >
-                <div className="w-12 h-12 rounded-xl bg-orange-50 flex items-center justify-center text-2xl mb-5">
+                <div className="w-12 h-12 rounded-full bg-[#fdf2e9] flex items-center justify-center mb-6 shrink-0 shadow-inner">
                   {item.icon}
                 </div>
-                <h3 className="text-lg font-bold text-neutral-900 mb-2">{item.title}</h3>
-                <p className="text-neutral-500 text-xs sm:text-sm leading-relaxed font-medium">{item.desc}</p>
+                <h3 className="text-xl font-black text-neutral-900 tracking-tight mb-3">
+                  {item.title}
+                </h3>
+                <p className="text-neutral-500 text-xs sm:text-sm leading-relaxed font-semibold">
+                  {item.desc}
+                </p>
               </motion.div>
             ))}
           </motion.div>
@@ -522,7 +557,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ==================== 🌟 FAQ ACCORDION SECTION 🌟 ==================== */}
+      {/* ==================== FAQ ACCORDION SECTION ==================== */}
       <section id="faq" className="py-16 sm:py-24 bg-slate-50 border-t border-neutral-100 text-left">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
