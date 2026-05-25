@@ -18,7 +18,7 @@ import About from "./pages/About";
 import Blog from "./pages/Blog";
 import Contact from "./pages/Contact";
 import EyeMovementTrainer from "./pages/Games/EyeMovementTrainer/EyeMovementTrainer";
-
+import ColorBlindnessTest from "./pages/Games/ColorBlindnessTest/ColorBlindnessTest";
 
 
 const ProtectedRoute = ({ children}) =>{
@@ -76,6 +76,14 @@ function App() {
     </ProtectedRoute>
   }
 />
+<Route
+  path="/games/colorblindness"
+  element={
+    <ProtectedRoute>
+      <ColorBlindnessTest />
+    </ProtectedRoute>
+  }
+/>  
 {/* <Route
   path="/games/eyeblink"
   element={

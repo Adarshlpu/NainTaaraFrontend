@@ -92,7 +92,23 @@ const Games = () => {
 
   topFloatingShapes: ["👁️", "🎯"],
 },
+
+{
+  title: "Color Test Challenge",
+  description:
+    "Test your color vision and improve color differentiation skills with this engaging color test game.",
+  previewIcon: "🌈",
+  customIconGrid: false,
+  coins: "+8 Coins",
+  path: "/games/colorblindness",
+  headerBg:
+    "bg-gradient-to-br from-amber-100 via-yellow-50 to-white",
+  buttonStyle:
+    "bg-amber-600 hover:bg-amber-700 text-white shadow-amber-500/10",
+  topFloatingShapes: ["🌟", "✨"],
+}
     
+
   ];
 
   return (

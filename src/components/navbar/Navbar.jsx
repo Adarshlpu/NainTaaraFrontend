@@ -116,7 +116,7 @@ const Navbar = () => {
               NAINOCULAR
             </h1>
             <span className="text-[10px] text-[#ff7a00] font-bold tracking-wider uppercase mt-0.5">
-              by Naintaara
+              Powered by Naintaara
             </span>
           </div>
         </Link>
