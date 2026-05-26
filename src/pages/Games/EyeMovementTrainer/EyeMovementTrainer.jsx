@@ -67,6 +67,11 @@ const EyeMovementTrainer = () => {
           y: random.y,
         });
       }
+
+//use for eye movement speed adjustment based on every level increase for the game 
+//speed
+
+
     }, speedMap[level]);
 
     return () => clearInterval(gameInterval);
