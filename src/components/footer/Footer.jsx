@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { Eye } from "lucide-react";
 
 const Footer = () => {
   const containerVariants = {
@@ -7,31 +8,28 @@ const Footer = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2,
+        staggerChildren: 0.05,
+        delayChildren: 0.1,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 10 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6 },
+      transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] },
     },
   };
 
   const socialLinks = [
     {
-      icon: "f",
-      label: "Facebook",
+      icon: "Facebook",
       href: "https://www.facebook.com/naintaaraopticals/",
     },
-
     {
-      icon: "in",
-      label: "LinkedIn",
+      icon: "LinkedIn",
       href: "https://www.linkedin.com/company/nain-taara-opticals/",
     },
   ];
@@ -40,231 +38,151 @@ const Footer = () => {
   const legalLinks = ["Privacy Policy", "Terms & Conditions", "Cookies"];
 
   return (
-    <footer className="bg-gradient-to-b from-[#fff7f0] via-white to-orange-50 pt-24 pb-10 mt-24 relative overflow-hidden">
-      
-      {/* Background Blur Elements */}
-      <div className="absolute top-0 left-0 w-72 h-72 bg-orange-200 blur-3xl opacity-20 rounded-full"></div>
-      <div className="absolute bottom-0 right-0 w-72 h-72 bg-orange-100 blur-3xl opacity-20 rounded-full"></div>
+    // 💡 DUB THEME: Completely flat pristine white background canvas with clear hairline gray border line dividers
+    <footer className="bg-[#ffffff] pt-20 pb-10 border-t border-[#e5e5e5] font-sans text-[#0a0a0a]">
+      <div className="max-w-[1200px] mx-auto px-6 sm:px-8 relative z-10">
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-
-        {/* Top Grid */}
+        {/* Top Content Grid Array */}
         <motion.div
-          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-14 mb-16"
+          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-16 text-left"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
         >
 
-          {/* Logo Section */}
-          <motion.div variants={itemVariants}>
-            <motion.div
-              className="flex items-center gap-3 mb-6 group cursor-pointer w-fit"
-              whileHover={{ scale: 1.05 }}
-            >
-              <motion.div
-                className="w-12 h-12 rounded-full bg-gradient-to-br from-[#ff7a00] to-orange-600 flex items-center justify-center text-white text-2xl shadow-lg"
-                whileHover={{ scale: 1.1, rotate: 10 }}
-              >
-                👁️
-              </motion.div>
-
-              <h1 className="text-2xl sm:text-3xl font-bold tracking-tight group-hover:text-[#ff7a00] transition duration-300">
+          {/* Core Brand Identity Column */}
+          <motion.div variants={itemVariants} className="space-y-4">
+            <Link to="/" className="flex items-center gap-2.5 w-fit group select-none">
+              {/* Jet Black Solid Utility Icon Block */}
+              <div className="w-8 h-8 rounded-lg bg-[#000000] flex items-center justify-center">
+                <Eye className="w-4 h-4 text-white stroke-[2]" />
+              </div>
+              <h1 className="text-xl font-bold tracking-tight text-[#0a0a0a] uppercase">
                 NAINOCULAR
               </h1>
-            </motion.div>
+            </Link>
 
-            <p className="text-gray-600 leading-relaxed text-sm sm:text-base max-w-sm mb-6">
-              Helping children improve vision through fun AI-powered games,
-              interactive exercises, and engaging eye fitness experiences.
+            <p className="text-[#171717] text-sm font-normal leading-relaxed max-w-xs">
+              Helping children improve vision through fun AI-powered games, interactive exercises, and engaging eye fitness experiences.
             </p>
 
-            {/* Social Icons */}
-            <div className="flex gap-3">
+            {/* Social Redirection Links */}
+            <div className="flex gap-4 pt-2">
               {socialLinks.map((social, i) => (
-                <motion.a
+                <a
                   key={i}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.1, y: -4 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="w-10 h-10 rounded-full bg-white border border-orange-200 flex items-center justify-center text-[#ff7a00] hover:bg-orange-100 transition-all duration-300 text-sm font-bold"
-                  title={social.label}
+                  className="text-xs font-medium text-[#404040] hover:text-[#0a0a0a] hover:underline transition-all"
                 >
                   {social.icon}
-                </motion.a>
+                </a>
               ))}
             </div>
           </motion.div>
 
-          {/* Product */}
+          {/* Product Navigation Array */}
           <motion.div variants={itemVariants}>
-            <h3 className="text-lg sm:text-xl font-bold mb-6 text-gray-900">
+            <h3 className="text-sm font-bold text-[#0a0a0a] uppercase tracking-wider mb-5">
               Product
             </h3>
-
-            <ul className="space-y-3 sm:space-y-4">
-
-              <motion.li whileHover={{ x: 8 }}>
-                <a
-                  href="/#features"
-                  className="text-gray-600 hover:text-[#ff7a00] transition-all duration-300 text-sm sm:text-base font-medium"
-                >
-                  Features
-                </a>
-              </motion.li>
-
-              <motion.li whileHover={{ x: 8 }}>
-                <a
-                  href="/games"
-                  className="text-gray-600 hover:text-[#ff7a00] transition-all duration-300 text-sm sm:text-base font-medium"
-                >
-                  Games
-                </a>
-              </motion.li>
-
-              <motion.li whileHover={{ x: 8 }}>
-                <a
-                  href="/rewards"
-                  className="text-gray-600 hover:text-[#ff7a00] transition-all duration-300 text-sm sm:text-base font-medium"
-                >
-                  Rewards
-                </a>
-              </motion.li>
-
-              <motion.li whileHover={{ x: 8 }}>
-                <a
-                  href="/#theory"
-                  className="text-gray-600 hover:text-[#ff7a00] transition-all duration-300 text-sm sm:text-base font-medium"
-                >
-                  Eye Therapy
-                </a>
-              </motion.li>
-
+            <ul className="space-y-3">
+              {[
+                { label: "Features", href: "/#features" },
+                { label: "Games", href: "/games" },
+                { label: "Rewards", href: "/rewards" },
+                { label: "Eye Therapy", href: "/#theory" }
+              ].map((link, i) => (
+                <li key={i}>
+                  <a
+                    href={link.href}
+                    className="text-sm font-normal text-[#171717] hover:text-[#0a0a0a] hover:underline transition-all"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </motion.div>
 
-          {/* Company */}
+          {/* Company Context Links Array */}
           <motion.div variants={itemVariants}>
-            <h3 className="text-lg sm:text-xl font-bold mb-6 text-gray-900">
+            <h3 className="text-sm font-bold text-[#0a0a0a] uppercase tracking-wider mb-5">
               Company
             </h3>
-
-            <ul className="space-y-3 sm:space-y-4">
+            <ul className="space-y-3">
               {companyLinks.map((item) => {
                 const routes = {
                   About: "/about",
                   Blog: "/blog",
                   Contact: "/contact",
                 };
-
                 return (
-                  <motion.li
-                    key={item}
-                    whileHover={{ x: 8 }}
-                    className="text-sm sm:text-base font-medium"
-                  >
+                  <li key={item}>
                     <Link
                       to={routes[item]}
-                      className="text-gray-600 hover:text-[#ff7a00] transition-all duration-300"
+                      className="text-sm font-normal text-[#171717] hover:text-[#0a0a0a] hover:underline transition-all"
                     >
                       {item}
                     </Link>
-                  </motion.li>
+                  </li>
                 );
               })}
             </ul>
           </motion.div>
 
-          {/* Contact */}
+          {/* Direct Support Metadata Column */}
           <motion.div variants={itemVariants}>
-            <h3 className="text-lg sm:text-xl font-bold mb-6 text-gray-900">
+            <h3 className="text-sm font-bold text-[#0a0a0a] uppercase tracking-wider mb-5">
               Contact
             </h3>
-
-            <ul className="space-y-3 sm:space-y-5 text-gray-600 text-sm sm:text-base mb-6">
-
-              <motion.li
-                whileHover={{ x: 8, color: "#ff7a00" }}
-                className="transition-all duration-300 cursor-pointer flex items-center gap-2"
-              >
-                <span>✉️</span>
-                <span>hello@nainocular.com</span>
-              </motion.li>
-
-              <motion.li
-                whileHover={{ x: 8, color: "#ff7a00" }}
-                className="transition-all duration-300 cursor-pointer flex items-center gap-2"
-              >
-                <span>📞</span>
-                <span>+91 9205050993</span>
-              </motion.li>
-
-              <motion.li
-                whileHover={{ x: 8, color: "#ff7a00" }}
-                className="transition-all duration-300 cursor-pointer flex items-center gap-2"
-              >
-                <span>📍</span>
-                <span>Delhi, India</span>
-              </motion.li>
-
+            <ul className="space-y-3 text-sm font-normal text-[#171717]">
+              <li className="flex items-center gap-2">
+                <span className="text-neutral-400">Email:</span>
+                <span className="font-medium text-[#0a0a0a]">hello@nainocular.com</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-neutral-400">Phone:</span>
+                <span className="font-medium text-[#0a0a0a]">+91 9205050993</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-neutral-400">Location:</span>
+                <span className="font-medium text-[#0a0a0a]">Delhi, India</span>
+              </li>
             </ul>
           </motion.div>
 
         </motion.div>
 
-        {/* Divider */}
-        <motion.div
-          className="border-t border-orange-100 pt-8 sm:pt-10"
-          initial={{ scaleX: 0 }}
-          whileInView={{ scaleX: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6">
+        {/* Bottom Bar Divider Line */}
+        <div className="border-t border-[#e5e5e5] pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-xs font-normal text-[#404040]">
+            © 2026 Nainocular. All rights reserved.
+          </p>
 
-            <motion.p
-              variants={itemVariants}
-              className="text-gray-500 text-xs sm:text-sm text-center sm:text-left"
-            >
-              © 2026 Nainocular. All rights reserved.
-            </motion.p>
-
-            <motion.div
-              variants={containerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              className="flex flex-wrap gap-4 sm:gap-6 text-xs sm:text-sm text-gray-500 justify-center sm:justify-end"
-            >
-              {legalLinks.map((link) => {
-                const routes = {
-                  "Privacy Policy": "/privacy-policy",
-                  "Terms & Conditions": "/terms-and-conditions",
-                  "Cookies": "/cookies-policy",
-                };
-
-                return (
-                  <motion.div
-                    key={link}
-                    variants={itemVariants}
-                    whileHover={{ x: 4 }}
-                  >
-                    <Link
-                      to={routes[link]}
-                      className="cursor-pointer transition-all duration-300 font-medium hover:text-[#ff7a00]"
-                    >
-                      {link}
-                    </Link>
-                  </motion.div>
-                );
-              })}
-            </motion.div>
-
+          {/* Legal Document Links Layout */}
+          <div className="flex flex-wrap gap-6 text-xs font-normal text-[#404040]">
+            {legalLinks.map((link) => {
+              const routes = {
+                "Privacy Policy": "/privacy-policy",
+                "Terms & Conditions": "/terms-and-conditions",
+                "Cookies": "/cookies-policy",
+              };
+              return (
+                <Link
+                  key={link}
+                  to={routes[link]}
+                  className="hover:text-[#0a0a0a] hover:underline transition-all"
+                >
+                  {link}
+                </Link>
+              );
+            })}
           </div>
-        </motion.div>
+        </div>
+
       </div>
     </footer>
   );
