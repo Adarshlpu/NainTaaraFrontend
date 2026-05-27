@@ -1,89 +1,23 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-// FIXED: Cleaned imports tracking structural dependencies flawlessly
-import { Eye, Smartphone, Brain, BarChart3, ArrowRight, MessageSquare, ChevronDown, Target, Gamepad2, Tablet, LineChart } from "lucide-react";
+// FIXED: Managed explicit lightweight iconography paths matching Dub's system layout rulesets
+import { 
+  Eye, Smartphone, Brain, BarChart3, ArrowRight, MessageSquare, 
+  ChevronDown, Target, Gamepad2, Tablet, LineChart 
+} from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 // Shadcn UI Elements
 import { Button } from "../../components/ui/button";
 import Navbar from "../../components/navbar/Navbar";
 import Footer from "../../components/footer/Footer";
-import heroImage from "../../assets/images/h1.jpg";
+import heroImage from "../../assets/images/h1.png";
 
 const Home = () => {
   const navigate = useNavigate();
   const words = ["Vision Therapy", "Myopia", "Lazy Eye", "Eye Fitness"];
   const [index, setIndex] = useState(0);
-  
-  // State variable tracking active layout indices for the FAQ dropdown toggle
   const [openFaq, setOpenFaq] = useState(null);
-
-  const handleStartPlaying = () => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      navigate("/dashboard");
-    } else {
-      navigate("/login");
-    }
-  };
-
-  // 💡 FIXED: Generates an automated secure WhatsApp link with a custom message payload
-  const handleWhatsAppRedirect = () => {
-    const phoneNumber = "919205050993";
-    const textMessage = encodeURIComponent("Hello Naintaara Team! I want to know more about the Eye Fitness games and vision training for my child.");
-    window.open(`https://wa.me/${phoneNumber}?text=${textMessage}`, "_blank");
-  };
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIndex((prev) => (prev + 1) % words.length);
-    }, 2500);
-    return () => clearInterval(interval);
-  }, []);
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.08,
-        delayChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 15 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
-    },
-  };
-
-  const testimonials = [
-    {
-      name: "Priya Sharma",
-      role: "Parent",
-      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400&auto=format&fit=crop",
-      review: "My daughter's focus improved dramatically in just 3 weeks. Naintaara made eye training fun!",
-      rating: 5,
-    },
-    {
-      name: "Rahul Patel",
-      role: "Parent",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop",
-      review: "Best investment for my son's vision health. Doctors recommended it and he loves playing!",
-      rating: 5,
-    },
-    {
-      name: "Anjali Gupta",
-      role: "Parent",
-      image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=400&auto=format&fit=crop",
-      review: "The progress reports are amazing. Finally, I can see my child's improvement tracked clearly.",
-      rating: 5,
-    },
-  ];
 
   const games = [
     {
@@ -103,7 +37,45 @@ const Home = () => {
     },
   ];
 
-  // FAQ content array structured strictly under 40 words per value rule mapping
+  const handleStartPlaying = () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/dashboard");
+    } else {
+      navigate("/login");
+    }
+  };
+
+  const handleWhatsAppRedirect = () => {
+    const phoneNumber = "919205050993";
+    const textMessage = encodeURIComponent("Hello Naintaara Team! I want to know more about the Eye Fitness games and vision training for my child.");
+    window.open(`https://wa.me/${phoneNumber}?text=${textMessage}`, "_blank");
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % words.length);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, []);
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.06, delayChildren: 0.05 },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 12 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] },
+    },
+  };
+
   const faqs = [
     {
       q: "Is it safe for screen time?",
@@ -132,33 +104,53 @@ const Home = () => {
   ];
 
   return (
-    <div className="bg-[#fafafa] overflow-hidden antialiased selection:bg-orange-100">
+    <div className="bg-[#ffffff] overflow-hidden antialiased text-[#0a0a0a] font-sans selection:bg-slate-100">
       <Navbar />
 
-      {/* SECTION 1: HERO */}
-      <section id="home" className="pt-32 pb-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* ==================== SECTION 1: PREMIUM MED-TECH HERO CONTAINER ==================== */}
+      <section id="home" className="pt-28 pb-16 sm:pt-36 sm:pb-24 bg-[#ffffff] relative overflow-hidden text-[#0a0a0a] font-sans">
+        
+        {/* PREMIUM TECH BACKGROUND ARCHITECTURE */}
+        <div 
+          className="absolute inset-0 opacity-[0.015] pointer-events-none z-0" 
+          style={{
+            backgroundImage: `radial-gradient(#000000 1px, transparent 0)`,
+            backgroundSize: '24px 24px'
+          }}
+        />
+
+        {/* Soft Ambient Lighting Blurs */}
+        <div className="absolute top-[20%] left-[45%] -translate-x-1/2 -translate-y-1/2 w-[280px] sm:w-[450px] h-[280px] sm:h-[450px] bg-gradient-to-tr from-[#ea580c]/8 to-transparent rounded-full blur-[80px] sm:blur-[120px] pointer-events-none z-0" />
+        
+        <div className="absolute top-[35%] left-[55%] -translate-x-1/2 -translate-y-1/2 w-[240px] sm:w-[380px] h-[240px] sm:h-[380px] bg-gradient-to-br from-[#3b82f6]/6 to-transparent rounded-full blur-[70px] sm:blur-[100px] pointer-events-none z-0" />
+
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 px-8 relative z-10">
           <motion.div
-            className="grid lg:grid-cols-2 gap-12 items-center"
+            className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center"
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
           >
-            {/* LEFT ROW SEGMENT */}
-            <motion.div variants={itemVariants} className="flex flex-col text-left items-start">
-              <h1 className="text-5xl sm:text-6xl lg:text-[68px] font-black tracking-tight text-neutral-900 leading-[1.08] mb-4">
-                Fun Games That <br />
-                Help Kids <span className="text-[#bf5b1d]">Improve</span> <br />
-                <div className="inline-block h-[60px] sm:h-[75px] lg:h-[85px] overflow-hidden relative w-full mt-1">
+            {/* LEFT SIDE: PACKED DATA BLOCK */}
+            <motion.div variants={itemVariants} className="flex flex-col text-left items-start w-full">
+              <div className="inline-flex items-center bg-[#f5f5f5] text-[#171717] border border-[#e5e5e5] px-3.5 py-1 rounded-full text-xs font-medium mb-6 select-none shadow-[0_1px_2px_rgba(0,0,0,0.02)] max-w-full truncate">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#ea580c] mr-2 animate-pulse shrink-0" />
+                Clinically Guided Vision Therapy
+              </div>
+
+              <h1 className="text-3xl sm:text-5xl lg:text-[52px] font-bold tracking-tight text-[#0a0a0a] leading-[1.14] mb-5 w-full">
+                Home Vision Therapy <br />
+                For Growing Kids <br />
+                <div className="inline-block h-[40px] sm:h-[55px] lg:h-[65px] overflow-hidden relative w-full mt-1">
                   <AnimatePresence mode="wait">
                     <motion.span
                       key={words[index]}
-                      initial={{ y: "40%", opacity: 0 }}
+                      initial={{ y: "30%", opacity: 0 }}
                       animate={{ y: "0%", opacity: 1 }}
-                      exit={{ y: "-40%", opacity: 0 }}
-                      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                      className="text-[#ff914d] absolute left-0 top-0 block w-full"
+                      exit={{ y: "-30%", opacity: 0 }}
+                      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                      className="text-[#ea580c] absolute left-0 top-0 block w-full font-bold"
                     >
                       {words[index]}
                     </motion.span>
@@ -166,138 +158,107 @@ const Home = () => {
                 </div>
               </h1>
 
-              <p className="text-neutral-500 text-sm sm:text-base leading-relaxed max-w-lg mb-8 font-medium">
-                Interactive AI-powered eye training designed to improve focus, coordination, and visual development in children naturally.
+              <p className="text-[#404040] text-sm sm:text-base leading-relaxed max-w-md mb-6 sm:mb-8 font-normal">
+                Interactive, scientifically designed exercises that strengthen focus, depth perception, and eye tracking directly from home.
               </p>
 
-              {/* CTA BUTTONS */}
-              <div className="flex flex-col sm:flex-row gap-3.5 mb-10 w-full sm:w-auto">
-                <Button 
+              <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto mb-8">
+                <button 
                   onClick={handleStartPlaying}
-                  className="h-14 px-8 bg-[#ff914d] hover:bg-orange-500 text-white font-black text-sm rounded-[24px] shadow-lg shadow-orange-500/10 border-0 tracking-wide transition transform active:scale-[0.98] w-full sm:w-auto"
+                  className="h-10 px-6 bg-[#ea580c] hover:bg-[#c2410c] text-white font-medium text-sm rounded-lg transition-all shadow-[0_1px_2px_0_rgba(0,0,0,0.05)] active:scale-[0.98] cursor-pointer w-full sm:w-auto text-center border-0"
                 >
                   Start Training Now
-                </Button>
+                </button>
 
-                {/* 💡 FIXED: Replaced 'Watch Demo' with 'Chat with Us' pointing securely to WhatsApp router */}
-                <Button 
+                <button 
                   onClick={handleWhatsAppRedirect}
-                  variant="outline" 
-                  className="h-14 px-8 border-neutral-200 bg-white text-neutral-800 font-bold text-sm rounded-[24px] hover:bg-neutral-50 flex items-center justify-center gap-2 w-full sm:w-auto shadow-sm active:scale-[0.98] transition"
+                  className="h-10 px-5 bg-white border border-[#e5e5e5] hover:bg-[#f5f5f5] text-[#0a0a0a] font-medium text-sm rounded-lg transition-all flex items-center justify-center gap-1.5 w-full sm:w-auto shadow-[0_1px_2px_0_rgba(0,0,0,0.05)]"
                 >
-                  <MessageSquare className="w-4 h-4 text-[#ff914d]" />
+                  <MessageSquare className="w-4 h-4 text-[#404040]" />
                   Chat with Us
-                </Button>
+                </button>
               </div>
 
-              <div className="flex flex-wrap gap-2.5 max-w-md">
-                <span className="inline-flex items-center gap-2 text-xs font-black text-neutral-800 bg-neutral-50/80 border border-neutral-100 px-4 py-2 rounded-full shadow-sm">
-                  <span className="text-[#bf5b1d]">👁️</span> Lazy Eye Training
-                </span>
-                <span className="inline-flex items-center gap-2 text-xs font-black text-neutral-800 bg-neutral-50/80 border border-neutral-100 px-4 py-2 rounded-full shadow-sm">
-                  <span className="text-[#bf5b1d]">🎯</span> Better Focus
-                </span>
-                <span className="inline-flex items-center gap-2 text-xs font-black text-neutral-800 bg-neutral-50/80 border border-neutral-100 px-4 py-2 rounded-full shadow-sm">
-                  <span className="text-[#bf5b1d]">🪙</span> Earn Rewards
-                </span>
+              <div className="flex flex-wrap gap-2 w-full">
+                {["👁️ Amblyopia Care", "🎯 Spatial Focus", "🪙 Coin Rewards"].map((tag, i) => (
+                  <span key={i} className="text-xs font-medium text-[#404040] bg-[#ffffff] border border-[#e5e5e5] px-3.5 py-1.5 rounded-full shadow-[0_1px_2px_rgba(0,0,0,0.02)]">{tag}</span>
+                ))}
               </div>
             </motion.div>
 
-            {/* RIGHT SIDE - ILLUSTRATION */}
-            <motion.div className="relative flex justify-center mt-8 lg:mt-0" variants={itemVariants}>
-              <div className="absolute w-80 h-80 bg-gradient-to-br from-orange-100 to-amber-50 rounded-full blur-[100px] opacity-30 pointer-events-none" />
+            {/* 🔥 RIGHT SIDE REDESIGNED: PREMIUM BROWSER APP WINDOW CONTAINER */}
+            <motion.div className="relative w-full max-w-md lg:max-w-[480px] mx-auto mt-6 lg:mt-0" variants={itemVariants}>
+              
+              {/* Subtle back ambient orange drop glow matching your startup vibe */}
+              <div className="absolute inset-0 bg-[#ea580c]/5 rounded-2xl blur-3xl transform scale-95 pointer-events-none" />
 
-              <div className="relative z-10 rounded-[40px] overflow-hidden p-2 bg-white shadow-xl border border-neutral-100">
-                <img
-                  src={heroImage}
-                  alt="Boy interacting with holographic focus tracking parameters"
-                  className="rounded-[32px] w-full max-w-sm lg:max-w-[460px] object-cover h-[320px] sm:h-[400px]"
-                />
+              {/* Minimal Web Application Shell Panel Structure */}
+              <div className="relative z-10 w-full bg-white border border-[#e5e5e5] rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.04)] overflow-hidden">
+                
+                {/* 💻 Browser Window Custom Top Bar Header */}
+                <div className="w-full h-8 sm:h-9 bg-[#f5f5f5] border-b border-[#e5e5e5] flex items-center justify-between px-3 sm:px-4 select-none">
+                  {/* Three Color Window Dots */}
+                  <div className="flex items-center gap-1.5">
+                    <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-[#e5e5e5] border border-neutral-300/40" />
+                    <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-[#e5e5e5] border border-neutral-300/40" />
+                    <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-[#e5e5e5] border border-neutral-300/40" />
+                  </div>
+                  {/* Simulated App Safe URL field */}
+                  <div className="bg-white px-4 sm:px-8 py-0.5 text-[9px] sm:text-[10px] font-medium text-[#6b7280] rounded border border-[#e5e5e5] tracking-tight truncate max-w-[150px] sm:max-w-none">
+                    app.nainocular.com
+                  </div>
+                  <div className="w-8 sm:w-10" /> {/* Symmetry spacer */}
+                </div>
+
+                {/* Main Product Screenshot Window Space */}
+                <div className="p-1 bg-[#ffffff]">
+                  <img
+                    src={heroImage}
+                    alt="Nainocular live dynamic app platform view"
+                    className="w-full h-[220px] sm:h-[340px] rounded-lg object-cover select-none pointer-events-none"
+                  />
+                </div>
               </div>
 
-              <motion.div
-                className="absolute -bottom-4 right-2 sm:-right-4 bg-white/95 backdrop-blur-md border border-neutral-100 rounded-3xl p-4 shadow-xl z-20 flex items-center gap-3.5 min-w-[210px] text-left"
-                animate={{ y: [0, -6, 0] }}
-                transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
+              {/* 📊 FLOATING PERFORMANCE DIAGNOSTICS CHIP */}
+              <motion.div 
+                className="absolute -bottom-4 -right-1 sm:-bottom-5 sm:-right-2 bg-white border border-[#e5e5e5] rounded-lg p-2.5 sm:p-3 flex items-center gap-2.5 sm:gap-3 text-left shadow-[0_8px_20px_rgba(0,0,0,0.04)] z-20 max-w-[90%] sm:max-w-none"
+                animate={{ y: [0, -4, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
               >
-                <div className="w-9 h-9 rounded-xl bg-orange-500 text-white flex items-center justify-center font-black text-sm shadow-md shadow-orange-500/20 shrink-0">
-                  ⚡
+                <div className="w-2 h-2 rounded-full bg-[#3b82f6] relative flex items-center justify-center shrink-0">
+                  <span className="absolute w-full h-full rounded-full bg-[#3b82f6]/40 animate-ping" />
                 </div>
-                <div className="space-y-1 min-w-0">
-                  <p className="text-[10px] font-black text-neutral-400 uppercase tracking-widest leading-none">Active AI Scan</p>
-                  <h4 className="text-xs font-black text-neutral-800 tracking-tight leading-none mt-1">Focusing... 98%</h4>
-                  <div className="w-24 h-1 bg-neutral-100 rounded-full mt-1.5 overflow-hidden">
-                    <div className="h-full bg-orange-500 w-[98%] rounded-full" />
-                  </div>
+                <div className="space-y-0.5 min-w-0">
+                  <p className="text-[9px] font-medium text-[#6b7280] uppercase tracking-wider leading-none">Active AI Diagnostics</p>
+                  <h4 className="text-xs font-bold text-[#0a0a0a] truncate">Ocular Feedback: 98%</h4>
                 </div>
               </motion.div>
+
             </motion.div>
           </motion.div>
         </div>
       </section>
 
       {/* SECTION 2: THE FUTURE OF VISION CARE */}
-      <section id="features" className="py-20 bg-[#fafafa] border-t border-neutral-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="text-center mb-16 space-y-3.5"
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <h2 className="text-4xl sm:text-5xl font-black tracking-tight text-neutral-900">
-              The Future of Vision Care
-            </h2>
-            <p className="text-neutral-500 text-sm sm:text-base max-w-2xl mx-auto font-medium leading-relaxed">
-              Our technology blends medical science with world-class game design to create an experience children love.
-            </p>
+      <section id="features" className="py-20 bg-[#f5f5f5] border-y border-[#e5e5e5]">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <motion.div className="mb-14 space-y-2" initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#0a0a0a]">The Future of Vision Care</h2>
+            <p className="text-[#404040] text-sm sm:text-base max-w-xl mx-auto font-normal">Our technology blends medical science with world-class game design to create an experience children love.</p>
           </motion.div>
 
-          <motion.div
-            className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
+          <motion.div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6" variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true }}>
             {[
-              { 
-                icon: <Target className="w-5 h-5 text-[#8c4a24]" />, 
-                title: "AI Eye Tracking", 
-                desc: "Real-time ocular movement analysis ensures exercises are hitting the right spots every time." 
-              },
-              { 
-                icon: <Gamepad2 className="w-5 h-5 text-[#8c4a24]" />, 
-                title: "Interactive Games", 
-                desc: "3D immersive environments designed to keep children engaged while their eyes work hard." 
-              },
-              { 
-                icon: <Tablet className="w-5 h-5 text-[#8c4a24]" />, 
-                title: "Mobile Friendly", 
-                desc: "Train anywhere, anytime. Our platform works seamlessly on tablets and smartphones." 
-              },
-              { 
-                icon: <LineChart className="w-5 h-5 text-[#8c4a24]" />, 
-                title: "Progress Reports", 
-                desc: "Detailed insights for parents and doctors to track visual acuity improvements over time." 
-              },
+              { icon: <Target className="w-5 h-5 text-[#3b82f6]" />, title: "AI Eye Tracking", desc: "Real-time ocular movement analysis ensures exercises are hitting the right spots every time." },
+              { icon: <Gamepad2 className="w-5 h-5 text-[#7c3aed]" />, title: "Interactive Games", desc: "3D immersive environments designed to keep children engaged while their eyes work hard." },
+              { icon: <Tablet className="w-5 h-5 text-[#16a34a]" />, title: "Mobile Friendly", desc: "Train anywhere, anytime. Our platform works seamlessly on tablets and smartphones." },
+              { icon: <LineChart className="w-5 h-5 text-[#ea580c]" />, title: "Progress Reports", desc: "Detailed insights for parents and doctors to track visual acuity improvements over time." },
             ].map((item, i) => (
-              <motion.div
-                key={i}
-                variants={itemVariants}
-                whileHover={{ y: -5 }}
-                className="bg-white border border-neutral-100 rounded-[32px] p-8 flex flex-col items-start text-left shadow-[0_15px_45px_rgba(0,0,0,0.02)] transition-all duration-300"
-              >
-                <div className="w-12 h-12 rounded-full bg-[#fdf2e9] flex items-center justify-center mb-6 shrink-0 shadow-inner">
-                  {item.icon}
-                </div>
-                <h3 className="text-xl font-black text-neutral-900 tracking-tight mb-3">
-                  {item.title}
-                </h3>
-                <p className="text-neutral-500 text-xs sm:text-sm leading-relaxed font-semibold">
-                  {item.desc}
-                </p>
+              <motion.div key={i} variants={itemVariants} className="bg-white border border-[#e5e5e5] rounded-xl p-6 flex flex-col items-start text-left shadow-none hover:border-[#d4d4d4] transition duration-200">
+                <div className="w-10 h-10 rounded-lg bg-[#f5f5f5] border border-[#e5e5e5] flex items-center justify-center mb-5 shrink-0">{item.icon}</div>
+                <h3 className="text-lg font-bold text-[#0a0a0a] mb-2">{item.title}</h3>
+                <p className="text-[#404040] text-xs sm:text-sm font-normal leading-relaxed">{item.desc}</p>
               </motion.div>
             ))}
           </motion.div>
@@ -305,292 +266,107 @@ const Home = () => {
       </section>
 
       {/* SECTION 3: VISION THEORY */}
-      <section id="theory" className="py-16 sm:py-24 bg-gradient-to-br from-[#fffdfa] via-white to-orange-50/40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="grid lg:grid-cols-2 gap-12 items-center"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            {/* LEFT IMAGE */}
-            <motion.div className="order-2 lg:order-1 flex justify-center" variants={itemVariants}>
-              <img
-                src="https://images.unsplash.com/photo-1588072432836-e10032774350?q=80&w=800&auto=format&fit=crop"
-                alt="Vision Problems illustration"
-                className="rounded-[28px] shadow-xl border border-neutral-200/50 w-full max-w-sm"
-              />
-            </motion.div>
-
-            {/* RIGHT CONTENT */}
-            <motion.div className="order-1 lg:order-2" variants={itemVariants}>
-              <div className="inline-flex bg-orange-50 border border-orange-200 text-[#ff7a00] px-4 py-1 rounded-xl text-xs font-bold mb-4 shadow-sm">
-                👁️ Better Understanding
-              </div>
-
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-neutral-900 mb-4 leading-tight">
-                Understanding <span className="text-[#ff7a00]">Vision Problems</span>
-              </h2>
-
-              <p className="text-neutral-600 text-sm sm:text-base leading-relaxed mb-6 font-medium">
-                We safely bridge behavioral pediatric ophthalmology data models with gamified software interfaces to motivate active visual physical therapy bounds.
-              </p>
-
-              <div className="grid gap-3 sm:grid-cols-3">
+      <section id="theory" className="py-20 bg-white border-b border-[#e5e5e5]">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="flex justify-center w-full">
+              <img src="https://images.unsplash.com/photo-1588072432836-e10032774350?q=80&w=800&auto=format&fit=crop" alt="Vision Analytics diagram" className="rounded-xl border border-[#e5e5e5] w-full max-w-sm" />
+            </div>
+            <div className="text-left space-y-4 w-full">
+              <span className="text-[#3b82f6] text-xs font-bold uppercase tracking-wider block">Clinical Foundation</span>
+              <h2 className="text-3xl font-bold text-[#0a0a0a]">Understanding Vision Problems</h2>
+              <p className="text-[#171717] text-sm leading-relaxed font-normal">We safely bridge behavioral pediatric ophthalmology data models with gamified software interfaces to motivate active visual physical therapy bounds.</p>
+              <div className="grid gap-3 grid-cols-1 sm:grid-cols-3">
                 {[
-                  { title: "Lazy Eye", desc: "Improves binocular coordination vectors." },
-                  { title: "Myopia", desc: "Supports accommodation relaxation tracks." },
-                  { title: "Vision Therapy", desc: "Interactive eye movement pipelines." },
+                  { title: "Lazy Eye", desc: "Improves binocular coordination links." },
+                  { title: "Myopia", desc: "Supports accommodation muscle tracking." },
+                  { title: "Eye Fitness", desc: "Interactive physical training metrics." },
                 ].map((item, i) => (
-                  <div key={i} className="bg-white p-4 rounded-xl shadow-sm border border-neutral-200/60">
-                    <h3 className="font-bold text-sm sm:text-base text-neutral-900 mb-1">{item.title}</h3>
-                    <p className="text-neutral-500 text-[11px] sm:text-xs leading-relaxed font-medium">{item.desc}</p>
+                  <div key={i} className="bg-[#f5f5f5] p-4 rounded-xl border border-[#e5e5e5] text-left">
+                    <h3 className="font-bold text-xs sm:text-sm text-[#0a0a0a] mb-1">{item.title}</h3>
+                    <p className="text-[#404040] text-[11px] sm:text-xs leading-normal font-normal">{item.desc}</p>
                   </div>
                 ))}
-              </div>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* SECTION 4: GAME PREVIEW */}
-      <section id="games" className="py-16 sm:py-24 bg-white border-b border-neutral-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="text-center mb-12"
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-neutral-900 mb-3">
-              Interactive Eye Training Games
-            </h2>
-            <p className="text-neutral-500 text-sm sm:text-base max-w-xl mx-auto font-medium">
-              Engaging modules structured to keep active tracking tracking intervals completely optimized.
-            </p>
-          </motion.div>
-
-          <motion.div
-            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            {games.map((game, i) => (
-              <motion.div
-                key={i}
-                variants={itemVariants}
-                whileHover={{ y: -4 }}
-                className="bg-white border border-neutral-200/80 rounded-2xl p-6 shadow-sm flex flex-col justify-between"
-              >
-                <div>
-                  <div className="text-4xl mb-4">{game.emoji}</div>
-                  <h3 className="text-lg font-bold text-neutral-900 mb-1.5">{game.title}</h3>
-                  <p className="text-neutral-500 text-xs sm:text-sm font-medium leading-relaxed">{game.desc}</p>
-                </div>
-                <Link to="/login" className="mt-5 w-fit">
-                  <div className="w-9 h-9 rounded-xl bg-orange-50 hover:bg-[#ff7a00] text-[#ff7a00] hover:text-white flex items-center justify-center font-bold transition-colors duration-200 cursor-pointer text-sm">
-                    <ArrowRight className="w-4 h-4" />
-                  </div>
-                </Link>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* SECTION: SMART GLASSES SHOWCASE */}
-      <section className="py-16 sm:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="mb-8"
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <p className="text-[#ff7a00] font-bold text-xs uppercase tracking-wider mb-1">Exclusively for Naintaara</p>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-neutral-900">Smart Vision Glasses 👓</h2>
-          </motion.div>
-
-          {/* GLASSES MATRIX */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-            {[
-              { title: "Crystal Clear", subtitle: "Transparent Frames", image: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?q=80&w=1200&auto=format&fit=crop" },
-              { title: "Trending", subtitle: "Pokemon Edition", image: "https://images.unsplash.com/photo-1574258495973-f010dfbb5371?q=80&w=1200&auto=format&fit=crop" },
-              { title: "Bold Signature", subtitle: "Premium Vision Frames", image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=1200&auto=format&fit=crop" },
-              { title: "Gilded", subtitle: "Luxury Kids Frames", image: "https://images.unsplash.com/photo-1591076482161-42ce6da69f67?q=80&w=1200&auto=format&fit=crop" },
-              { title: "2 in 1 Eye + Sun", subtitle: "Smart Switch", image: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?q=80&w=1200&auto=format&fit=crop" },
-              { title: "Feather-light", subtitle: "Ultra Light Frames", image: "https://images.unsplash.com/photo-1574258495973-f010dfbb5371?q=80&w=1200&auto=format&fit=crop" },
-            ].map((item, i) => (
-              <motion.div
-                key={i}
-                whileHover={{ y: -5, scale: 1.01 }}
-                className="relative rounded-[20px] overflow-hidden shadow-md group cursor-pointer border border-neutral-100"
-              >
-                <img src={item.image} alt={item.title} className="w-full h-[200px] object-cover group-hover:scale-105 transition duration-500" />
-                <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/80 via-neutral-950/20 to-transparent" />
-                <div className="absolute bottom-4 left-4 z-10">
-                  <h3 className="text-xl font-bold text-white">{item.title}</h3>
-                  <p className="text-neutral-300 text-xs font-medium">{item.subtitle}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* SECTION 5: REWARDS */}
-      <section id="rewards" className="py-16 sm:py-24 bg-gradient-to-br from-[#fffdfa] via-white to-orange-50/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-[28px] border border-neutral-200/60 p-6 sm:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.02)]">
-            <div className="grid lg:grid-cols-2 gap-10 items-center">
-              <div>
-                <div className="inline-flex bg-orange-50 border border-orange-200 text-[#ff7a00] px-4 py-1 rounded-xl text-xs font-bold mb-4">
-                  🎁 Play Games. Unlock Discounts.
-                </div>
-                <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-neutral-900 mb-6 leading-snug">
-                  Earn Vision Coins by completing eye-training games and redeem rewards for premium spectacle deductions.
-                </h2>
-
-                <div className="grid sm:grid-cols-2 gap-3.5">
-                  {[
-                    { icon: "🪙", title: "+10 Login Bonus", desc: "Daily login checkins." },
-                    { icon: "⭐", title: "+5 Coins Per Game", desc: "Active playtime points." },
-                    { icon: "🔥", title: "7 Day Streak Bonus", desc: "Unlock +20 extra shards." },
-                    { icon: "👓", title: "Redeem Frame Vouchers", desc: "Secure automated code slips." },
-                  ].map((item, i) => (
-                    <div key={i} className="bg-neutral-50/50 border border-neutral-200/60 p-4 rounded-xl shadow-none">
-                      <div className="text-2xl mb-1">{item.icon}</div>
-                      <h4 className="font-bold text-sm sm:text-base text-neutral-900 mb-0.5">{item.title}</h4>
-                      <p className="text-neutral-500 text-xs font-medium">{item.desc}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="relative flex justify-center">
-                <div className="absolute w-64 h-64 bg-gradient-to-br from-amber-200 to-orange-100 rounded-full blur-[90px] opacity-40 pointer-events-none" />
-                <img
-                  src="https://images.unsplash.com/photo-1516627145497-ae6968895b74?q=80&w=800&auto=format&fit=crop"
-                  alt="Rewards showcase"
-                  className="relative z-10 rounded-[24px] border-4 border-white shadow-xl w-full max-w-xs object-cover h-[300px]"
-                />
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* SECTION: NAINTAARA VISION REELS */}
-      <section className="py-16 sm:py-24 bg-neutral-950 overflow-hidden relative">
-        <div className="absolute top-0 left-0 w-80 h-80 bg-orange-500/10 blur-[120px] rounded-full pointer-events-none" />
-        <div className="absolute bottom-0 right-0 w-80 h-80 bg-red-500/10 blur-[120px] rounded-full pointer-events-none" />
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-12">
-            <p className="text-[#ff7a00] font-bold text-xs uppercase tracking-[2px] mb-2">Trending Vision Styles</p>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Naintaara Vision Reels ✨</h2>
+      {/* SECTION 4: GAME PREVIEW */}
+      <section id="games" className="py-20 bg-white border-b border-[#e5e5e5]">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-10 gap-4">
+            <div className="text-left">
+              <h2 className="text-3xl font-bold text-[#0a0a0a]">Interactive Eye Training Games</h2>
+              <p className="text-[#404040] text-xs sm:text-sm font-normal">Engaging modules structured to keep active tracking tracking intervals completely optimized.</p>
+            </div>
+            <button onClick={() => navigate("/games")} className="inline-flex items-center gap-1.5 text-sm font-bold text-[#0a0a0a] hover:opacity-80 transition duration-150 shrink-0">
+              View All Games <ArrowRight className="w-4 h-4 stroke-[2.5]" />
+            </button>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { name: "Smart Focus", image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=1200&auto=format&fit=crop", views: "1.2M" },
-              { name: "Vision Style", image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1200&auto=format&fit=crop", views: "980K" },
-              { name: "Eye Fitness", image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1200&auto=format&fit=crop", views: "2.4M" },
-              { name: "Future Frames", image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1200&auto=format&fit=crop", views: "870K" },
-            ].map((reel, i) => (
-              <motion.div key={i} whileHover={{ y: -6, scale: 1.01 }} className="relative h-[440px] rounded-[24px] overflow-hidden group cursor-pointer shadow-xl">
-                <img src={reel.image} alt={reel.name} className="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
-                <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/20 to-transparent" />
-                <div className="absolute top-4 left-4 bg-[#ff7a00] text-white px-3 py-1 rounded-lg text-xs font-bold shadow-md">Trending</div>
-                <div className="absolute bottom-4 left-4 right-4 text-white">
-                  <h3 className="text-lg font-bold mb-1">{reel.name}</h3>
-                  <div className="flex justify-between items-center text-xs text-neutral-300">
-                    <span>{reel.views} Views</span>
-                    <span>❤️ 24k</span>
-                  </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {games.map((game, i) => (
+              <div key={i} className="bg-white border border-[#e5e5e5] rounded-xl p-6 flex flex-col justify-between items-start text-left hover:border-[#d4d4d4] transition duration-200">
+                <div className="w-full">
+                  <div className="text-3xl mb-4 bg-[#f5f5f5] w-12 h-12 rounded-lg flex items-center justify-center border border-[#e5e5e5]">{game.emoji}</div>
+                  <h3 className="text-base font-bold text-[#0a0a0a] mb-1.5">{game.title}</h3>
+                  <p className="text-[#404040] text-xs sm:text-sm font-medium leading-relaxed">{game.desc}</p>
                 </div>
-              </motion.div>
+                <Link to="/login" className="mt-5 w-fit">
+                  <div className="w-8 h-8 rounded-full border border-[#e5e5e5] hover:border-black text-black flex items-center justify-center transition-all bg-white shadow-[0_1px_2px_0_rgba(0,0,0,0.05)]">
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </div>
+                </Link>
+              </div>
             ))}
           </div>
-
-          <motion.div whileHover={{ scale: 1.005 }} className="mt-16 bg-gradient-to-r from-[#ff7a00] to-orange-600 rounded-[28px] p-8 sm:p-12 text-center shadow-xl border border-orange-500/20">
-            <h3 className="text-2xl sm:text-3xl font-bold text-white mb-3 tracking-tight">Discover The Future Of Eye Fitness 👓</h3>
-            <p className="text-white/80 text-sm max-w-xl mx-auto mb-6 font-medium">Explore modern tracking exercises and smart optical modules designed recursively for child growth.</p>
-            <Button className="h-10 px-6 bg-white hover:bg-neutral-50 text-[#ff7a00] font-bold rounded-xl border-0 text-xs shadow-sm">Explore More →</Button>
-          </motion.div>
         </div>
       </section>
 
-      {/* SECTION 6: TESTIMONIALS */}
-      <section className="py-16 sm:py-24 bg-white overflow-hidden border-t border-neutral-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-neutral-900 mb-2">Parents Love Naintaara</h2>
-            <p className="text-neutral-500 text-sm sm:text-base font-medium">Real tracking logs shared securely from verified family parameters.</p>
+      {/* SECTION 5: GLASSES SHOWCASE */}
+      <section className="py-20 bg-white border-b border-[#e5e5e5]">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 text-left">
+          <div className="mb-10">
+            <span className="text-[#3b82f6] font-bold text-xs uppercase tracking-wider block mb-1">Exclusively for Naintaara</span>
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#0a0a0a]">Smart Vision Glasses 👓</h2>
           </div>
-
-          {/* INFINITE CAROUSEL TRACK */}
-          <div className="relative overflow-hidden pt-2">
-            <motion.div className="flex gap-6 w-max" animate={{ x: ["0%", "-50%"] }} transition={{ duration: 25, repeat: Infinity, ease: "linear" }}>
-              {[...testimonials, ...testimonials].map((testimonial, i) => (
-                <div key={i} className="flex-shrink-0 w-[290px] sm:w-[350px] bg-white border border-neutral-200/80 rounded-2xl p-5 shadow-sm">
-                  <div className="flex items-center gap-3 mb-4">
-                    <img src={testimonial.image} alt={testimonial.name} className="w-10 h-10 sm:w-11 sm:h-11 rounded-full object-cover border border-neutral-200" />
-                    <div>
-                      <h4 className="font-bold text-sm text-neutral-900">{testimonial.name}</h4>
-                      <p className="text-neutral-400 text-[11px] font-semibold">{testimonial.role}</p>
-                    </div>
-                  </div>
-                  <div className="flex gap-0.5 mb-3 text-sm">
-                    {[...Array(testimonial.rating)].map((_, idx) => <span key={idx}>⭐</span>)}
-                  </div>
-                  <p className="text-neutral-600 text-xs sm:text-sm leading-relaxed italic font-medium">"{testimonial.review}"</p>
+          <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              { title: "Crystal Clear", subtitle: "Transparent Frames", image: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?q=80&w=1200&auto=format&fit=crop" },
+              { title: "Trending", subtitle: "Pokemon Edition", image: "https://images.unsplash.com/photo-1574258495973-f010dfbb5371?q=80&w=1200&auto=format&fit=crop" },
+              { title: "Bold Signature", subtitle: "Premium Vision Frames", image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=1200&auto=format&fit=crop" },
+            ].map((item, i) => (
+              <div key={i} className="rounded-xl border border-[#e5e5e5] overflow-hidden bg-white shadow-none w-full">
+                <img src={item.image} alt={item.title} className="w-full h-[180px] object-cover" />
+                <div className="p-4 border-t border-[#e5e5e5] bg-white">
+                  <h3 className="text-sm font-bold text-[#0a0a0a]">{item.title}</h3>
+                  <p className="text-[#404040] text-xs font-normal mt-0.5">{item.subtitle}</p>
                 </div>
-              ))}
-            </motion.div>
-            <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-white to-transparent pointer-events-none z-10" />
-            <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-white to-transparent pointer-events-none z-10" />
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ==================== FAQ ACCORDION SECTION ==================== */}
-      <section id="faq" className="py-16 sm:py-24 bg-slate-50 border-t border-neutral-100 text-left">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl font-bold tracking-tight text-neutral-900">Frequently Asked Questions</h2>
-            <p className="text-neutral-500 text-xs sm:text-sm font-medium mt-1">Get transparent clarifications on standard child eye-fitness mechanics.</p>
-          </div>
-
-          <div className="space-y-3">
+      {/* SECTION 6: FAQ ACCORDION */}
+      <section id="faq" className="py-20 bg-[#f5f5f5] text-left">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl font-bold text-[#0a0a0a] mb-10">Frequently Asked Questions</h2>
+          <div className="space-y-2.5">
             {faqs.map((faq, idx) => (
-              <div key={idx} className="bg-white rounded-2xl border border-neutral-200/60 overflow-hidden shadow-sm transition">
-                <button
-                  onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-                  className="w-full flex items-center justify-between p-4 sm:p-5 text-left text-xs sm:text-sm font-bold text-slate-800 focus:outline-none transition hover:bg-slate-50/50"
-                >
-                  <span>{faq.q}</span>
-                  <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform duration-200 ${openFaq === idx ? "rotate-180 text-orange-500" : ""}`} />
+              <div key={idx} className="bg-white rounded-lg border border-[#e5e5e5] overflow-hidden shadow-none w-full">
+                <button onClick={() => setOpenFaq(openFaq === idx ? null : idx)} className="w-full flex items-center justify-between p-4 text-left text-sm font-bold text-[#0a0a0a] bg-white hover:bg-[#f5f5f5]/50 transition focus:outline-none">
+                  <span className="pr-4">{faq.q}</span>
+                  <ChevronDown className={`w-4 h-4 text-[#262626] transition-transform shrink-0 ${openFaq === idx ? "rotate-180" : ""}`} />
                 </button>
-                <AnimatePresence initial={false}>
+                <AnimatePresence>
                   {openFaq === idx && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.2, ease: "easeInOut" }}
-                    >
-                      <div className="px-4 sm:px-5 pb-4 sm:pb-5 text-neutral-500 text-xs sm:text-[13px] leading-relaxed font-medium border-t border-neutral-50 pt-2.5">
-                        {idx === 5 ? (
-                          <span>
-                            Currently, digital eye therapies are out-of-pocket in India. To check international status or for custom corporate health clinic tie-ups, reach out directly on our{" "}
-                            <Link to="/contact" className="text-[#ff7a00] hover:underline font-bold">Contact Page</Link>.
-                          </span>
-                        ) : faq.a}
-                      </div>
+                    <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="px-4 pb-4 text-[#171717] text-sm leading-relaxed border-t border-[#e5e5e5] pt-3.5 bg-white text-left w-full">
+                      {idx === 5 ? (
+                        <span>Currently, digital eye therapies are out-of-pocket in India. To check status, reach out directly on our <Link to="/contact" className="text-[#3b82f6] hover:underline font-bold">Contact Page</Link>.</span>
+                      ) : faq.a}
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -600,31 +376,16 @@ const Home = () => {
         </div>
       </section>
 
-      {/* SECTION 7: CTA BANNER */}
-      <section id="contact" className="py-16 sm:py-24 bg-gradient-to-br from-[#ff7a00] via-orange-500 to-orange-600 text-center relative overflow-hidden">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight mb-4 leading-tight">
-            Start Your Child's Vision Journey Today
-          </h2>
-          <p className="text-white/90 text-sm sm:text-base mb-8 max-w-xl mx-auto leading-relaxed font-medium">
-            Join thousands of parents who trust Naintaara for functional eye development. Engage with clean, validated screen sessions.
-          </p>
+      {/* SECTION 7: BOTTOM CTA BANNER */}
+      <section id="contact" className="py-20 bg-white border-t border-[#e5e5e5] text-center">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl sm:text-4xl font-bold text-[#0a0a0a] tracking-tight mb-4">Start Your Child's Vision Journey Today</h2>
+          <p className="text-[#171717] text-sm sm:text-base mb-8 max-w-xl mx-auto font-normal">Join thousands of parents who trust Naintaara for functional eye development. Engage with clean, validated screen sessions.</p>
 
-          <div className="flex flex-col sm:flex-row gap-3.5 justify-center items-center">
-            <Button asChild className="w-full sm:w-auto h-11 px-10 bg-white hover:bg-neutral-50 text-[#ff7a00] font-black rounded-xl border-0 shadow-md text-sm transition-transform active:scale-[0.98]">
-              <button onClick={handleStartPlaying}>
-                Get Started
-              </button>
-            </Button>
-
-            <Button variant="outline" className="w-full sm:w-auto h-11 px-10 border-white/40 bg-transparent text-white font-bold rounded-xl hover:bg-white/10 hover:border-white/60 text-sm">
-              Learn More
-            </Button>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center items-center w-full sm:w-auto">
+            <button onClick={handleStartPlaying} className="h-11 px-8 bg-[#000000] hover:bg-[#171717] text-white font-medium text-sm rounded-lg shadow-sm transition transform active:scale-[0.98] w-full sm:w-auto border-0 cursor-pointer">Get Started</button>
+            <button onClick={() => navigate("/games")} className="h-11 px-8 bg-white border border-[#e5e5e5] hover:bg-[#f5f5f5] text-[#0a0a0a] font-medium text-sm rounded-lg shadow-sm transition w-full sm:w-auto cursor-pointer">Learn More</button>
           </div>
-
-          <p className="text-white/80 text-[11px] sm:text-xs mt-6 font-medium">
-            Available on modern mobile web rendering standard frameworks.
-          </p>
         </div>
       </section>
 
