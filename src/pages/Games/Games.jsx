@@ -61,7 +61,30 @@ const Games = () => {
       headerBg: "bg-gradient-to-br from-blue-100 via-blue-50/50 to-white",
       buttonStyle: "bg-blue-600 hover:bg-blue-700 text-white shadow-blue-500/10",
       topFloatingShapes: ["🔷", "💧"],
-    }
+    },
+
+
+    {
+  title: "Eye Movement Trainer",
+  description:
+    "Follow moving objects and react to random eye commands to improve focus, reflexes and eye coordination.",
+  
+  previewIcon: "👁️",
+
+  customIconGrid: false,
+
+  coins: "+10 Coins",
+
+  path: "/games/eyemovement",
+
+  headerBg:
+    "bg-gradient-to-br from-cyan-100 via-sky-50 to-white",
+
+  buttonStyle:
+    "bg-cyan-600 hover:bg-cyan-700 text-white shadow-cyan-500/10",
+
+  topFloatingShapes: ["👁️", "🎯"],
+},
   ];
 
   return (

@@ -11,6 +11,7 @@ import OddNout from "./pages/Games/oddnoutcolor/OddNout";
 // import EyeBlink from "./pages/Games/EyeBlink/EyeBlink";
 import { Navigate } from "react-router-dom";
 import Profile from "./pages/Profile/Profile";
+import EyeMovementTrainer from "./pages/Games/EyeMovementTrainer/EyeMovementTrainer";
 
 
 
@@ -80,6 +81,11 @@ function App() {
 <Route path="/profile" element={
   <ProtectedRoute>
     <Profile />
+  </ProtectedRoute>
+} />
+<Route path="/games/eyemovement" element={
+  <ProtectedRoute>
+    <EyeMovementTrainer />
   </ProtectedRoute>
 } />
     </Routes>
