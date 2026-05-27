@@ -1,24 +1,37 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { Eye, Menu, X } from "lucide-react";
-
-// Shadcn UI Elements
-import { Button } from "../ui/button";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import { Eye, Menu, X, ChevronRight } from "lucide-react";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // Handle scroll boundaries cleanly to toggle compact padding shifts
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Close mobile navigation layout dynamically on routing changes
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location]);
 
   const navItems = [
     { label: "Home", href: "#home" },
-    { label: "Features", href: "#features" },
-    { label: "Games", href: "#games" },
-    { label: "Eye Theory", href: "#theory" },
-    { label: "Contact", href: "#contact" },
+    { label: "How It Works", href: "#features" },
+    { label: "Vision Programs", href: "#games" },
+    { label: "For Parents", href: "#theory" },
+    { label: "FAQ", href: "#contact" },
   ];
 
   const scrollToSection = (href) => {
-    setIsOpen(false);
-    
     if (href.startsWith("#")) {
       const element = document.querySelector(href);
       if (element) {
@@ -27,89 +40,134 @@ const Navbar = () => {
     }
   };
 
+  const navItemVariants = {
+    hidden: { opacity: 0, y: -4 },
+    visible: (i) => ({
+      opacity: 1,
+      y: 0,
+      transition: { delay: i * 0.04, duration: 0.25, ease: "easeOut" },
+    }),
+  };
+
+  const mobileMenuVariants = {
+    hidden: { opacity: 0, height: 0 },
+    visible: {
+      opacity: 1,
+      height: "auto",
+      transition: { duration: 0.2, ease: "easeInOut" },
+    },
+    exit: {
+      opacity: 0,
+      height: 0,
+      transition: { duration: 0.15, ease: "easeInOut" },
+    },
+  };
+
   return (
-    <header className="fixed top-0 left-0 w-full z-50 px-4 pt-4 antialiased">
-      {/* MNC Standard Premium Bar Container */}
-      <div className="max-w-7xl mx-auto bg-white/80 backdrop-blur-md border border-neutral-200/50 shadow-[0_8px_30px_rgb(0,0,0,0.03),0_1px_2px_rgb(0,0,0,0.01)] rounded-[20px] px-6 sm:px-8 py-3.5 flex items-center justify-between transition-all">
+    // 💡 DUB THEME: Completely flat white canvas header strip with crisp light grey bottom divider hairline
+    <header 
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-200 bg-[#ffffff] border-b border-[#e5e5e5] ${
+        scrolled ? "py-2.5 shadow-[0_1px_2px_0_rgba(0,0,0,0.05)]" : "py-4"
+      }`}
+    >
+      <div className="max-w-[1200px] mx-auto px-6 sm:px-8 flex items-center justify-between">
         
-        {/* 🌟 LOGO OVERHAUL: Custom Tech-Ophthalmology Premium Identity */}
-        <div className="flex items-center gap-3 flex-shrink-0 group cursor-pointer">
-          <div className="relative w-10 h-10 rounded-xl bg-gradient-to-br from-[#ff7a00] to-orange-600 flex items-center justify-center text-white shadow-md shadow-orange-500/20 transition-transform duration-300 group-hover:scale-105 group-hover:rotate-3">
-            {/* Main Eye Grid Icon */}
-            <Eye className="w-5.5 h-5.5 text-white stroke-[2.5]" />
-            
-            {/* 💎 AI Target Tracking Dot: Human Hand-Crafted Detail */}
-            <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-white rounded-full ring-2 ring-[#ff7a00] animate-pulse" />
+        {/* ==================== CRISP LOGO SECTION ==================== */}
+        <Link 
+          to="/" 
+          className="flex items-center gap-3 shrink-0 group select-none"
+          onClick={() => scrollToSection("#home")}
+        >
+          {/* 💡 FIXED: Configured icon background to use the exact matching brand Orange/Yellow token (#ea580c) */}
+          <div className="w-9 h-9 rounded-lg bg-[#ea580c] flex items-center justify-center transition-opacity group-hover:opacity-90 shadow-[0_1px_2px_0_rgba(0,0,0,0.05)]">
+            <Eye className="w-5 h-5 text-white stroke-[2]" />
           </div>
           
-          <div className="flex flex-col">
-            <h1 className="text-xl font-bold tracking-tight text-neutral-900 leading-none">Naintaara</h1>
-            <span className="text-[9px] text-[#ff7a00] font-bold tracking-widest uppercase mt-1">Eye Fitness</span>
+          <div className="flex flex-col text-left">
+            <h1 className="text-lg font-bold tracking-tight text-[#0a0a0a] font-sans leading-none uppercase">
+              Nainocular
+            </h1>
+            <span className="text-[10px] text-[#404040] font-medium tracking-normal mt-0.5">
+              Powered by Naintaara
+            </span>
           </div>
-        </div>
+        </Link>
 
-        {/* Desktop Nav Items */}
+        {/* ==================== DESKTOP LINK MATRIX ==================== */}
         <nav className="hidden lg:flex items-center gap-1">
-          {navItems.map((item) => (
-            <button
+          {navItems.map((item, index) => (
+            <motion.button
               key={item.label}
+              custom={index}
+              variants={navItemVariants}
+              initial="hidden"
+              animate="visible"
               onClick={() => scrollToSection(item.href)}
-              className="px-4 py-1.5 text-sm font-semibold text-neutral-600 rounded-xl transition-all duration-150 hover:bg-neutral-50 hover:text-[#ff7a00]"
+              className="px-3.5 py-1.5 text-sm font-medium text-[#404040] hover:text-[#0a0a0a] hover:bg-[#f5f5f5] rounded-md transition-all font-sans"
             >
               {item.label}
-            </button>
+            </motion.button>
           ))}
         </nav>
 
-        {/* MNC Grade Premium CTA Block */}
+        {/* ==================== DESKTOP CORES CALL-TO-ACTION ==================== */}
         <div className="hidden lg:flex items-center">
-          <Button 
-            asChild 
-            className="h-11 px-6 bg-[#ff7a00] hover:bg-orange-600 text-white font-bold rounded-xl border-0 text-sm shadow-md shadow-orange-500/10 transition-all duration-200 active:scale-[0.985] hover:-translate-y-[1px]"
+          <button 
+            onClick={() => navigate("/login")}
+            className="h-9 px-4 bg-[#ea580c] hover:bg-[#c2410c] text-white font-medium text-sm rounded-lg transition-all flex items-center gap-1 shadow-[0_1px_2px_0_rgba(0,0,0,0.05)] cursor-pointer active:scale-[0.98]"
           >
-            <Link to="/login">Get Started</Link>
-          </Button>
+            Get Started
+            <ChevronRight className="w-4 h-4 stroke-[2.5]" />
+          </button>
         </div>
 
-        {/* Mobile Menu Toggle Button */}
+        {/* Mobile Menu Action Toggle Trigger */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="lg:hidden p-2 text-neutral-600 hover:text-[#ff7a00] transition-colors focus:outline-none"
-          aria-label="Toggle menu"
-          aria-expanded={isOpen}
+          className="lg:hidden p-2 text-[#0a0a0a] hover:bg-[#f5f5f5] transition-colors rounded-lg"
+          aria-label="Toggle Navigation Panel"
         >
-          {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          {isOpen ? <X className="w-5 h-5 stroke-[2]" /> : <Menu className="w-5 h-5 stroke-[2]" />}
         </button>
+
       </div>
 
-      {/* Mobile Menu Panel Layer */}
-      <div
-        className={`lg:hidden mx-4 mt-2 bg-white rounded-[20px] border border-neutral-200/60 overflow-hidden transition-all duration-300 ease-out origin-top ${
-          isOpen ? "max-h-96 shadow-xl opacity-100" : "max-h-0 opacity-0 pointer-events-none"
-        }`}
-      >
-        <div className="px-5 py-4 space-y-1">
-          {navItems.map((item) => (
-            <button
-              key={item.label}
-              onClick={() => scrollToSection(item.href)}
-              className="w-full text-left px-4 py-2 text-sm font-semibold text-neutral-600 rounded-xl hover:bg-neutral-50 hover:text-[#ff7a00] transition-colors"
-            >
-              {item.label}
-            </button>
-          ))}
-          
-          {/* Mobile CTA */}
-          <div className="pt-3 border-t border-neutral-100 mt-2">
-            <Button 
-              asChild 
-              className="w-full h-11 bg-[#ff7a00] hover:bg-orange-600 text-white font-bold rounded-xl border-0 text-sm shadow-none"
-            >
-              <Link to="/login">Get Started</Link>
-            </Button>
-          </div>
-        </div>
-      </div>
+      {/* ==================== MOBILE COMPACT OVERLAY STACK ==================== */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            variants={mobileMenuVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            className="lg:hidden w-full bg-white border-t border-[#e5e5e5] mt-2 text-left absolute left-0 shadow-md"
+          >
+            <div className="max-w-[1200px] mx-auto px-6 py-4 space-y-1">
+              {navItems.map((item) => (
+                <button
+                  key={item.label}
+                  onClick={() => scrollToSection(item.href)}
+                  className="w-full text-left px-4 py-3 text-sm font-medium text-[#171717] rounded-lg hover:bg-[#f5f5f5] hover:text-[#0a0a0a] transition-colors flex items-center justify-between"
+                >
+                  {item.label}
+                  <ChevronRight className="w-4 h-4 text-[#d4d4d4]" />
+                </button>
+              ))}
+              
+              {/* Mobile CTA Border Block */}
+              <div className="pt-3 mt-2 border-t border-[#e5e5e5] px-2">
+                <button 
+                  onClick={() => navigate("/login")}
+                  className="w-full h-10 bg-[#ea580c] text-white font-medium text-sm rounded-lg flex items-center justify-center gap-1 transition-all active:scale-[0.99]"
+                >
+                  Get Started
+                  <ChevronRight className="w-4 h-4 stroke-[2.5]" />
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 };

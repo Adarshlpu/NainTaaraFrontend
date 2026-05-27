@@ -540,29 +540,48 @@ const Signup = () => {
 
             </div>
 
-            {/* SUBMIT */}
+            {/* Submit Action Button */}
+            <div className="pt-0.5">
+              <Button
+                type="submit"
+                disabled={loading || !agreedToTerms}
+                className="w-full h-10 bg-[#ff7a00] hover:bg-orange-600 disabled:bg-neutral-200 disabled:text-neutral-400 disabled:cursor-not-allowed text-white rounded-xl font-semibold shadow-sm flex items-center justify-center gap-1.5 text-xs border-0 transition-all active:scale-[0.985]"
+              >
+                {loading ? (
+                  <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                ) : (
+                  <>
+                    <LogIn className="w-3.5 h-3.5" />
+                    Create Account
+                  </>
+                )}
+              </Button>
+            </div>
+
+            {/* Minimal Separation Line */}
+            <div className="flex items-center gap-2 py-0.5">
+              <div className="flex-1 h-[1px] bg-neutral-100" />
+              <span className="text-[9px] text-neutral-400 font-bold tracking-widest">OR</span>
+              <div className="flex-1 h-[1px] bg-neutral-100" />
+            </div>
+
+            {/* Google Authentication 
             <Button
-              type="submit"
-              disabled={
-                loading ||
-                !agreedToTerms ||
-                !isMobileVerified
-              }
-              className="w-full h-10 bg-[#ff7a00] hover:bg-orange-600 text-white rounded-xl font-semibold text-xs"
+              type="button"
+              variant="outline"
+              disabled={loading}
+              className="w-full h-10 bg-white border border-neutral-200 hover:bg-neutral-50 text-neutral-600 rounded-xl font-medium flex items-center justify-center gap-2 text-xs shadow-none transition-all"
             >
-
-              {
-                loading
-                  ? "Creating..."
-                  : (
-                    <>
-                      <LogIn className="w-3.5 h-3.5 mr-1" />
-                      Create Account
-                    </>
-                  )
-              }
-
+              <svg className="w-3 h-3 mr-0.5" viewBox="0 0 24 24">
+                <path fill="#EA4335" d="M12 5.04c1.64 0 3.12.56 4.28 1.67l3.2-3.2C17.52 1.58 14.96 1 12 1 7.35 1 3.4 3.65 1.5 7.5l3.6 2.8C6.01 6.8 8.74/5.04 12 5.04z" />
+                <path fill="#4285F4" d="M23.5 12.25c0-.82-.07-1.6-.2-2.35H12v4.5h6.46c-.28 1.47-1.11 2.71-2.36 3.55l3.6 2.8c2.1-1.94 3.3-4.8 3.3-8.5z" />
+                <path fill="#FBBC05" d="M5.1 14.7l-3.6 2.8C3.4 21.35 7.35 24 12 24c3.24 0 5.97-1.08 7.96-2.91l-3.6-2.8c-1.1.74-2.5 1.18-4.36 1.18-3.26 0-5.99-1.76-6.9-4.77z" />
+                <path fill="#34A853" d="M1.5 7.5A12.9 12.9 0 001.5 16.5l3.6-2.8c-.24-.63-.35-1.3-.35-1.95s.11-1.32.35-1.95L1.5 7.5z" />
+              </svg>
+              Continue with Google
             </Button>
+            */}
+          </form>
 
             {/* LOGIN */}
             <p className="text-center text-neutral-500 mt-4 text-xs font-medium">
