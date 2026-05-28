@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Eye, EyeOff, Phone, Lock, LogIn, ArrowRight } from "lucide-react";
+import { Eye, EyeOff, Lock, LogIn, ArrowRight,Mail } from "lucide-react";
 import { useNavigate, Link } from "react-router-dom";
 
 // Shadcn UI Elements
@@ -22,7 +22,7 @@ import { loginUser } from "../../api/authApi";
 const Login = () => {
   const navigate = useNavigate();
 
-  const [mobile, setMobile] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -34,13 +34,13 @@ const Login = () => {
     setLoading(true);
 
     try {
-      if (!mobile || !password) {
+      if (!email || !password) {
         setError("Please fill in all fields");
         setLoading(false);
         return;
       }
 
-      const loginData = { mobile, password };
+      const loginData = { email, password };
       const data = await loginUser(loginData);
 
       localStorage.setItem("token", data.token);
@@ -89,19 +89,19 @@ const Login = () => {
 
           <form onSubmit={handleLogin} className="space-y-4">
             
-            {/* Mobile Form Field Framework */}
+            {/* Email Form Field Framework */}
             <div className="space-y-1.5">
-              <Label htmlFor="mobile" className="text-xs font-medium text-[#0a0a0a]">Mobile Number</Label>
+              <Label htmlFor="email" className="text-xs font-medium text-[#0a0a0a]">Email</Label>
               <div className="flex items-center bg-white border border-[#d4d4d4] rounded-lg px-3 h-10 focus-within:border-[#3b82f6] focus-within:ring-4 focus-within:ring-[#3b82f6]/10 transition-all duration-150">
-                <Phone className="text-[#404040] w-4 h-4 flex-shrink-0" />
+                <Mail className="text-[#404040] w-4 h-4 flex-shrink-0" />
                 <Input
-                  id="mobile"
-                  type="tel"
-                  placeholder="10-digit mobile number"
+                  id="email"
+                  type="email"
+                  placeholder="Enter your email"
                   className="border-0 bg-transparent shadow-none focus-visible:ring-0 placeholder:text-neutral-400 text-[#111827] text-sm ml-2 h-full w-full p-0"
-                  value={mobile}
-                  onChange={(e) => setMobile(e.target.value.replace(/\D/g, "").slice(0, 10))}
-                  maxLength={10}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                 
                   disabled={loading}
                   required
                 />
@@ -154,15 +154,68 @@ const Login = () => {
                   <DialogHeader className="text-left">
                     <DialogTitle className="text-base font-bold text-[#0a0a0a]">Reset Password</DialogTitle>
                     <DialogDescription className="text-xs text-[#404040] mt-1">
-                      Enter your mobile number to get an account recovery code.
+                      Enter your email to receive a password reset link.
                     </DialogDescription>
                   </DialogHeader>
-                  <div className="space-y-3 pt-4">
+                  {/* <div className="space-y-3 pt-4">
                     <Input placeholder="Enter phone number" className="h-10 rounded-lg border-[#d4d4d4] focus-visible:ring-[#3b82f6]/20 text-sm" />
                     <button type="button" className="w-full h-10 bg-[#000000] hover:bg-[#171717] text-white rounded-lg font-medium text-xs uppercase tracking-wider border-0 shadow-sm transition-all active:scale-[0.99]">
                       Send Code
                     </button>
-                  </div>
+                  </div> */}
+                  <div className="space-y-3 pt-4">
+
+  <Input
+    type="email"
+    placeholder="Enter your email"
+    value={email}
+    onChange={(e) => setEmail(e.target.value)}
+    className="h-10 rounded-lg border-[#d4d4d4] focus-visible:ring-[#3b82f6]/20 text-sm"
+  />
+
+  <button
+    type="button"
+    onClick={async () => {
+
+      try {
+
+        const response = await fetch(
+          "http://localhost:5000/api/auth/forgot-password",
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type": "application/json",
+            },
+
+            body: JSON.stringify({
+              email,
+            }),
+          }
+        );
+
+        const data =
+          await response.json();
+
+        alert(data.message);
+
+      } catch(error){
+
+        console.log(error);
+
+        alert("Something went wrong");
+
+      }
+
+    }}
+
+    className="w-full h-10 bg-[#000000] hover:bg-[#171717] text-white rounded-lg font-medium text-xs uppercase tracking-wider border-0 shadow-sm transition-all active:scale-[0.99]"
+  >
+    Send Reset Link
+  </button>
+
+</div>
+
                 </DialogContent>
               </Dialog>
             </div>
@@ -193,19 +246,19 @@ const Login = () => {
             </div>
 
             {/* Google OAuth Structural Node Component */}
-            <button
+            {/* <button
               type="button"
               disabled={loading}
               className="w-full h-10 bg-white border border-[#e5e5e5] hover:bg-[#f5f5f5] text-[#0a0a0a] rounded-lg font-medium flex items-center justify-center gap-2 text-xs shadow-none transition-all cursor-pointer active:scale-[0.985]"
-            >
-              <svg className="w-3 h-3 mr-0.5" viewBox="0 0 24 24">
+            > */}
+              {/* <svg className="w-3 h-3 mr-0.5" viewBox="0 0 24 24">
                 <path fill="#EA4335" d="M12 5.04c1.64 0 3.12.56 4.28 1.67l3.2-3.2C17.52 1.58 14.96 1 12 1 7.35 1 3.4 3.65 1.5 7.5l3.6 2.8C6.01 6.8 8.74 5.04 12 5.04z" />
                 <path fill="#4285F4" d="M23.5 12.25c0-.82-.07-1.6-.2-2.35H12v4.5h6.46c-.28 1.47-1.11 2.71-2.36 3.55l3.6 2.8c2.1-1.94 3.3-4.8 3.3-8.5z" />
                 <path fill="#FBBC05" d="M5.1 14.7l-3.6 2.8C3.4 21.35 7.35 24 12 24c3.24 0 5.97-1.08 7.96-2.91l-3.6-2.8c-1.1.74-2.5 1.18-4.36 1.18-3.26 0-5.99-1.76-6.9-4.77z" />
                 <path fill="#34A853" d="M1.5 7.5A12.9 12.9 0 001.5 16.5l3.6-2.8c-.24-.63-.35-1.3-.35-1.95s.11-1.32.35-1.95L1.5 7.5z" />
-              </svg>
-              Continue with Google
-            </button>
+              </svg> */}
+              {/* Continue with Google */}
+            {/* </button> */}
           </form>
 
           {/* Footer Redirection Map */}
