@@ -97,6 +97,11 @@ function App() {
     <Profile />
   </ProtectedRoute>
 } />
+<Route path="/games/eyemovement" element={
+  <ProtectedRoute>
+    <EyeMovementTrainer />
+  </ProtectedRoute>
+} />
 
 <Route path="/games/eyemovement" element={
   <ProtectedRoute>
