@@ -565,7 +565,7 @@ const Signup = () => {
               <div className="flex-1 h-[1px] bg-neutral-100" />
             </div>
 
-            {/* Google Authentication 
+            Google Authentication 
             <Button
               type="button"
               variant="outline"
@@ -580,11 +580,11 @@ const Signup = () => {
               </svg>
               Continue with Google
             </Button>
-            */}
+           
           </form>
 
-            {/* LOGIN */}
-            <p className="text-center text-neutral-500 mt-4 text-xs font-medium">
+          {/* LOGIN */}
+          <p className="text-center text-neutral-500 mt-4 text-xs font-medium">
 
               Already have an account?{" "}
 
@@ -599,9 +599,7 @@ const Signup = () => {
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
 
-            </p>
-
-          </form>
+          </p>
 
         </div>
 
