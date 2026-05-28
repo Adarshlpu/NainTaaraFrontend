@@ -19,7 +19,7 @@ import Blog from "./pages/Blog";
 import Contact from "./pages/Contact";
 import EyeMovementTrainer from "./pages/Games/EyeMovementTrainer/EyeMovementTrainer";
 import ColorBlindnessTest from "./pages/Games/ColorBlindnessTest/ColorBlindnessTest";
-
+import ResetPassword from "./pages/ResetPassword";
 
 const ProtectedRoute = ({ children}) =>{
   const token = localStorage.getItem("token");
@@ -36,7 +36,10 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
-
+<Route
+  path="/reset-password/:token"
+  element={<ResetPassword />}
+/>
       <Route path="/dashboard" element={
         <ProtectedRoute>
         <Dashboard />
@@ -108,6 +111,11 @@ function App() {
     <EyeMovementTrainer />
   </ProtectedRoute>
 } />
+
+<Route
+  path="/reset-password/:token"
+  element={<ResetPassword />}
+/>
 
 
 
