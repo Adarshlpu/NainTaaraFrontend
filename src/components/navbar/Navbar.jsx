@@ -39,6 +39,17 @@ const Navbar = () => {
       }
     }
   };
+  
+
+  const handleStartPlaying = () => {
+  const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/dashboard");
+    } else {
+      navigate("/login");
+    }
+  };
+
 
   const navItemVariants = {
     hidden: { opacity: 0, y: -4 },
@@ -113,7 +124,7 @@ const Navbar = () => {
         {/* ==================== DESKTOP CORES CALL-TO-ACTION ==================== */}
         <div className="hidden lg:flex items-center">
           <button 
-            onClick={() => navigate("/login")}
+            onClick={handleStartPlaying}
             className="h-9 px-4 bg-[#ea580c] hover:bg-[#c2410c] text-white font-medium text-sm rounded-lg transition-all flex items-center gap-1 shadow-[0_1px_2px_0_rgba(0,0,0,0.05)] cursor-pointer active:scale-[0.98]"
           >
             Get Started
@@ -157,7 +168,7 @@ const Navbar = () => {
               {/* Mobile CTA Border Block */}
               <div className="pt-3 mt-2 border-t border-[#e5e5e5] px-2">
                 <button 
-                  onClick={() => navigate("/login")}
+                  onClick={handleStartPlaying}
                   className="w-full h-10 bg-[#ea580c] text-white font-medium text-sm rounded-lg flex items-center justify-center gap-1 transition-all active:scale-[0.99]"
                 >
                   Get Started

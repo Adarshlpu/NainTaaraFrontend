@@ -53,29 +53,35 @@ const Footer = () => {
 
           {/* Core Brand Identity Column */}
           <motion.div variants={itemVariants} className="space-y-4">
-            <Link to="/" className="flex items-center gap-2.5 w-fit group select-none">
-              {/* Jet Black Solid Utility Icon Block */}
-              <div className="w-8 h-8 rounded-lg bg-[#000000] flex items-center justify-center">
-                <Eye className="w-4 h-4 text-white stroke-[2]" />
+            <Link to="/" className="flex items-center gap-3 w-fit group select-none">
+              {/* 💡 FIXED: Matches Navbar exactly with exact brand color token (#ea580c) and elevation */}
+              <div className="w-9 h-9 rounded-lg bg-[#ea580c] flex items-center justify-center transition-opacity group-hover:opacity-90 shadow-[0_1px_2px_0_rgba(0,0,0,0.05)]">
+                <Eye className="w-5 h-5 text-white stroke-[2]" />
               </div>
-              <h1 className="text-xl font-bold tracking-tight text-[#0a0a0a] uppercase">
-                NAINOCULAR
-              </h1>
+              
+              <div className="flex flex-col text-left">
+                <h1 className="text-base font-bold tracking-tight text-[#0a0a0a] font-sans leading-none uppercase">
+                  Nainocular
+                </h1>
+                <span className="text-[10px] text-[#404040] font-medium tracking-normal mt-0.5">
+                  Powered by Naintaara
+                </span>
+              </div>
             </Link>
 
-            <p className="text-[#171717] text-sm font-normal leading-relaxed max-w-xs">
+            <p className="text-[#171717] text-sm font-normal leading-relaxed max-w-xs pt-1">
               Helping children improve vision through fun AI-powered games, interactive exercises, and engaging eye fitness experiences.
             </p>
 
             {/* Social Redirection Links */}
-            <div className="flex gap-4 pt-2">
+            <div className="flex gap-4 pt-1">
               {socialLinks.map((social, i) => (
                 <a
                   key={i}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs font-medium text-[#404040] hover:text-[#0a0a0a] hover:underline transition-all"
+                  className="text-xs font-medium text-[#404040] hover:text-[#0a0a0a] transition-colors"
                 >
                   {social.icon}
                 </a>
@@ -84,8 +90,8 @@ const Footer = () => {
           </motion.div>
 
           {/* Product Navigation Array */}
-          <motion.div variants={itemVariants}>
-            <h3 className="text-sm font-bold text-[#0a0a0a] uppercase tracking-wider mb-5">
+          <motion.div variants={itemVariants} className="pt-1.5">
+            <h3 className="text-xs font-bold text-[#0a0a0a] uppercase tracking-wider mb-5">
               Product
             </h3>
             <ul className="space-y-3">
@@ -98,7 +104,7 @@ const Footer = () => {
                 <li key={i}>
                   <a
                     href={link.href}
-                    className="text-sm font-normal text-[#171717] hover:text-[#0a0a0a] hover:underline transition-all"
+                    className="text-sm font-normal text-[#404040] hover:text-[#0a0a0a] transition-colors"
                   >
                     {link.label}
                   </a>
@@ -108,8 +114,8 @@ const Footer = () => {
           </motion.div>
 
           {/* Company Context Links Array */}
-          <motion.div variants={itemVariants}>
-            <h3 className="text-sm font-bold text-[#0a0a0a] uppercase tracking-wider mb-5">
+          <motion.div variants={itemVariants} className="pt-1.5">
+            <h3 className="text-xs font-bold text-[#0a0a0a] uppercase tracking-wider mb-5">
               Company
             </h3>
             <ul className="space-y-3">
@@ -123,7 +129,7 @@ const Footer = () => {
                   <li key={item}>
                     <Link
                       to={routes[item]}
-                      className="text-sm font-normal text-[#171717] hover:text-[#0a0a0a] hover:underline transition-all"
+                      className="text-sm font-normal text-[#404040] hover:text-[#0a0a0a] transition-colors"
                     >
                       {item}
                     </Link>
@@ -134,11 +140,11 @@ const Footer = () => {
           </motion.div>
 
           {/* Direct Support Metadata Column */}
-          <motion.div variants={itemVariants}>
-            <h3 className="text-sm font-bold text-[#0a0a0a] uppercase tracking-wider mb-5">
+          <motion.div variants={itemVariants} className="pt-1.5">
+            <h3 className="text-xs font-bold text-[#0a0a0a] uppercase tracking-wider mb-5">
               Contact
             </h3>
-            <ul className="space-y-3 text-sm font-normal text-[#171717]">
+            <ul className="space-y-3 text-sm font-normal text-[#404040]">
               <li className="flex items-center gap-2">
                 <span className="text-neutral-400">Email:</span>
                 <span className="font-medium text-[#0a0a0a]">hello@nainocular.com</span>
@@ -174,7 +180,7 @@ const Footer = () => {
                 <Link
                   key={link}
                   to={routes[link]}
-                  className="hover:text-[#0a0a0a] hover:underline transition-all"
+                  className="hover:text-[#0a0a0a] transition-colors"
                 >
                   {link}
                 </Link>
