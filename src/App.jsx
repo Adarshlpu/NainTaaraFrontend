@@ -23,7 +23,7 @@ import BlogPostDetail from "./pages/Blog/BlogPostDetail";
 import Contact from "./pages/Contact";
 import EyeMovementTrainer from "./pages/Games/EyeMovementTrainer/EyeMovementTrainer";
 import ColorBlindnessTest from "./pages/Games/ColorBlindnessTest/ColorBlindnessTest";
-
+import ResetPassword from "./pages/ResetPassword";
 
 const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem("token");
@@ -39,7 +39,10 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
-
+<Route
+  path="/reset-password/:token"
+  element={<ResetPassword />}
+/>
       <Route path="/dashboard" element={
         <ProtectedRoute>
           <Dashboard />
@@ -70,11 +73,11 @@ function App() {
         </ProtectedRoute>
       } />
 
-      <Route
-        path="/games/oddnout"
-        element={
-          <ProtectedRoute>
-            <OddNout />
+<Route
+  path="/games/oddnout"
+  element={
+    <ProtectedRoute>
+      <OddNout />
           </ProtectedRoute>
         }
       />
@@ -87,21 +90,19 @@ function App() {
           </ProtectedRoute>
         }
       />  
-      
-      {/* <Route
-        path="/games/eyeblink"
-        element={
-          <ProtectedRoute>
-            <EyeBlink />
-          </ProtectedRoute>
-        }
-      /> */}
-      
-      <Route path="/profile" element={
-        <ProtectedRoute>
-          <Profile />
-        </ProtectedRoute>
-      } />
+{/* <Route
+  path="/games/eyeblink"
+  element={
+    <ProtectedRoute>
+      <EyeBlink />
+    </ProtectedRoute>
+  }
+/> */}
+<Route path="/profile" element={
+  <ProtectedRoute>
+    <Profile />
+  </ProtectedRoute>
+} />
 
       <Route path="/games/eyemovement" element={
         <ProtectedRoute>
