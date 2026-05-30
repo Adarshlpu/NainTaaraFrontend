@@ -16,6 +16,7 @@ import TermsAndConditions from "./pages/terms-and-conditions";
 import CookiesPolicy from "./pages/cookies-policy";
 import About from "./pages/About";
 
+
 // FIXED: Imported your index.jsx (Blog feed) and BlogPostDetail.jsx cleanly 
 import Blog from "./pages/Blog";
 import BlogPostDetail from "./pages/Blog/BlogPostDetail";
@@ -23,7 +24,8 @@ import BlogPostDetail from "./pages/Blog/BlogPostDetail";
 import Contact from "./pages/Contact";
 import EyeMovementTrainer from "./pages/Games/EyeMovementTrainer/EyeMovementTrainer";
 import ColorBlindnessTest from "./pages/Games/ColorBlindnessTest/ColorBlindnessTest";
-import ResetPassword from "./pages/ResetPassword";
+import Planet from "./pages/Games/Planet/Planet";
+
 
 const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem("token");
@@ -39,10 +41,14 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
+
+      {/*}
 <Route
   path="/reset-password/:token"
   element={<ResetPassword />}
 />
+
+*/}
       <Route path="/dashboard" element={
         <ProtectedRoute>
           <Dashboard />
@@ -107,6 +113,12 @@ function App() {
       <Route path="/games/eyemovement" element={
         <ProtectedRoute>
           <EyeMovementTrainer />
+        </ProtectedRoute>
+      } />
+
+      <Route path="/games/planet" element={
+        <ProtectedRoute>
+          <Planet />
         </ProtectedRoute>
       } />
 
