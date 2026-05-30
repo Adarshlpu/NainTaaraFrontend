@@ -112,10 +112,7 @@ function App() {
   </ProtectedRoute>
 } />
 
-<Route
-  path="/reset-password/:token"
-  element={<ResetPassword />}
-/>
+
 
 
 
