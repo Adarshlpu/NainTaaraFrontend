@@ -106,6 +106,17 @@ const Games = () => {
   buttonStyle:
     "bg-amber-600 hover:bg-amber-700 text-white shadow-amber-500/10",
   topFloatingShapes: ["🌟", "✨"],
+},
+{
+  title:"Space Explorer Vision Quest",
+  description:"Embark on a cosmic adventure to identify planets and improve your visual acuity in this fun space-themed game.",
+  previewIcon:"🚀",
+  customIconGrid:false,
+  coins:"+12 Coins",
+  path:"/games/planet",
+  headerBg:"bg-gradient-to-br from-gray-900 via-slate-900 to-black",
+  buttonStyle:"bg-gray-800 hover:bg-gray-900 text-white shadow-gray-700/20",
+  topFloatingShapes: ["🌍", "🪐"],
 }
     
 

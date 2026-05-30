@@ -16,6 +16,7 @@ import TermsAndConditions from "./pages/terms-and-conditions";
 import CookiesPolicy from "./pages/cookies-policy";
 import About from "./pages/About";
 
+
 // FIXED: Imported your index.jsx (Blog feed) and BlogPostDetail.jsx cleanly 
 import Blog from "./pages/Blog";
 import BlogPostDetail from "./pages/Blog/BlogPostDetail";
@@ -23,6 +24,7 @@ import BlogPostDetail from "./pages/Blog/BlogPostDetail";
 import Contact from "./pages/Contact";
 import EyeMovementTrainer from "./pages/Games/EyeMovementTrainer/EyeMovementTrainer";
 import ColorBlindnessTest from "./pages/Games/ColorBlindnessTest/ColorBlindnessTest";
+import Planet from "./pages/Games/Planet/Planet";
 
 
 const ProtectedRoute = ({ children }) => {
@@ -106,6 +108,12 @@ function App() {
       <Route path="/games/eyemovement" element={
         <ProtectedRoute>
           <EyeMovementTrainer />
+        </ProtectedRoute>
+      } />
+
+      <Route path="/games/planet" element={
+        <ProtectedRoute>
+          <Planet />
         </ProtectedRoute>
       } />
 
