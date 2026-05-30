@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-
 import {
   Eye, Smartphone, Brain, MessageSquare, ChevronDown, Target, LineChart, Sparkles, ShieldCheck
 } from "lucide-react";
@@ -9,6 +8,93 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/navbar/Navbar";
 import Footer from "../../components/footer/Footer";
 import heroImage from "../../assets/images/h1.png";
+import homeim from "../../assets/images/fa.png";
+
+// ==================== INTERACTIVE GAME ILLUSTRATIONS (SVGs) ====================
+const EyeBlinkIllustration = () => (
+  <svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+    <style>{`
+      .blink-lid { animation: blinkLid 3s ease-in-out infinite; transform-origin: 80px 74px; }
+      @keyframes blinkLid {
+        0%,40%,60%,100% { transform: scaleY(0); }
+        48%,52% { transform: scaleY(1); }
+      }
+      .pulse-ring { animation: pulseRing 2s ease-in-out infinite; transform-origin: 80px 80px; }
+      @keyframes pulseRing {
+        0%,100% { opacity:0.15; transform: scale(0.85); }
+        50% { opacity:0.5; transform: scale(1.1); }
+      }
+    `}</style>
+    <ellipse cx="80" cy="80" rx="52" ry="30" fill="#dbeafe" stroke="#3b82f6" strokeWidth="1.5"/>
+    <circle cx="80" cy="80" r="16" fill="#1d4ed8"/>
+    <circle cx="80" cy="80" r="9" fill="#0f172a"/>
+    <circle cx="74" cy="74" r="3" fill="white" opacity="0.8"/>
+    <rect x="28" y="50" width="104" height="30" rx="4" fill="#1e40af" className="blink-lid"/>
+    <ellipse cx="80" cy="80" rx="60" ry="38" fill="none" stroke="#93c5fd" strokeWidth="1" className="pulse-ring"/>
+  </svg>
+);
+
+const ShapeFusionIllustration = () => (
+  <svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+    <style>{`
+      .s1 { animation: float1 2.8s ease-in-out infinite; }
+      .s2 { animation: float2 2.4s ease-in-out infinite; }
+      .s3 { animation: float3 3.2s ease-in-out infinite; }
+      .s4 { animation: float4 2.6s ease-in-out infinite; }
+      @keyframes float1 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+      @keyframes float2 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(5px)} }
+      @keyframes float3 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-4px)} }
+      @keyframes float4 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+    `}</style>
+    <rect x="30" y="35" width="40" height="40" rx="6" fill="#a855f7" className="s1"/>
+    <polygon points="110,35 130,75 90,75" fill="#6366f1" className="s2"/>
+    <ellipse cx="42" cy="110" rx="22" ry="16" fill="#ec4899" className="s3"/>
+    <rect x="88" y="95" width="36" height="36" rx="18" fill="#8b5cf6" className="s4"/>
+  </svg>
+);
+
+const OddNOutIllustration = () => (
+  <svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+    <style>{`
+      .oddout-odd { animation: wobble 2s ease-in-out infinite; transform-origin: 120px 100px; }
+      @keyframes wobble {
+        0%,100%{transform:scale(1)} 30%{transform:scale(1.15)} 70%{transform:scale(1.15)}
+      }
+      .ring-pulse { animation: rpulse 2s ease-in-out infinite; }
+      @keyframes rpulse { 0%,100%{opacity:0} 50%{opacity:0.35} }
+    `}</style>
+    <circle cx="40" cy="60" r="18" fill="#f97316"/>
+    <circle cx="80" cy="60" r="18" fill="#f97316"/>
+    <circle cx="120" cy="60" r="18" fill="#f97316"/>
+    <circle cx="40" cy="100" r="18" fill="#f97316"/>
+    <circle cx="80" cy="100" r="18" fill="#f97316"/>
+    <circle cx="120" cy="100" r="22" fill="#0ea5e9" className="oddout-odd"/>
+    <circle cx="120" cy="100" r="32" fill="none" stroke="#0ea5e9" strokeWidth="1.5" className="ring-pulse"/>
+  </svg>
+);
+
+const TrackingIllustration = () => (
+  <svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+    <style>{`
+      .dot-move { animation: moveDot 3s ease-in-out infinite; }
+      @keyframes moveDot {
+        0%   { transform: translate(0,0); }
+        20%  { transform: translate(30px,-20px); }
+        40%  { transform: translate(50px,10px); }
+        60%  { transform: translate(20px,35px); }
+        80%  { transform: translate(-20px,15px); }
+        100% { transform: translate(0,0); }
+      }
+    `}</style>
+    <circle cx="80" cy="80" r="50" fill="none" stroke="#22c55e" strokeWidth="1" strokeDasharray="4 4" opacity="0.3"/>
+    <circle cx="80" cy="80" r="35" fill="none" stroke="#22c55e" strokeWidth="1" opacity="0.2"/>
+    <circle cx="80" cy="80" r="20" fill="none" stroke="#22c55e" strokeWidth="1" opacity="0.3"/>
+    <g transform="translate(55,68)">
+      <circle cx="25" cy="12" r="11" fill="#16a34a" className="dot-move"/>
+      <circle cx="25" cy="12" r="5" fill="white" className="dot-move"/>
+    </g>
+  </svg>
+);
 
 // ==================== SLIDER METRICS CONSTANTS DATA GRID ====================
 const slides = [
@@ -68,22 +154,14 @@ const slides = [
   },
 ];
 
-const ctaSlides = [
-  {
-    title: "Start Your Child's Vision Journey Today",
-    desc: "Join thousands of parents who trust Naintaara for functional eye development.",
-    bg: "bg-white",
-  },
-  {
-    title: "Fun Eye Exercises That Actually Work",
-    desc: "Interactive games designed to improve focus and eye coordination.",
-    bg: "bg-orange-50/30",
-  },
-  {
-    title: "Doctor Guided Vision Training",
-    desc: "Safe, structured and clinically inspired visual activities.",
-    bg: "bg-slate-50",
-  },
+// FIXED: Moved globally so it's accessible anywhere within the file frame structure
+const faqs = [
+  { q: "Is it safe for screen time?", a: "Yes. Unlike passive streaming, our exercises engage eye muscles actively. Sessions are limited to 15 minutes daily to prevent strain while effectively training focus." },
+  { q: "What age does it work for?", a: "Naintaara is optimized for kids aged 4 to 14 years during critical visual development stages. Games automatically adjust difficulty based on performance metrics." },
+  { q: "Do we need a prescription?", a: "No prescription is required. It serves as home fitness for eyes. However, we recommend regular eye specialist checkups to track overall recovery." },
+  { q: "How long till we see results?", a: "Most parents report noticeable improvements in children's visual tracking, depth perception, and focus accuracy within 4 to 6 weeks of daily disciplined play." },
+  { q: "Will it work alongside glasses?", a: "Yes. Naintaara trains visual brain processing tracking paths. Children should wear their normally prescribed reading or distance glasses while playing the games." },
+  { q: "Is it covered by insurance?", a: "Currently, digital eye tracking treatments are out-of-pocket expenses. For specific clinic documentation or help, reach out directly on our Contact Page." },
 ];
 
 // ==================== SUB COMPONENT: CTA SLIDER BANNER MODULE ====================
@@ -91,7 +169,6 @@ const CtaBanner = ({ handleStartPlaying }) => {
   const navigate = useNavigate();
   const [current, setCurrent] = useState(0);
   const [progress, setProgress] = useState(0);
-  const [ctaSlide, setCtaSlide] = useState(0);
   const timerRef = useRef(null);
   const progressRef = useRef(null);
 
@@ -124,13 +201,6 @@ const CtaBanner = ({ handleStartPlaying }) => {
     goTo(current);
   }, [current]);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCtaSlide((prev) => (prev + 1) % ctaSlides.length);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, []);
-
   const handleAction = (action) => {
     if (action === "start") handleStartPlaying();
     else if (action === "games") navigate("/games");
@@ -142,49 +212,41 @@ const CtaBanner = ({ handleStartPlaying }) => {
   return (
     <section id="contact" className="border-t border-[#e5e5e5] overflow-hidden bg-[#ffffff]">
       <div
-        className={`relative ${slide.bg} py-20 px-6 text-center transition-colors duration-500`}
-        style={{ minHeight: 380 }}
+        className={`relative ${slide.bg} py-16 sm:py-20 px-4 sm:px-6 text-center transition-colors duration-500 min-h-[420px] sm:min-h-[380px] flex items-center justify-center`}
       >
-        {slide.deco && (
-          <>
-            <div className={`absolute -top-20 -right-16 w-72 h-72 rounded-full ${slide.decoColor} opacity-[0.04] pointer-events-none`} />
-            <div className={`absolute -bottom-12 -left-8 w-44 h-44 rounded-full ${slide.decoColor} opacity-[0.04] pointer-events-none`} />
-          </>
-        )}
-
-        <div className="relative z-10 max-w-2xl mx-auto flex flex-col items-center">
+        <div className="relative z-10 max-w-2xl mx-auto flex flex-col items-center w-full">
           <span className={`inline-flex items-center gap-1.5 text-[10px] font-medium tracking-wider uppercase px-3.5 py-1 rounded-full mb-5 font-mono ${slide.badgeClass}`}>
             {slide.badge.icon}
             {slide.badge.text}
           </span>
 
-          <h2 className={`font-semibold text-2xl sm:text-4xl leading-tight mb-5 tracking-tight font-['Satoshi',sans-serif] ${slide.headingClass}`}>
+          <h2 className={`font-semibold text-xl sm:text-4xl leading-tight mb-5 tracking-tight font-['Satoshi',sans-serif] ${slide.headingClass}`}>
             {slide.heading}
           </h2>
 
-          <div className="flex gap-8 justify-center mb-6 flex-wrap font-mono">
+          <div className="flex gap-4 sm:gap-8 justify-center mb-6 flex-wrap font-mono">
             {slide.stats.map((s, i) => (
-              <div key={i} className="flex flex-col items-center min-w-[70px]">
-                <span className={`text-xl sm:text-2xl font-bold tracking-tight ${slide.statNumClass}`}>{s.num}</span>
-                <span className={`text-[11px] font-sans font-normal mt-0.5 ${slide.statLabelClass}`}>{s.label}</span>
+              <div key={i} className="flex flex-col items-center min-w-[65px] sm:min-w-[70px]">
+                <span className={`text-lg sm:text-2xl font-bold tracking-tight ${slide.statNumClass}`}>{s.num}</span>
+                <span className={`text-[10px] sm:text-[11px] font-sans font-normal mt-0.5 ${slide.statLabelClass}`}>{s.label}</span>
               </div>
             ))}
           </div>
 
-          <p className={`text-xs sm:text-sm leading-relaxed max-w-lg mb-8 font-normal font-sans ${slide.subClass}`}>
+          <p className={`text-xs sm:text-sm leading-relaxed max-w-lg mb-8 font-normal font-sans px-2 ${slide.subClass}`}>
             {slide.sub}
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-3 justify-center w-full sm:w-auto">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center w-full sm:w-auto px-4 sm:px-0">
             <button
               onClick={() => handleAction(slide.primaryBtn.action)}
-              className={`h-10 px-6 rounded-lg text-xs sm:text-sm font-medium transition-all active:scale-[0.98] cursor-pointer shadow-[0_1px_2px_rgba(0,0,0,0.05)] border-0 ${slide.primaryBtn.class}`}
+              className={`h-10 px-6 rounded-lg text-xs sm:text-sm font-medium transition-all active:scale-[0.98] cursor-pointer shadow-[0_1px_2px_rgba(0,0,0,0.05)] border-0 w-full sm:w-auto ${slide.primaryBtn.class}`}
             >
               {slide.primaryBtn.text}
             </button>
             <button
               onClick={() => handleAction(slide.secondaryBtn.action)}
-              className={`h-10 px-6 rounded-lg text-xs sm:text-sm font-medium transition-all cursor-pointer ${slide.secondaryBtn.class}`}
+              className={`h-10 px-6 rounded-lg text-xs sm:text-sm font-medium transition-all cursor-pointer w-full sm:w-auto ${slide.secondaryBtn.class}`}
             >
               {slide.secondaryBtn.text}
             </button>
@@ -214,15 +276,51 @@ const CtaBanner = ({ handleStartPlaying }) => {
 // ==================== MAIN MASTER ROUTE COMPONENT ====================
 const Home = () => {
   const navigate = useNavigate();
-  const words = ["Vision Therapy", "Myopia", "Lazy Eye", "Eye Fitness"];
+  const words = ["Vision Therapy", "Myopia Control", "Lazy Eye Recovery", "Eye Muscle Fitness"];
   const [index, setIndex] = useState(0);
   const [openFaq, setOpenFaq] = useState(null);
+  
+  const [activeTab, setActiveTab] = useState("All");
+  const categories = ["All", "Tracking", "Focus", "Coordination"];
 
   const games = [
-    { title: "Focus Quest", emoji: "🎯", desc: "Track moving objects to improve eye coordination dynamically." },
-    { title: "Color Catch", emoji: "🌈", desc: "Match colors quickly for core visual agility response training." },
-    { title: "Vision Rush", emoji: "⚡", desc: "Fast-paced interactive game to enhance child reaction times." },
+    { 
+      emoji: "👁️", 
+      title: "Eye Blink Detection", 
+      category: "Focus",
+      desc: "Blink-based exercises using face tracking to improve focus and eye muscle strength.", 
+      illustration: <EyeBlinkIllustration />,
+      color: "from-blue-500 to-indigo-500"
+    },
+    { 
+      emoji: "🔷", 
+      title: "Shape Fusion", 
+      category: "Coordination",
+      desc: "Stereoscopic fusion mini-games engineered cleanly to support depth calibration.", 
+      illustration: <ShapeFusionIllustration />,
+      color: "from-purple-500 to-fuchsia-500"
+    },
+    { 
+      emoji: "🎨", 
+      title: "Odd N Out", 
+      category: "Focus",
+      desc: "Fast-paced visual processing tasks designed to improve target search metrics.", 
+      illustration: <OddNOutIllustration />,
+      color: "from-amber-500 to-orange-500"
+    },
+    { 
+      emoji: "🎯", 
+      title: "Tracking Challenge", 
+      category: "Tracking",
+      desc: "Track fast-moving continuous vector points to eliminate reading path drift errors.", 
+      illustration: <TrackingIllustration />,
+      color: "from-emerald-500 to-teal-500"
+    },
   ];
+
+  const filteredGames = activeTab === "All" 
+    ? games 
+    : games.filter(game => game.category === activeTab);
 
   const handleStartPlaying = () => {
     const token = localStorage.getItem("token");
@@ -262,17 +360,17 @@ const Home = () => {
   };
 
   const fadeLeftVariants = {
-    hidden: { opacity: 0, x: -50 },
+    hidden: { opacity: 0, x: -30 },
     visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
   };
 
   const fadeRightVariants = {
-    hidden: { opacity: 0, x: 50 },
+    hidden: { opacity: 0, x: 30 },
     visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
   };
 
   const scaleUpVariants = {
-    hidden: { opacity: 0, scale: 0.92 },
+    hidden: { opacity: 0, scale: 0.95 },
     visible: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } },
   };
 
@@ -282,58 +380,48 @@ const Home = () => {
   };
 
   const staggerItemVariants = {
-    hidden: { opacity: 0, y: 25 },
+    hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.16, 1, 0.3, 1] } },
   };
 
-  const faqs = [
-    { q: "Is it safe for screen time?", a: "Yes. Unlike passive streaming, our exercises engage eye muscles actively. Sessions are limited to 15 minutes daily to prevent strain while effectively training focus." },
-    { q: "What age does it work for?", a: "Naintaara is optimized for kids aged 4 to 14 years during critical visual development stages. Games automatically adjust difficulty based on performance metrics." },
-    { q: "Do we need a prescription?", a: "No prescription is required. It serves as home fitness for eyes. However, we recommend regular eye specialist checkups to track overall recovery." },
-    { q: "How long till we see results?", a: "Most parents report noticeable improvements in children's visual tracking, depth perception, and focus accuracy within 4 to 6 weeks of daily disciplined play." },
-    { q: "Will it work alongside glasses?", a: "Yes. Naintaara trains visual brain processing tracking paths. Children should wear their normally prescribed reading or distance glasses while playing the games." },
-    { q: "Is it covered by insurance?", a: "Currently, digital eye tracking treatments are out-of-pocket expenses. For specific clinic documentation or help, reach out directly on our Contact Page." },
-  ];
-
   return (
-    <div className="w-full min-h-screen bg-white">
+    <div className="w-full min-h-screen bg-white overflow-x-hidden">
       <Navbar />
 
       {/* ==================== SECTION 1: HERO ==================== */}
-      <section id="home" className="pt-28 pb-16 sm:pt-36 sm:pb-24 bg-[#f5ede0] relative overflow-hidden text-[#0a0a0a] font-sans">
+      <section id="home" className="pt-24 pb-16 sm:pt-36 sm:pb-24 bg-[#f5ede0] relative overflow-hidden text-[#0a0a0a] font-sans">
         <div
           className="absolute inset-0 opacity-[0.015] pointer-events-none z-0"
           style={{ backgroundImage: `radial-gradient(#000000 1px, transparent 0)`, backgroundSize: '24px 24px' }}
         />
-        <div className="absolute top-[20%] left-[45%] -translate-x-1/2 -translate-y-1/2 w-[280px] sm:w-[450px] h-[280px] sm:h-[450px] bg-gradient-to-tr from-[#ea580c]/5 to-transparent rounded-full blur-[80px] sm:blur-[120px] pointer-events-none z-0" />
-        <div className="absolute top-[35%] left-[55%] -translate-x-1/2 -translate-y-1/2 w-[240px] sm:w-[380px] h-[240px] sm:h-[380px] bg-gradient-to-br from-[#3b82f6]/4 to-transparent rounded-full blur-[70px] sm:blur-[100px] pointer-events-none z-0" />
-
-        <div className="max-w-[1200px] mx-auto px-6 sm:px-8 relative z-10">
+        <div className="absolute top-[15%] left-[45%] -translate-x-1/2 -translate-y-1/2 w-[240px] sm:w-[450px] h-[240px] sm:h-[450px] bg-gradient-to-tr from-[#ea580c]/5 to-transparent rounded-full blur-[60px] sm:blur-[120px] pointer-events-none z-0" />
+        
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-8 relative z-10">
           <motion.div
-            className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center"
+            className="grid lg:grid-cols-12 gap-8 lg:gap-16 items-center"
             variants={containerVariants}
             initial="hidden"
             animate="visible"
             viewport={{ once: true }}
           >
             {/* LEFT */}
-            <motion.div variants={itemVariants} className="flex flex-col text-left items-start w-full lg:col-span-6">
-              <div className="inline-flex items-center bg-[#ede3d6] text-[#171717] border border-[#ddd0c0] px-3.5 py-1 rounded-full text-xs font-medium mb-6 select-none shadow-[0_1px_2px_rgba(0,0,0,0.02)] max-w-full truncate">
+            <motion.div variants={itemVariants} className="flex flex-col text-left items-start w-full lg:col-span-6 order-2 lg:order-1">
+              <div className="inline-flex items-center bg-[#ede3d6] text-[#171717] border border-[#ddd0c0] px-3.5 py-1 rounded-full text-xs font-medium mb-5 select-none shadow-[0_1px_2px_rgba(0,0,0,0.02)] max-w-full truncate">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#ea580c] mr-2 animate-pulse shrink-0" />
                 Clinically Guided Vision Therapy
               </div>
 
-              <h1 className="text-3xl sm:text-5xl lg:text-[48px] font-bold tracking-tight text-[#0a0a0a] leading-[1.15] mb-5 w-full font-['Satoshi',sans-serif]">
+              <h1 className="text-2xl sm:text-5xl lg:text-[48px] font-bold tracking-tight text-[#0a0a0a] leading-[1.2] sm:leading-[1.15] mb-5 w-full font-['Satoshi',sans-serif]">
                 Home Vision Therapy <br />
                 For Growing Kids <br />
-                <div className="inline-block h-[40px] sm:h-[55px] lg:h-[60px] overflow-hidden relative w-full mt-1">
+                <div className="inline-block h-[38px] sm:h-[55px] lg:h-[60px] overflow-hidden relative w-full mt-1">
                   <AnimatePresence mode="wait">
                     <motion.span
                       key={words[index]}
-                      initial={{ y: "30%", opacity: 0 }}
+                      initial={{ y: "40%", opacity: 0 }}
                       animate={{ y: "0%", opacity: 1 }}
-                      exit={{ y: "-30%", opacity: 0 }}
-                      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                      exit={{ y: "-40%", opacity: 0 }}
+                      transition={{ duration: 0.3, ease: "easeOut" }}
                       className="text-[#ea580c] absolute left-0 top-0 block w-full font-bold"
                     >
                       {words[index]}
@@ -342,20 +430,20 @@ const Home = () => {
                 </div>
               </h1>
 
-              <p className="text-[#5a4a3a] text-sm sm:text-base leading-relaxed max-w-md mb-8 font-normal">
+              <p className="text-[#5a4a3a] text-xs sm:text-base leading-relaxed max-w-md mb-8 font-normal">
                 Interactive, scientifically designed exercises that strengthen focus, depth perception, and eye tracking directly from home.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto mb-8">
                 <button
                   onClick={handleStartPlaying}
-                  className="h-10 px-6 bg-[#ea580c] hover:bg-[#c2410c] text-white font-medium text-sm rounded-lg transition-all shadow-[0_1px_2px_0_rgba(0,0,0,0.05)] active:scale-[0.98] cursor-pointer w-full sm:w-auto text-center border-0"
+                  className="h-11 px-6 bg-[#ea580c] hover:bg-[#c2410c] text-white font-medium text-sm rounded-lg transition-all active:scale-[0.98] cursor-pointer w-full sm:w-auto text-center border-0"
                 >
                   Start Training Now
                 </button>
                 <button
                   onClick={handleWhatsAppRedirect}
-                  className="h-10 px-5 bg-[#ede3d6] border border-[#ddd0c0] hover:bg-[#e4d5c3] text-[#0a0a0a] font-medium text-sm rounded-lg transition-all flex items-center justify-center gap-1.5 w-full sm:w-auto shadow-[0_1px_2px_0_rgba(0,0,0,0.05)]"
+                  className="h-11 px-5 bg-[#ede3d6] border border-[#ddd0c0] hover:bg-[#e4d5c3] text-[#0a0a0a] font-medium text-sm rounded-lg transition-all flex items-center justify-center gap-1.5 w-full sm:w-auto shadow-sm"
                 >
                   <MessageSquare className="w-4 h-4 text-[#5a4a3a]" />
                   Chat with Us
@@ -363,449 +451,563 @@ const Home = () => {
               </div>
 
               <div className="flex flex-wrap gap-2 w-full">
-                {["👁️ Amblyopia Care", "🎯 Spatial Focus", "🪙 Coin Rewards"].map((tag, i) => (
-                  <span key={i} className="text-xs font-medium text-[#5a4a3a] bg-[#ede3d6] border border-[#ddd0c0] px-3.5 py-1.5 rounded-full shadow-[0_1px_2px_rgba(0,0,0,0.02)]">{tag}</span>
+                {["15 Minutes Daily", "Doctor Guided", "Trusted by Parents"].map((tag, i) => (
+                  <span key={i} className="text-[11px] sm:text-xs font-medium text-[#5a4a3a] bg-[#ede3d6] border border-[#ddd0c0] px-3 py-1 rounded-full shadow-sm">{tag}</span>
                 ))}
               </div>
             </motion.div>
 
             {/* RIGHT */}
-            <motion.div className="relative w-full lg:col-span-6" variants={itemVariants}>
+            <motion.div className="relative w-full lg:col-span-6 order-1 lg:order-2" variants={itemVariants}>
               <img
                 src={heroImage}
                 alt="Nainocular family vision training platform tracking view"
-                className="w-full h-full object-cover select-none pointer-events-none block rounded-2xl"
+                className="w-full h-auto object-cover select-none pointer-events-none block rounded-2xl max-w-md lg:max-w-full mx-auto shadow-md"
               />
             </motion.div>
           </motion.div>
         </div>
       </section>
 
-      {/* ==================== SECTION 2: FEATURES/VALIDATION BAR ==================== */}
-      <section id="features" className="py-16 bg-[#f5f5f5] border-y border-[#e5e5e5]">
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            className="mb-12 space-y-2"
-            variants={fadeUpVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-          >
-            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#0a0a0a]">
-              The Future of Kids' Vision Care
-            </h2>
-            <p className="text-[#404040] text-sm max-w-xl mx-auto font-normal">
-              Our technology blends proven behavioral science with safe, interactive engagement parents trust.
-            </p>
-          </motion.div>
+      {/* ==================== SECTION 2: FEATURES ==================== */}
+      <section id="features" className="py-16 sm:py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative overflow-hidden rounded-2xl sm:rounded-[32px] border border-orange-200 bg-gradient-to-br from-orange-50 via-white to-blue-50 p-5 sm:p-12 lg:p-16 shadow-lg">
+            <div className="absolute -top-24 -left-24 w-80 h-80 bg-orange-200/30 rounded-full blur-3xl pointer-events-none"></div>
+            <div className="absolute -bottom-24 -right-24 w-80 h-80 bg-blue-200/30 rounded-full blur-3xl pointer-events-none"></div>
 
-          <motion.div
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6"
-            variants={staggerContainerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-          >
-            {[
-              { icon: <Target className="w-5 h-5 text-[#ea580c]" />, title: "Clinically Guided", desc: "Developed alongside eye experts using validated data models for tracking accuracy." },
-              { icon: <Smartphone className="w-5 h-5 text-[#ea580c]" />, title: "Safe Daily Sessions", desc: "Strictly limited to 15 minutes daily to completely avoid digital strain or fatigue." },
-              { icon: <LineChart className="w-5 h-5 text-[#ea580c]" />, title: "Progress Tracking", desc: "Get crystal-clear medical dashboards to watch visual acuity improve week-over-week." },
-              { icon: <Brain className="w-5 h-5 text-[#ea580c]" />, title: "Designed for Kids 4-14", desc: "Adaptive algorithms customize the difficulty settings dynamically as your child grows." },
-            ].map((item, i) => (
+            <div className="relative z-10">
               <motion.div
-                key={i}
-                variants={staggerItemVariants}
-                className="bg-[#ffffff] border border-[#e5e5e5] rounded-xl p-5 flex flex-col items-start text-left transition-all duration-200 cursor-default hover:border-[#d4d4d4] hover:shadow-[0_4px_12px_rgba(0,0,0,0.03)]"
+                className="text-center mb-12 sm:mb-14"
+                variants={fadeUpVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.3 }}
               >
-                <div className="w-9 h-9 rounded-lg bg-[#f5f5f5] border border-[#e5e5e5] flex items-center justify-center mb-4 shrink-0">
-                  {item.icon}
-                </div>
-                <h3 className="text-base font-bold text-[#0a0a0a] mb-1.5 tracking-tight">{item.title}</h3>
-                <p className="text-[#404040] text-xs sm:text-[13px] font-normal leading-relaxed">{item.desc}</p>
+                <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-orange-100 text-orange-600 text-xs font-medium border border-orange-200 mb-4">
+                  Trusted by Families
+                </span>
+                <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
+                  The Future of Kids' Vision Care
+                </h2>
+                <p className="max-w-2xl mx-auto text-gray-600 text-xs sm:text-base leading-relaxed">
+                  Our technology blends vision science, interactive engagement, and progress tracking to help children build stronger visual skills through fun daily activities.
+                </p>
               </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ==================== SECTION 3: VISION SKILLS CONTEXT ==================== */}
-      <section id="theory" className="py-20 bg-[#ffffff] border-b border-[#e5e5e5] text-left">
-        <div className="max-w-[1200px] mx-auto px-6 sm:px-8">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-            {/* Left image */}
-            <motion.div
-              className="lg:col-span-5 relative flex justify-center w-full order-2 lg:order-1"
-              variants={fadeLeftVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-            >
-              <div className="absolute inset-0 bg-[#ea580c]/3 rounded-2xl blur-2xl transform scale-95 pointer-events-none" />
-              <div className="relative z-10 w-full max-w-sm sm:max-w-md bg-white border border-[#e5e5e5] rounded-xl p-2 shadow-[0_8px_30px_rgba(0,0,0,0.02)] overflow-hidden group">
-                <img
-                  src="https://images.unsplash.com/photo-1516627145497-ae6968895b74?q=80&w=800&auto=format&fit=crop"
-                  alt="Child engaging in modern interactive focus coordination exercise"
-                  className="rounded-lg w-full h-[280px] sm:h-[340px] object-cover filter brightness-[0.99]"
-                />
-                <motion.div
-                  initial={{ top: "0%" }}
-                  animate={{ top: "100%" }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                  className="absolute left-2 right-2 h-[1px] bg-gradient-to-r from-transparent via-[#ea580c]/50 to-transparent pointer-events-none z-20"
-                />
-              </div>
-              <div className="absolute top-6 right-0 bg-white/90 backdrop-blur-md border border-[#e5e5e5] rounded-lg px-2.5 py-1 text-[10px] font-medium text-[#404040] shadow-sm z-20 flex items-center gap-1.5 select-none">
-                <div className="w-1.5 h-1.5 bg-[#ea580c] rounded-full animate-ping" />
-                Real-time Focus Scan
-              </div>
-            </motion.div>
-
-            {/* Right text */}
-            <motion.div
-              className="lg:col-span-7 space-y-5 w-full order-1 lg:order-2"
-              variants={fadeRightVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-            >
-              <span className="inline-flex bg-[#f5f5f5] text-[#171717] border border-[#e5e5e5] px-3.5 py-1 rounded-full text-xs font-medium select-none shadow-sm">
-                Early Vision Development
-              </span>
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#0a0a0a] leading-tight font-['Satoshi',sans-serif]">
-                Why Vision Skills Matter in Childhood
-              </h2>
-              <div className="space-y-4 text-[#404040] text-sm sm:text-base font-normal leading-relaxed max-w-2xl">
-                <p>Children develop important visual skills during their early years. Problems like difficulty focusing, eye coordination issues, lazy eye, and increasing screen strain can affect learning, reading, and daily activities.</p>
-                <p>Interactive vision therapy activities help strengthen tracking, focus, and visual coordination in a fun and engaging way.</p>
-              </div>
 
               <motion.div
-                className="grid gap-3 grid-cols-1 sm:grid-cols-2 pt-4"
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6"
                 variants={staggerContainerVariants}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, amount: 0.2 }}
+                viewport={{ once: true, amount: 0.1 }}
               >
                 {[
-                  { title: "Lazy Eye Support", desc: "Improves balance and binocular coordination links safely." },
-                  { title: "Myopia Awareness", desc: "Supports natural accommodation relaxation cycles at home." },
-                  { title: "Eye Coordination", desc: "Strengthens ocular muscle alignment for comfortable reading tracks." },
-                  { title: "Visual Tracking", desc: "Enhances step-by-step path processing without mental fatigue loops." },
+                  { icon: <Target className="w-5 h-5 text-orange-600" />, title: "Clinically Guided", desc: "Built using evidence-based vision training principles inspired by expert recommendations." },
+                  { icon: <Smartphone className="w-5 h-5 text-orange-600" />, title: "Safe Daily Sessions", desc: "Short, structured activities designed to encourage healthy visual habits." },
+                  { icon: <LineChart className="w-5 h-5 text-orange-600" />, title: "Progress Tracking", desc: "Monitor visual development through simple and easy-to-understand reports." },
+                  { icon: <Brain className="w-5 h-5 text-orange-600" />, title: "Designed for Kids", desc: "Adaptive challenges keep children motivated while supporting skill development." }
                 ].map((item, i) => (
                   <motion.div
                     key={i}
                     variants={staggerItemVariants}
-                    className="bg-[#f5f5f5] border border-[#e5e5e5] p-4 rounded-xl text-left transition-all duration-200 cursor-default hover:border-[#ea580c] hover:bg-white hover:shadow-[0_4px_12px_rgba(0,0,0,0.02)]"
+                    className="group bg-white/90 backdrop-blur-md border border-gray-100 rounded-2xl sm:rounded-3xl p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
                   >
-                    <h3 className="font-bold text-sm text-[#0a0a0a] mb-1 tracking-tight flex items-center gap-1.5">
-                      <span className="w-1 h-1 rounded-full bg-[#ea580c]" />
+                    <div className="w-11 h-11 rounded-xl bg-orange-50 border border-orange-100 flex items-center justify-center mb-5">
+                      {item.icon}
+                    </div>
+                    <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-2">
                       {item.title}
                     </h3>
-                    <p className="text-[#404040] text-[12px] sm:text-xs leading-normal font-normal">{item.desc}</p>
+                    <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                      {item.desc}
+                    </p>
                   </motion.div>
                 ))}
               </motion.div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ==================== SECTION 3: VISION SKILLS CONTEXT ==================== */}
+      <section id="theory" className="py-16 sm:py-24 bg-[#ffffff] border-b border-[#e5e5e5] overflow-hidden">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-8">
+          <div className="grid lg:grid-cols-12 gap-8 items-center">
+            <motion.div
+              className="lg:col-span-6 order-2 lg:order-1 w-full"
+              variants={fadeLeftVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+            >
+              <div className="relative rounded-2xl sm:rounded-[32px] bg-gradient-to-br from-[#fff7ed] via-[#ffffff] to-[#ffedd5] p-2.5 sm:p-4 border border-orange-100 shadow-md">
+                <div className="relative overflow-hidden rounded-xl sm:rounded-[24px] bg-white border border-[#e5e5e5] w-full aspect-video">
+                  <iframe
+                    src="https://player.cloudinary.com/embed/?cloud_name=dckazgxya&public_id=mp__zsh2h7&autoplay=true&muted=true&loop=true"
+                    allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+                    allowFullScreen
+                    frameBorder="0"
+                    className="w-full h-full absolute inset-0"
+                  />
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              className="lg:col-span-6 order-1 lg:order-2"
+              variants={fadeRightVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+            >
+              <div className="relative overflow-hidden rounded-2xl sm:rounded-[32px] bg-gradient-to-br from-[#fff7ed] via-[#ffffff] to-[#eef2ff] border border-[#f1f5f9] p-5 sm:p-8 lg:p-10 shadow-sm">
+                <div className="relative z-10">
+                  <span className="inline-flex bg-white text-[#ea580c] border border-orange-200 px-3.5 py-1 rounded-full text-xs font-semibold mb-4 shadow-sm">
+                    Early Vision Development
+                  </span>
+
+                  <h2 className="text-xl sm:text-4xl font-bold tracking-tight text-[#0a0a0a] leading-tight mb-4 font-['Satoshi',sans-serif]">
+                    Why Vision Skills Matter in Childhood
+                  </h2>
+
+                  <div className="space-y-4 text-[#525252] text-xs sm:text-base leading-relaxed mb-6">
+                    <p>
+                      Children develop important visual skills during their early years. Problems like difficulty focusing, lazy eye, and screen strain can affect learning and daily milestones.
+                    </p>
+                  </div>
+
+                  <motion.div
+                    className="grid grid-cols-1 sm:grid-cols-2 gap-3"
+                    variants={staggerContainerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                  >
+                    {[
+                      { title: "Lazy Eye Support", desc: "Improves balance and binocular coordination safely." },
+                      { title: "Myopia Awareness", desc: "Supports healthy focusing habits and relaxation." },
+                      { title: "Eye Coordination", desc: "Strengthens alignment for smoother reading." },
+                      { title: "Visual Tracking", desc: "Enhances object tracking and focus accuracy." },
+                    ].map((item, i) => (
+                      <motion.div
+                        key={i}
+                        variants={staggerItemVariants}
+                        className="bg-white/80 backdrop-blur-md border border-white rounded-xl p-3.5 hover:border-[#ea580c] transition-all duration-300 shadow-sm"
+                      >
+                        <h4 className="font-semibold text-xs sm:text-sm text-[#0a0a0a] mb-1 flex items-center gap-2">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#ea580c]" />
+                          {item.title}
+                        </h4>
+                        <p className="text-[11px] sm:text-xs text-[#525252] leading-relaxed">
+                          {item.desc}
+                        </p>
+                      </motion.div>
+                    ))}
+                  </motion.div>
+                </div>
+              </div>
             </motion.div>
           </div>
         </div>
       </section>
 
       {/* ==================== SECTION 4: HOW IT WORKS ==================== */}
-      <section id="features" className="py-20 bg-[#f9fafb] border-b border-[#e5e5e5] text-left relative overflow-hidden">
-        <div className="max-w-[1200px] mx-auto px-6 sm:px-8 relative z-10">
-          <motion.div
-            className="text-center mb-16 max-w-2xl mx-auto space-y-3"
-            variants={fadeUpVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-          >
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#0a0a0a] font-['Satoshi',sans-serif]">
-              How Nainocular Works
-            </h2>
-            <p className="text-[#404040] text-sm sm:text-base font-normal leading-relaxed">
-              A guided step-by-step experience designed to help children improve focus, tracking, and visual coordination through engaging activities from home.
-            </p>
-          </motion.div>
-
-          <div className="relative grid grid-cols-1 lg:grid-cols-3 gap-10 items-start pt-4">
-            <div className="absolute top-1/2 left-0 right-0 h-[2px] bg-[#e5e5e5] -translate-y-12 hidden lg:block z-0">
+      <section id="features-how" className="py-16 sm:py-24 bg-white border-b border-[#e5e5e5]">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative overflow-hidden rounded-2xl sm:rounded-[36px] bg-gradient-to-br from-[#fff7ed] via-[#ffffff] to-[#eef2ff] border border-[#f1f5f9] p-5 sm:p-12 lg:p-16 shadow-sm">
+            <div className="relative z-10">
               <motion.div
-                className="h-full bg-[#ea580c]/60"
-                initial={{ width: "0%" }}
-                whileInView={{ width: "100%" }}
-                viewport={{ once: true }}
-                transition={{ duration: 1.2, ease: "easeInOut" }}
-              />
-            </div>
-
-            {[
-              { step: "Step 01", emoji: "📱", title: "Quick Vision Assessment", desc: "Understand your child's visual strengths and focus areas through simple, intuitive browser activities.", delay: 0 },
-              { step: "Step 02", emoji: "🎯", title: "Personalized Activities", desc: "Interactive screen exercises carefully calibrated to target and enhance tracking, alignment, and core eye coordination.", delay: 0.5 },
-              { step: "Step 03", emoji: "🪙", title: "Track Progress & Rewards", desc: "Monitor performance tracking graphs while children earn stars and rewards for staying consistent.", delay: 1 },
-            ].map((item, i) => (
-              <motion.div
-                key={i}
-                variants={staggerItemVariants}
+                className="text-center mb-12 max-w-2xl mx-auto"
+                variants={fadeUpVariants}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, amount: 0.3 }}
-                className="relative z-10 bg-[#ffffff] border border-[#e5e5e5] rounded-xl p-6 shadow-[0_1px_2px_rgba(0,0,0,0.02)] transition-all duration-200 hover:border-[#ea580c] group"
+                viewport={{ once: true }}
               >
-                <div className="flex items-center justify-between mb-5">
-                  <div className="text-xs font-bold uppercase tracking-wider text-[#ea580c] bg-[#ea580c]/5 px-2.5 py-1 rounded-md">{item.step}</div>
-                  <motion.div
-                    animate={{ y: [0, -4, 0] }}
-                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: item.delay }}
-                    className="text-2xl w-10 h-10 rounded-lg bg-[#f5f5f5] border border-[#e5e5e5] flex items-center justify-center select-none"
-                  >
-                    {item.emoji}
-                  </motion.div>
-                </div>
-                <h3 className="text-lg font-bold text-[#0a0a0a] mb-2 tracking-tight group-hover:text-[#ea580c] transition-colors">{item.title}</h3>
-                <p className="text-[#404040] text-xs sm:text-sm font-normal leading-relaxed">{item.desc}</p>
+                <span className="inline-flex bg-white text-[#ea580c] border border-orange-200 px-3.5 py-1 rounded-full text-xs font-semibold mb-4 shadow-sm">
+                  Simple 3-Step Process
+                </span>
+                <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[#0a0a0a] mb-4">
+                  How Nainocular Works
+                </h2>
+                <p className="text-[#525252] text-xs sm:text-base leading-relaxed">
+                  A guided step-by-step experience designed to help children improve focus and tracking through engaging online activities.
+                </p>
               </motion.div>
-            ))}
-          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2, duration: 0.4 }}
-            className="mt-16 pt-8 border-t border-[#e5e5e5] flex flex-col sm:flex-row items-center justify-center gap-6 md:gap-12 text-[#404040] text-xs sm:text-sm font-medium"
-          >
-            <div className="flex items-center gap-2"><span className="text-[#ea580c] text-sm">✓</span> Safe 15-Minute Daily Sessions</div>
-            <div className="flex items-center gap-2"><span className="text-[#ea580c] text-sm">✓</span> Detailed Parent Progress Dashboards</div>
-            <div className="flex items-center gap-2"><span className="text-[#ea580c] text-sm">✓</span> Interactive Child-Friendly Interface</div>
-          </motion.div>
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
+                {[
+                  { step: "01", emoji: "📱", title: "Quick Vision Assessment", desc: "Understand your child's visual strengths and focus areas through simple browser activities." },
+                  { step: "02", emoji: "🎯", title: "Personalized Activities", desc: "Interactive exercises carefully designed to improve tracking, focus and coordination." },
+                  { step: "03", emoji: "🏆", title: "Track Progress & Rewards", desc: "Monitor improvements while children earn stars and rewards for consistency." },
+                ].map((item, i) => (
+                  <motion.div
+                    key={i}
+                    variants={staggerItemVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    className="group bg-white/80 backdrop-blur-md border border-white rounded-2xl p-5 sm:p-7 hover:border-[#ea580c]/30 transition-all duration-300"
+                  >
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="w-10 h-10 rounded-xl bg-orange-50 border border-orange-100 flex items-center justify-center text-lg">
+                        {item.emoji}
+                      </div>
+                      <span className="text-[#ea580c] font-bold text-xs font-mono">
+                        Step {item.step}
+                      </span>
+                    </div>
+                    <h3 className="text-base font-bold text-[#0a0a0a] mb-2 group-hover:text-[#ea580c] transition-colors">
+                      {item.title}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-[#525252] leading-relaxed">
+                      {item.desc}
+                    </p>
+                  </motion.div>
+                ))}
+              </div>
+
+              <motion.div
+                className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-3"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+              >
+                {[
+                  "Safe 15-Minute Daily Sessions",
+                  "Detailed Parent Progress Dashboard",
+                  "Interactive Child-Friendly Interface"
+                ].map((item, i) => (
+                  <div
+                    key={i}
+                    className="bg-white border border-[#e5e5e5] rounded-xl py-3 px-4 text-center text-xs sm:text-sm font-medium text-[#404040]"
+                  >
+                    <span className="text-[#ea580c] mr-2">✓</span>
+                    {item}
+                  </div>
+                ))}
+              </motion.div>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* ==================== SECTION 5: VISION ACTIVITIES ==================== */}
-      <section id="games" className="py-20 bg-[#ffffff] border-b border-[#e5e5e5] text-left">
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="text-center lg:text-left mb-12 max-w-2xl space-y-2"
-            variants={fadeUpVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-          >
-            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#0a0a0a] font-['Satoshi',sans-serif]">Interactive Vision Training Activities</h2>
-            <p className="text-[#404040] text-sm sm:text-base font-normal leading-relaxed">Scientifically guided exercises that help children improve focus, tracking, eye coordination, and visual response skills.</p>
-          </motion.div>
+      <section id="games" className="py-16 sm:py-24 bg-white border-b border-[#e5e5e5]">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-8">
+          <div className="relative overflow-hidden rounded-2xl sm:rounded-[36px] bg-gradient-to-br from-[#fff7ed] via-[#ffffff] to-[#eef2ff] border border-[#f1f5f9] p-5 sm:p-12 lg:p-16 shadow-sm">
+            <div className="relative z-10">
+              <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-10 gap-6">
+                <motion.div
+                  className="text-center lg:text-left max-w-xl"
+                  variants={fadeUpVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                >
+                  <span className="inline-flex bg-white text-[#ea580c] border border-orange-200 px-3.5 py-1 rounded-full text-xs font-semibold shadow-sm mb-3">
+                    Interactive Vision Games
+                  </span>
+                  <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[#0a0a0a] mb-3">
+                    Vision Training Activities
+                  </h2>
+                  <p className="text-[#525252] text-xs sm:text-sm leading-relaxed">
+                    Scientifically guided exercises that help children improve focus, tracking, and response skills.
+                  </p>
+                </motion.div>
 
-          <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8"
-            variants={staggerContainerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.15 }}
-          >
-            {games.map((item, i) => (
-              <motion.div
-                key={i}
-                variants={staggerItemVariants}
-                whileHover={{ scale: 1.015, rotate: 0.5, y: -3 }}
-                transition={{ duration: 0.25, ease: "easeOut" }}
-                className="bg-[#ffffff] border border-[#e5e5e5] rounded-2xl overflow-hidden shadow-[0_1px_2px_rgba(0,0,0,0.02)] hover:border-[#ea580c] hover:shadow-[0_12px_30px_rgba(234,88,12,0.04)] transition-all duration-300 flex flex-col sm:flex-row h-auto sm:h-48"
-              >
-                <div className="w-full sm:w-44 h-40 sm:h-full bg-slate-50 relative shrink-0 overflow-hidden border-b sm:border-b-0 sm:border-r border-[#e5e5e5]">
-                  <div className="absolute top-3 left-3 w-7 h-7 rounded-lg bg-white/95 backdrop-blur-md flex items-center justify-center text-sm shadow-sm border border-[#e5e5e5] select-none">{item.emoji}</div>
-                  <div className="w-full h-full bg-[#f5f5f5] flex items-center justify-center text-xs text-[#737373] font-mono">GAME_ASSET_PREVIEW</div>
-                </div>
-                <div className="p-6 flex flex-col justify-center min-w-0">
-                  <h3 className="text-lg font-bold text-[#0a0a0a] mb-1.5 tracking-tight font-['Satoshi',sans-serif]">{item.title}</h3>
-                  <p className="text-[#404040] text-xs sm:text-sm font-normal leading-relaxed">{item.desc}</p>
-                </div>
+                <motion.div
+                  className="flex overflow-x-auto max-w-full -mx-4 px-4 sm:mx-0 sm:px-0 gap-1.5 bg-white/90 backdrop-blur-md p-1.5 rounded-xl border border-gray-100 shadow-sm shrink-0 whitespace-nowrap self-center lg:self-end"
+                  variants={fadeUpVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                >
+                  {categories.map((tab) => (
+                    <button
+                      key={tab}
+                      onClick={() => setActiveTab(tab)}
+                      className={`px-4 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 ${
+                        activeTab === tab
+                          ? "bg-[#ea580c] text-white shadow-sm"
+                          : "text-[#525252] hover:text-[#0a0a0a] hover:bg-gray-50"
+                      }`}
+                    >
+                      {tab}
+                    </button>
+                  ))}
+                </motion.div>
+              </div>
+
+              <motion.div layout className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+                <AnimatePresence mode="popLayout">
+                  {filteredGames.map((item) => (
+                    <motion.div
+                      layout
+                      key={item.title}
+                      initial={{ opacity: 0, scale: 0.97 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.97 }}
+                      transition={{ duration: 0.25 }}
+                      className="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col sm:flex-row"
+                    >
+                      <div className="w-full sm:w-40 h-36 sm:h-full bg-gradient-to-br from-orange-50 to-indigo-50 relative shrink-0 p-4 flex items-center justify-center border-b sm:border-b-0 sm:border-r border-gray-100">
+                        <div className="absolute top-2.5 left-2.5 w-8 h-8 rounded-lg bg-white flex items-center justify-center text-sm shadow-sm">
+                          {item.emoji}
+                        </div>
+                        <div className="w-20 h-20">{item.illustration}</div>
+                      </div>
+
+                      <div className="p-5 flex flex-col justify-center text-left flex-1">
+                        <span className="w-fit px-2 py-0.5 rounded-full text-[10px] font-medium bg-orange-50 text-[#ea580c] border border-orange-100 mb-2">
+                          {item.category}
+                        </span>
+                        <h3 className="text-base font-bold text-[#0a0a0a] mb-1">
+                          {item.title}
+                        </h3>
+                        <p className="text-xs text-[#525252] leading-relaxed">
+                          {item.desc}
+                        </p>
+                      </div>
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
               </motion.div>
-            ))}
-          </motion.div>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* ==================== SECTION 6: REWARDS SYSTEM ==================== */}
-      <section className="py-20 bg-[#f9fafb] border-b border-[#e5e5e5] text-left overflow-hidden">
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            {/* Left card */}
-            <motion.div
-              className="lg:col-span-6 relative w-full flex items-center justify-center order-2 lg:order-1"
-              variants={scaleUpVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-            >
-              <div className="absolute inset-0 bg-[#ea580c]/4 rounded-2xl blur-3xl transform scale-90 pointer-events-none" />
-              <div className="relative z-10 w-full max-w-[420px] bg-white border border-[#e5e5e5] rounded-xl p-5 sm:p-6 shadow-[0_8px_30px_rgba(0,0,0,0.02)] space-y-5 select-none">
-                <div className="flex items-center justify-between border-b border-[#e5e5e5] pb-4">
-                  <div className="flex items-center gap-2">
-                    <div className="w-2.5 h-2.5 bg-[#ea580c] rounded-full animate-pulse" />
-                    <span className="text-xs font-bold uppercase tracking-wider text-[#0a0a0a]">Aarav's Rewards Tracker</span>
+      <section className="py-16 sm:py-24 bg-white border-b border-[#e5e5e5]">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-8">
+          <div className="relative overflow-hidden rounded-2xl sm:rounded-[36px] bg-gradient-to-br from-[#fef3c7] via-[#ffffff] to-[#fef2f2] border border-[#fde68a] p-5 sm:p-12 lg:p-16 shadow-sm">
+            <div className="relative z-10">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <motion.div
+                  className="lg:col-span-6 order-2 lg:order-1 w-full"
+                  variants={scaleUpVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                >
+                  <div className="rounded-2xl bg-white border border-yellow-100 p-2.5 shadow-sm">
+                    <div className="overflow-hidden rounded-xl border border-[#e5e5e5] w-full aspect-video relative">
+                      <iframe
+                        src="https://player.cloudinary.com/embed/?cloud_name=dckazgxya&public_id=vision_reward_tracker_animation_demomp__ki5gvl&autoplay=true&muted=true&loop=true"
+                        allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+                        allowFullScreen
+                        frameBorder="0"
+                        className="w-full h-full absolute inset-0"
+                      />
+                    </div>
                   </div>
-                  <div className="bg-[#f5f5f5] border border-[#e5e5e5] px-2.5 py-0.5 rounded text-[11px] font-bold text-[#404040]">Level 4 Active</div>
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="border border-[#e5e5e5] rounded-lg p-3.5 bg-[#f9fafb]">
-                    <p className="text-[10px] font-bold text-neutral-400 uppercase tracking-wide">Daily Streak</p>
-                    <div className="flex items-baseline gap-1 mt-1"><span className="text-2xl font-black text-[#0a0a0a]">12</span><span className="text-xs font-medium text-[#ea580c]">Days 🔥</span></div>
-                  </div>
-                  <div className="border border-[#e5e5e5] rounded-lg p-3.5 bg-[#f9fafb]">
-                    <p className="text-[10px] font-bold text-neutral-400 uppercase tracking-wide">Total Balance</p>
-                    <div className="flex items-baseline gap-1 mt-1"><span className="text-2xl font-black text-[#0a0a0a]">350</span><span className="text-xs font-medium text-amber-500">Stars ⭐</span></div>
-                  </div>
-                </div>
-                <div className="space-y-1.5">
-                  <div className="flex justify-between text-[11px] font-medium text-neutral-500"><span>Weekly Mission Progress</span><span className="font-bold text-[#0a0a0a]">85%</span></div>
-                  <div className="w-full h-2 bg-[#f5f5f5] rounded-full overflow-hidden border border-neutral-100">
-                    <motion.div className="h-full bg-gradient-to-r from-[#ea580c] to-amber-500 rounded-full" initial={{ width: "0%" }} whileInView={{ width: "85%" }} viewport={{ once: true }} transition={{ duration: 1.2, ease: "easeOut" }} />
-                  </div>
-                </div>
-                <div className="bg-amber-50/60 border border-amber-100 rounded-lg p-3.5 flex items-center gap-3.5">
-                  <div className="text-2xl filter drop-shadow-sm select-none">👓</div>
-                  <div className="min-w-0 flex-1">
-                    <h4 className="text-xs font-bold text-amber-900 truncate">Perk Unlocked: 15% Off Smart Glasses</h4>
-                    <p className="text-[10px] text-amber-800 mt-0.5 leading-normal">Redeemable directly on checkout or partner clinics.</p>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
+                </motion.div>
 
-            {/* Right text */}
-            <motion.div
-              className="lg:col-span-6 space-y-5 order-1 lg:order-2 w-full"
-              variants={fadeRightVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-            >
-              <span className="inline-flex bg-[#ea580c]/5 border border-[#ea580c]/20 text-[#ea580c] px-3.5 py-1 rounded-full text-xs font-semibold select-none shadow-sm">Unique Motivation System</span>
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#0a0a0a] leading-tight font-['Satoshi',sans-serif]">Kids Stay Motivated with Rewards</h2>
-              <p className="text-[#404040] text-sm sm:text-base font-normal leading-relaxed max-w-xl">Complete daily vision activities, earn stars, unlock unique accomplishments, and get special high-value discounts on glasses and programs. We make tracking consistency simple, fun, and highly rewarding for children.</p>
-              <ul className="space-y-3 pt-2 text-[#171717] text-xs sm:text-sm font-medium">
-                <li className="flex items-center gap-2"><span className="text-[#ea580c] text-sm font-bold shrink-0">✓</span> Real-time continuous daily streak tracking models</li>
-                <li className="flex items-center gap-2"><span className="text-[#ea580c] text-sm font-bold shrink-0">✓</span> Milestone star tiers unlocked cleanly with play</li>
-                <li className="flex items-center gap-2"><span className="text-[#ea580c] text-sm font-bold shrink-0">✓</span> Exclusive integrated rewards discounts for vision frames</li>
-              </ul>
-            </motion.div>
+                <motion.div
+                  className="lg:col-span-6 order-1 lg:order-2 text-left"
+                  variants={fadeRightVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                >
+                  <div className="bg-white/90 backdrop-blur-md border border-white rounded-2xl p-5 sm:p-8 shadow-sm">
+                    <span className="inline-flex bg-yellow-50 border border-yellow-200 text-amber-600 px-3.5 py-1 rounded-full text-xs font-semibold mb-4 shadow-sm">
+                      🎁 Unique Motivation System
+                    </span>
+
+                    <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#0a0a0a] leading-tight mb-4">
+                      Kids Stay Motivated with Rewards
+                    </h2>
+
+                    <p className="text-[#525252] text-xs sm:text-sm leading-relaxed mb-6">
+                      Complete daily vision activities, earn stars, unlock achievements, and receive exciting rewards. We make consistency fun.
+                    </p>
+
+                    <div className="space-y-3">
+                      {[
+                        { icon: "⭐", title: "Daily Streak Tracking", desc: "Encourage consistent daily practice through streak rewards.", bg: "bg-yellow-50/60 border-yellow-100" },
+                        { icon: "🏆", title: "Achievement Milestones", desc: "Unlock special badges and star levels by completing activities.", bg: "bg-orange-50/60 border-orange-100" },
+                        { icon: "🎁", title: "Exclusive Rewards", desc: "Redeem earned rewards for discounts and special clinic milestones.", bg: "bg-amber-50/60 border-amber-100" }
+                      ].map((el, i) => (
+                        <div key={i} className={`border rounded-xl p-3.5 ${el.bg}`}>
+                          <div className="flex items-start gap-3">
+                            <span className="text-lg shrink-0 mt-0.5">{el.icon}</span>
+                            <div>
+                              <h4 className="font-semibold text-xs sm:text-sm text-[#0a0a0a]">{el.title}</h4>
+                              <p className="text-[11px] sm:text-xs text-[#525252] mt-0.5">{el.desc}</p>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* ==================== SECTION 7: FOR PARENTS ==================== */}
-      <section className="py-20 bg-[#ffffff] border-b border-[#e5e5e5] text-left">
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            {/* Left text */}
-            <motion.div
-              className="lg:col-span-6 space-y-6 w-full"
-              variants={fadeLeftVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-            >
-              <span className="inline-flex bg-[#f5f5f5] text-[#171717] border border-[#e5e5e5] px-3.5 py-1 rounded-full text-xs font-medium select-none shadow-sm">Parental Peace of Mind</span>
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#0a0a0a] leading-tight font-['Satoshi',sans-serif]">Why Parents Love Nainocular</h2>
-              <p className="text-[#404040] text-sm sm:text-base font-normal leading-relaxed max-w-xl">Nainocular fits effortlessly into your family's busy daily schedule. No stressful clinic travel overloads—just pure, guided care designed to help your child thrive.</p>
-              <motion.div
-                className="space-y-4 pt-2"
-                variants={staggerContainerVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.2 }}
-              >
-                {[
-                  { text: "My child now enjoys vision therapy every day without any tantrums. The rewards mechanism keeps him completely hooked.", author: "— Priya S., Delhi Parent" },
-                  { text: "Much easier than regular physical clinic visits. The tracking dashboard gives our doctor clear progress data insights.", author: "— Rajesh Verma, Bengaluru Parent" },
-                  { text: "We noticed an improvement within weeks in her reading coordination speed and distance focus capability.", author: "— Meenakshi N., Mumbai Parent" },
-                ].map((item, idx) => (
-                  <motion.div
-                    key={idx}
-                    variants={staggerItemVariants}
-                    className="border-l-2 border-[#ea580c] pl-4 space-y-1 bg-[#f9fafb]/80 py-2.5 pr-3 rounded-r-xl transition-all hover:bg-[#f5f5f5]"
-                  >
-                    <p className="text-xs sm:text-sm italic font-medium text-[#171717] leading-relaxed">{item.text}</p>
-                    <h5 className="text-[10px] sm:text-[11px] font-bold text-[#6b7280] uppercase tracking-wider">{item.author}</h5>
-                  </motion.div>
-                ))}
-              </motion.div>
-            </motion.div>
+      <section className="py-16 sm:py-24 bg-white border-b border-[#e5e5e5]">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-8">
+          <div className="relative overflow-hidden rounded-2xl sm:rounded-[36px] bg-gradient-to-br from-[#ecfdf5] via-[#ffffff] to-[#eff6ff] border border-[#dbeafe] p-5 sm:p-12 lg:p-16 shadow-sm">
+            <div className="relative z-10">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <motion.div
+                  className="lg:col-span-6 text-left"
+                  variants={fadeLeftVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                >
+                  <div className="bg-white/90 backdrop-blur-md border border-white rounded-2xl p-5 sm:p-8 shadow-sm">
+                    <span className="inline-flex bg-emerald-50 text-emerald-600 border border-emerald-200 px-3.5 py-1 rounded-full text-xs font-semibold mb-4 shadow-sm">
+                      ❤️ Parental Peace of Mind
+                    </span>
 
-            {/* Right image */}
-            <motion.div
-              className="lg:col-span-6 flex justify-center w-full"
-              variants={scaleUpVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-            >
-              <div className="relative w-full max-w-sm sm:max-w-md bg-white border border-[#e5e5e5] rounded-xl p-2 shadow-[0_1px_3px_rgba(0,0,0,0.02)] group overflow-hidden">
-                <img
-                  src="https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=800&auto=format&fit=crop"
-                  alt="Mother and son sharing a warm moment"
-                  className="rounded-lg w-full h-[280px] sm:h-[350px] object-cover filter brightness-[0.99] select-none pointer-events-none transition-transform duration-300 group-hover:scale-[1.01]"
-                />
+                    <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[#0a0a0a] leading-tight mb-4">
+                      Why Parents Love Nainocular
+                    </h2>
+
+                    <p className="text-[#525252] text-xs sm:text-sm leading-relaxed mb-6">
+                      Nainocular fits effortlessly into your family's daily routine. No stressful clinic travels, just clean home vision care.
+                    </p>
+
+                    <div className="space-y-3">
+                      {[
+                        { text: "My child now enjoys vision therapy every day without tantrums.", author: "Priya S., Delhi Parent" },
+                        { text: "Much easier than clinic visits. The dashboards give clear metrics.", author: "Rajesh V., Bengaluru Parent" }
+                      ].map((item, idx) => (
+                        <div key={idx} className="bg-[#fafafa] border border-[#e5e5e5] rounded-xl p-4">
+                          <p className="text-xs sm:text-sm italic text-[#171717] mb-2">"{item.text}"</p>
+                          <span className="text-[11px] font-semibold text-emerald-600">{item.author}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  className="lg:col-span-6 w-full"
+                  variants={scaleUpVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                >
+                  <div className="rounded-2xl bg-white border border-[#dbeafe] p-2.5 shadow-sm max-w-md mx-auto lg:max-w-full">
+                    <div className="overflow-hidden rounded-xl">
+                      <img
+                        src={homeim}
+                        alt="Mother and son sharing a warm moment"
+                        className="w-full h-48 sm:h-72 object-cover"
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-3 gap-2 mt-3">
+                      {[
+                        { val: "98%", lbl: "Approval", textCol: "text-emerald-600", bg: "bg-emerald-50" },
+                        { val: "12K+", lbl: "Families", textCol: "text-sky-600", bg: "bg-blue-50" },
+                        { val: "4.9★", lbl: "Rating", textCol: "text-orange-500", bg: "bg-orange-50" }
+                      ].map((st, i) => (
+                        <div key={i} className={`rounded-xl p-2.5 text-center ${st.bg}`}>
+                          <h4 className={`text-sm sm:text-lg font-bold ${st.textCol}`}>{st.val}</h4>
+                          <p className="text-[9px] sm:text-[11px] text-[#525252] mt-0.5">{st.lbl}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* ==================== SECTION 8: SCIENCE & SAFETY ==================== */}
-      <section className="py-20 bg-[#f5f5f5] border-b border-[#e5e5e5] text-center">
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="max-w-2xl mx-auto text-center mb-14 space-y-3"
-            variants={fadeUpVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-          >
-            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#0a0a0a] font-['Satoshi',sans-serif]">Built on Vision Therapy Principles</h2>
-            <p className="text-[#404040] text-sm sm:text-base font-normal leading-relaxed">Clinical safety principles integrated perfectly into an intuitive, child-first browser platform.</p>
-          </motion.div>
-
-          <motion.div
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5"
-            variants={staggerContainerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-          >
-            {[
-              { title: "Safe Screen Time", desc: "Active ocular muscle engagement rules instead of generic, mindless video streaming scrolling habits." },
-              { title: "Child-Friendly Sessions", desc: "Calm, welcoming gamified interfaces designed to eliminate any standard medical clinic fear patterns." },
-              { title: "Guided Activities", desc: "Simple, automated step-by-step instructions that require absolutely zero independent handling loops." },
-              { title: "Vision Science", desc: "Anchored directly to behavioral pediatric ophthalmology data metrics and visual recovery tracks." },
-            ].map((item, i) => (
+      <section className="py-16 sm:py-24 bg-white border-b border-[#e5e5e5]">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-8">
+          <div className="relative overflow-hidden rounded-2xl sm:rounded-[36px] bg-gradient-to-br from-[#eff6ff] via-[#ffffff] to-[#ecfeff] border border-blue-100 p-5 sm:p-12 lg:p-16 shadow-sm">
+            <div className="relative z-10">
               <motion.div
-                key={i}
-                variants={staggerItemVariants}
-                className="bg-[#ffffff] border border-[#e5e5e5] rounded-xl p-6 text-left transition-all duration-200 hover:border-neutral-300 hover:shadow-[0_4px_12px_rgba(0,0,0,0.02)]"
+                className="max-w-3xl mx-auto text-center mb-12"
+                variants={fadeUpVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
               >
-                <div className="w-2.5 h-2.5 rounded-full bg-[#3b82f6] mb-4" />
-                <h4 className="text-base font-bold text-[#0a0a0a] mb-2 tracking-tight font-['Satoshi',sans-serif]">{item.title}</h4>
-                <p className="text-[#404040] text-xs sm:text-[13px] font-normal leading-relaxed">{item.desc}</p>
+                <span className="inline-flex bg-blue-50 text-blue-600 border border-blue-200 px-3.5 py-1 rounded-full text-xs font-semibold shadow-sm mb-3">
+                  🔬 Science & Safety
+                </span>
+                <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[#0a0a0a] mb-3 font-['Satoshi',sans-serif]">
+                  Built on Vision Therapy Principles
+                </h2>
+                <p className="text-[#525252] text-xs sm:text-sm leading-relaxed max-w-xl mx-auto">
+                  Clinical safety boundaries configured smoothly to support dynamic visual recovery tracks inside a child-friendly interface.
+                </p>
               </motion.div>
-            ))}
-          </motion.div>
+
+              <motion.div
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
+                variants={staggerContainerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+              >
+                {[
+                  { icon: "🛡️", title: "Safe Screen Time", desc: "Short guided sessions designed to strengthen visual skills without screen strain boundaries." },
+                  { icon: "👶", title: "Child Friendly", desc: "Fun operational blocks tailored precisely around kids' normal home routines." },
+                  { icon: "📋", title: "Guided Activities", desc: "Simple interface layouts that are easy for both parents and children to operate smoothly." },
+                  { icon: "🔬", title: "Vision Science", desc: "Built around established clinical concepts and visual coordination treatment paths." }
+                ].map((item, i) => (
+                  <motion.div
+                    key={i}
+                    variants={staggerItemVariants}
+                    className="bg-white/80 backdrop-blur-md border border-white rounded-xl sm:rounded-2xl p-5 text-left shadow-sm hover:shadow-md transition-all duration-200"
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-lg mb-4">
+                      {item.icon}
+                    </div>
+                    <h4 className="text-base font-bold text-[#0a0a0a] mb-1.5 tracking-tight">{item.title}</h4>
+                    <p className="text-xs text-[#525252] leading-relaxed">{item.desc}</p>
+                  </motion.div>
+                ))}
+              </motion.div>
+
+              <motion.div
+                className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-8"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+              >
+                {[
+                  { val: "15 Min", lbl: "Recommended Daily Limit" },
+                  { val: "100%", lbl: "Safe Content Experience" },
+                  { val: "4-14", lbl: "Critical Age Range Years" }
+                ].map((st, i) => (
+                  <div key={i} className="bg-white rounded-xl border border-blue-100 p-4 text-center shadow-sm">
+                    <h4 className="text-xl font-bold text-blue-600">{st.val}</h4>
+                    <p className="text-[11px] text-[#525252] mt-0.5">{st.lbl}</p>
+                  </div>
+                ))}
+              </motion.div>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* ==================== SECTION 9: FAQ ==================== */}
-      <section id="faq" className="py-20 bg-[#ffffff] border-b border-[#e5e5e5] text-left">
-        <div className="max-w-[800px] mx-auto px-6 sm:px-8">
+      <section id="faq" className="py-16 sm:py-20 bg-[#ffffff] border-b border-[#e5e5e5] text-left">
+        <div className="max-w-[800px] mx-auto px-4 sm:px-8">
           <motion.div
-            className="text-center mb-12 space-y-2"
+            className="text-center mb-10 space-y-2"
             variants={fadeUpVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
           >
-            <span className="inline-flex bg-[#f5f5f5] text-[#171717] border border-[#e5e5e5] px-3.5 py-1 rounded-full text-xs font-medium select-none shadow-sm">Common Questions</span>
+            <span className="inline-flex bg-[#f5f5f5] text-[#171717] border border-[#e5e5e5] px-3.5 py-1 rounded-full text-xs font-medium shadow-sm">Common Questions</span>
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#0a0a0a] font-['Satoshi',sans-serif]">Frequently Asked Questions</h2>
-            <p className="text-[#404040] text-sm font-normal">Everything you need to know about Naintaara and home vision training.</p>
           </motion.div>
 
           <motion.div
@@ -821,11 +1023,11 @@ const Home = () => {
                 <motion.div
                   key={idx}
                   variants={staggerItemVariants}
-                  className="bg-[#ffffff] border border-[#e5e5e5] rounded-xl overflow-hidden transition-colors duration-200 hover:border-[#d4d4d4]"
+                  className="bg-[#ffffff] border border-[#e5e5e5] rounded-xl overflow-hidden transition-all duration-200"
                 >
-                  <button onClick={() => toggleFaq(idx)} className="w-full flex items-center justify-between p-5 text-left font-sans select-none focus:outline-none">
+                  <button onClick={() => toggleFaq(idx)} className="w-full flex items-center justify-between p-4 sm:p-5 text-left font-sans select-none focus:outline-none">
                     <span className="text-sm sm:text-base font-semibold text-[#0a0a0a] tracking-tight pr-4">{faq.q}</span>
-                    <motion.div animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.2, ease: "easeInOut" }} className="text-[#404040] shrink-0">
+                    <motion.div animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.2 }} className="text-[#404040] shrink-0">
                       <ChevronDown className="w-4 h-4" />
                     </motion.div>
                   </button>
@@ -835,9 +1037,11 @@ const Home = () => {
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                        transition={{ duration: 0.2, ease: "easeInOut" }}
                       >
-                        <div className="px-5 pb-5 pt-0 border-t border-[#f5f5f5] text-[#404040] text-xs sm:text-sm font-normal leading-relaxed">{faq.a}</div>
+                        <div className="px-4 sm:px-5 pb-5 pt-0 border-t border-gray-50 text-[#404040] text-xs sm:text-sm leading-relaxed bg-gray-50/40">
+                          <div className="pt-3">{faq.a}</div>
+                        </div>
                       </motion.div>
                     )}
                   </AnimatePresence>

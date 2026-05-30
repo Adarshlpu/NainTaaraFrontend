@@ -23,12 +23,13 @@ const Navbar = () => {
     setIsOpen(false);
   }, [location]);
 
+  // FIXED: IDs exact matching with the Homepage sectional layout wrappers
   const navItems = [
     { label: "Home", href: "#home" },
-    { label: "How It Works", href: "#features" },
+    { label: "How It Works", href: "#features-how" },
     { label: "Vision Programs", href: "#games" },
     { label: "For Parents", href: "#theory" },
-    { label: "FAQ", href: "#contact" },
+    { label: "FAQ", href: "#faq" },
   ];
 
   const scrollToSection = (href) => {
@@ -39,17 +40,15 @@ const Navbar = () => {
       }
     }
   };
-  
 
   const handleStartPlaying = () => {
-  const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
     if (token) {
       navigate("/dashboard");
     } else {
       navigate("/login");
     }
   };
-
 
   const navItemVariants = {
     hidden: { opacity: 0, y: -4 },
@@ -75,10 +74,10 @@ const Navbar = () => {
   };
 
   return (
-    // 💡 DUB THEME: Completely flat white canvas header strip with crisp light grey bottom divider hairline
+    // 💡 DUB THEME: Completely flat white canvas header strip with clean gray hairline dividers
     <header 
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-200 bg-[#ffffff] border-b border-[#e5e5e5] ${
-        scrolled ? "py-2.5 shadow-[0_1px_2px_0_rgba(0,0,0,0.05)]" : "py-4"
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-200 bg-white border-b border-neutral-200 ${
+        scrolled ? "py-2.5 shadow-sm" : "py-4"
       }`}
     >
       <div className="max-w-[1200px] mx-auto px-6 sm:px-8 flex items-center justify-between">
@@ -89,8 +88,8 @@ const Navbar = () => {
           className="flex items-center gap-3 shrink-0 group select-none"
           onClick={() => scrollToSection("#home")}
         >
-          {/* 💡 FIXED: Configured icon background to use the exact matching brand Orange/Yellow token (#ea580c) */}
-          <div className="w-9 h-9 rounded-lg bg-[#ea580c] flex items-center justify-center transition-opacity group-hover:opacity-90 shadow-[0_1px_2px_0_rgba(0,0,0,0.05)]">
+          {/* Brand primary orange shade hex (#ea580c) token with standard shadow bounds */}
+          <div className="w-9 h-9 rounded-lg bg-[#ea580c] flex items-center justify-center transition-opacity group-hover:opacity-90 shadow-sm">
             <Eye className="w-5 h-5 text-white stroke-[2]" />
           </div>
           
@@ -98,7 +97,7 @@ const Navbar = () => {
             <h1 className="text-lg font-bold tracking-tight text-[#0a0a0a] font-sans leading-none uppercase">
               Nainocular
             </h1>
-            <span className="text-[10px] text-[#404040] font-medium tracking-normal mt-0.5">
+            <span className="text-[10px] text-neutral-500 font-medium tracking-normal mt-0.5">
               Powered by Naintaara
             </span>
           </div>
@@ -114,7 +113,7 @@ const Navbar = () => {
               initial="hidden"
               animate="visible"
               onClick={() => scrollToSection(item.href)}
-              className="px-3.5 py-1.5 text-sm font-medium text-[#404040] hover:text-[#0a0a0a] hover:bg-[#f5f5f5] rounded-md transition-all font-sans"
+              className="px-3.5 py-1.5 text-sm font-medium text-neutral-600 hover:text-[#0a0a0a] hover:bg-neutral-50 rounded-md transition-all font-sans"
             >
               {item.label}
             </motion.button>
@@ -125,7 +124,7 @@ const Navbar = () => {
         <div className="hidden lg:flex items-center">
           <button 
             onClick={handleStartPlaying}
-            className="h-9 px-4 bg-[#ea580c] hover:bg-[#c2410c] text-white font-medium text-sm rounded-lg transition-all flex items-center gap-1 shadow-[0_1px_2px_0_rgba(0,0,0,0.05)] cursor-pointer active:scale-[0.98]"
+            className="h-9 px-4 bg-[#ea580c] hover:bg-orange-700 text-white font-medium text-sm rounded-lg transition-all flex items-center gap-1 shadow-sm cursor-pointer active:scale-[0.98]"
           >
             Get Started
             <ChevronRight className="w-4 h-4 stroke-[2.5]" />
@@ -135,7 +134,7 @@ const Navbar = () => {
         {/* Mobile Menu Action Toggle Trigger */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="lg:hidden p-2 text-[#0a0a0a] hover:bg-[#f5f5f5] transition-colors rounded-lg"
+          className="lg:hidden p-2 text-[#0a0a0a] hover:bg-neutral-50 transition-colors rounded-lg"
           aria-label="Toggle Navigation Panel"
         >
           {isOpen ? <X className="w-5 h-5 stroke-[2]" /> : <Menu className="w-5 h-5 stroke-[2]" />}
@@ -151,22 +150,22 @@ const Navbar = () => {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="lg:hidden w-full bg-white border-t border-[#e5e5e5] mt-2 text-left absolute left-0 shadow-md"
+            className="lg:hidden w-full bg-white border-t border-neutral-200 mt-2 text-left absolute left-0 shadow-md"
           >
             <div className="max-w-[1200px] mx-auto px-6 py-4 space-y-1">
               {navItems.map((item) => (
                 <button
                   key={item.label}
                   onClick={() => scrollToSection(item.href)}
-                  className="w-full text-left px-4 py-3 text-sm font-medium text-[#171717] rounded-lg hover:bg-[#f5f5f5] hover:text-[#0a0a0a] transition-colors flex items-center justify-between"
+                  className="w-full text-left px-4 py-3 text-sm font-medium text-neutral-800 rounded-lg hover:bg-neutral-50 transition-colors flex items-center justify-between"
                 >
                   {item.label}
-                  <ChevronRight className="w-4 h-4 text-[#d4d4d4]" />
+                  <ChevronRight className="w-4 h-4 text-neutral-300" />
                 </button>
               ))}
               
               {/* Mobile CTA Border Block */}
-              <div className="pt-3 mt-2 border-t border-[#e5e5e5] px-2">
+              <div className="pt-3 mt-2 border-t border-neutral-200 px-2">
                 <button 
                   onClick={handleStartPlaying}
                   className="w-full h-10 bg-[#ea580c] text-white font-medium text-sm rounded-lg flex items-center justify-center gap-1 transition-all active:scale-[0.99]"

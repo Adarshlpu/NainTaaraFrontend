@@ -42,6 +42,13 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
 
+      {/*}
+<Route
+  path="/reset-password/:token"
+  element={<ResetPassword />}
+/>
+
+*/}
       <Route path="/dashboard" element={
         <ProtectedRoute>
           <Dashboard />
@@ -72,11 +79,11 @@ function App() {
         </ProtectedRoute>
       } />
 
-      <Route
-        path="/games/oddnout"
-        element={
-          <ProtectedRoute>
-            <OddNout />
+<Route
+  path="/games/oddnout"
+  element={
+    <ProtectedRoute>
+      <OddNout />
           </ProtectedRoute>
         }
       />
@@ -89,21 +96,19 @@ function App() {
           </ProtectedRoute>
         }
       />  
-      
-      {/* <Route
-        path="/games/eyeblink"
-        element={
-          <ProtectedRoute>
-            <EyeBlink />
-          </ProtectedRoute>
-        }
-      /> */}
-      
-      <Route path="/profile" element={
-        <ProtectedRoute>
-          <Profile />
-        </ProtectedRoute>
-      } />
+{/* <Route
+  path="/games/eyeblink"
+  element={
+    <ProtectedRoute>
+      <EyeBlink />
+    </ProtectedRoute>
+  }
+/> */}
+<Route path="/profile" element={
+  <ProtectedRoute>
+    <Profile />
+  </ProtectedRoute>
+} />
 
       <Route path="/games/eyemovement" element={
         <ProtectedRoute>
